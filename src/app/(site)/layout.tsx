@@ -11,7 +11,7 @@ export default function SiteLayout({
     <>
       <PageViewTracker />
       <Header />
-      <main>{children}</main>
+      {children}
       <Footer />
     </>
   );
