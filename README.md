@@ -1,22 +1,43 @@
-﻿# Paknevis Website (Next.js 15)
+# Paknevis Website
 
-Production website built with Next.js App Router, TypeScript, Tailwind CSS, and PostgreSQL.
+Production website and Persian editorial workbench built with the Next.js App Router, strict TypeScript, Tailwind CSS, and PostgreSQL.
+
+## Highlights
+
+- Persian-first public product experience with RTL navigation and responsive download, pricing, help, and blog pages.
+- Role-aware administration for messages, help content, plans, profiles, and users.
+- Deterministic Persian text-audit engine shared by `/tools/text-audit` and `POST /api/text-audit`.
+- Versioned catalog with 59 validated rules for characters, digits, punctuation, spacing, spelling, and style.
+- Unit, API, production-build, Playwright, and axe quality gates.
+- Audited dependency tree with a reproducible npm lockfile.
 
 ## Stack
-- Next.js 15 (App Router)
-- React 19
-- TypeScript (strict)
-- Tailwind CSS 4
-- PostgreSQL (`pg`)
 
-## Environment Setup
+- Next.js 16 and React 19
+- TypeScript 5.9 in strict mode
+- Tailwind CSS 4
+- PostgreSQL through `pg`
+- Vitest 4 and Playwright 1.62
+
+## Quick start
+
+```bash
+npm ci
+npm run dev
+```
+
+The public pages and text workbench run without PostgreSQL. Administrative and persistence-backed features require the environment below.
+
+## Environment setup
+
 Create local `.env` from `.env.example` and set real values:
 
 ```bash
 cp .env.example .env
 ```
 
-Required variables:
+Required database and bootstrap variables:
+
 - `POSTGRES_HOST`
 - `POSTGRES_PORT`
 - `POSTGRES_USER`
@@ -26,27 +47,30 @@ Required variables:
 - `ADMIN_BOOTSTRAP_PASSWORD`
 - `ADMIN_BOOTSTRAP_FULL_NAME`
 
-## Security Notes
+## Security notes
+
 - Never commit real secrets to git.
 - Treat previously exposed credentials as compromised and rotate them.
 - Keep production credentials in your deployment secret manager.
+- Keep text-audit API responses uncached and preserve the request-size limits.
 
-## Commands
+## Quality commands
+
 ```bash
-npm run dev
+npm run check:encoding
+npm run check:text-audit-rules
 npm run lint
 npm run typecheck
-npm run check:encoding
+npm test
 npm run build
-npm run bootstrap:admin
+npm run test:e2e
+npm audit --audit-level=high
 ```
 
-## Text Encoding Policy
-- Keep `ts/tsx` source files in UTF-8.
-- Avoid saving code files with legacy encodings.
-- Run `npm run check:encoding` before commit to catch mojibake patterns.
+The GitHub Actions workflow runs the same sequence from a clean installation.
 
-## Admin Bootstrap
+## Admin bootstrap
+
 After setting environment variables:
 
 ```bash
@@ -54,3 +78,14 @@ npm run bootstrap:admin
 ```
 
 This creates the initial admin account used for `/admin/login`.
+
+## Engineering documentation
+
+- [Architecture](docs/architecture.md)
+- [Text-audit API](docs/text-audit-api.md)
+- [Rule authoring](docs/rule-authoring.md)
+- [Accessibility](docs/accessibility.md)
+- [Testing strategy](docs/testing-strategy.md)
+- [Security model](docs/security-model.md)
+- [Performance budget](docs/performance-budget.md)
+- [Persian localization](docs/localization.md)
