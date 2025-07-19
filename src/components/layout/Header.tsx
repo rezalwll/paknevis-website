@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <header className="bg-highlight-100 text-highlight-700 shadow-sm">
-      <nav className="container mx-auto flex items-center justify-between py-3 px-4 sm:px-6 lg:px-8">
+      <nav className="container mx-auto flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-20">
         <button
           onClick={openMenu}
           className="sm:hidden flex items-center px-3 py-2 border rounded text-primary-800 border-primary-800 hover:text-primary-900 hover:border-primary-900 transition-colors cursor-pointer"

@@ -89,12 +89,12 @@ const Hero: FC<HeroProps> = ({
 
   return (
     <section className={`w-full  bg-white ${className}`}>
-      <div className="container mx-auto h-full w-full text-right flex flex-col items-center justify-between gap-10 px-4 md:flex-row">
+      <div className="container mx-auto h-full w-full text-right flex flex-col items-center justify-between gap-10 md:flex-row">
         {/* محتوا سمت راست */}
         <div
           className={`
                    flex flex-col justify-center items-center md:items-start 
-                   space-y-6  
+                   space-y-6
                       pr-10 
                 ${contentClassName}
                      `}
