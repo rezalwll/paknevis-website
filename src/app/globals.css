@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/* :root {
+} */
+
+@theme inline {
+  /* primary */
+  --color-primary-900: #0096a6;
+  --color-primary-800: #19a0ae;
+  --color-primary-700: #33abb7;
+  --color-primary-600: #4cb5c0;
+  --color-primary-500: #66c0c9;
+  --color-primary-400: #7fcad2;
+  --color-primary-300: #99d5db;
+  --color-primary-250: #b2dfe4;
+  --color-primary-200: #cceaed;
+  --color-primary-100: #e5f4f6;
+  --color-primary-50: #f0fafb;
+
+  /* secondary */
+  --color-secondary-900: #0043a6;
+  --color-secondary-800: #0043a6;
+  --color-secondary-700: #1855ae;
+  --color-secondary-600: #3268b7;
+  --color-secondary-500: #4b7ac0;
+  --color-secondary-400: #658dc9;
+  --color-secondary-300: #7ea0d2;
+  --color-secondary-250: #98b3db;
+  --color-secondary-200: #b1c5e3;
+  --color-secondary-100: #cbd8ec;
+  --color-secondary-50: #e4ebf5;
+
+  /* tertiary */
+  --color-tertiary-900: #330ba6;
+  --color-tertiary-800: #330ba6;
+  --color-tertiary-700: #4622ae;
+  --color-tertiary-600: #5b3bb7;
+  --color-tertiary-500: #6f53c0;
+  --color-tertiary-400: #846cc9;
+  --color-tertiary-300: #9884d2;
+  --color-tertiary-250: #ac9cdb;
+  --color-tertiary-200: #c0b4e3;
+  --color-tertiary-100: #d5cdec;
+  --color-tertiary-50: #e9e5f5;
+
+  /* green */
+  --color-green-900: #00a614;
+  --color-green-800: #41b743;
+  --color-green-700: #41b743;
+  --color-green-600: #70c972;
+  --color-green-500: #70c972;
+  --color-green-400: #a0dba1;
+  --color-green-300: #a0dba1;
+  --color-green-200: #cfedd0;
+  --color-green-100: #cfedd0;
+
+  /* red */
+  --color-red-900: #ff0d00;
+  --color-red-800: #fe3d33;
+  --color-red-700: #fe3d33;
+  --color-red-600: #fe6d66;
+  --color-red-500: #fe6d66;
+  --color-red-400: #fe9e99;
+  --color-red-300: #fe9e99;
+  --color-red-200: #ffcecc;
+  --color-red-100: #ffcecc;
+
+  /* orange */
+  --color-orange-900: #ffad00;
+  --color-orange-800: #ffbd32;
+  --color-orange-700: #ffbd32;
+  --color-orange-600: #ffce66;
+  --color-orange-500: #ffce66;
+  --color-orange-400: #ffde99;
+  --color-orange-300: #ffde99;
+  --color-orange-200: #ffefcc;
+  --color-orange-100: #ffefcc;
+
+  /* highlight */
+  --color-highlight-900: #212529;
+  --color-highlight-800: #343a40;
+  --color-highlight-700: #495057;
+  --color-highlight-600: #6c757d;
+  --color-highlight-500: #adb5bd;
+  --color-highlight-400: #ced4da;
+  --color-highlight-300: #dee2e6;
+  --color-highlight-200: #e9ecef;
+  --color-highlight-150: #f1f3f5;
+  --color-highlight-100: #f8f9fa;
+}
+
+* {
+  font-family: Vazir, Calibri, SansSerif, serif;
+}
+*:not(input):not(textarea) {
+  caret-color: transparent !important;
+}
+input,
+textarea {
+  caret-color: auto !important;
+}
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
