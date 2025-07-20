@@ -31,7 +31,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-highlight-100 text-highlight-700 shadow-sm">
+    <header dir="rtl" className="bg-highlight-100 text-highlight-700 shadow-sm">
       <nav className="container mx-auto flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-20">
         <button
           onClick={openMenu}
