@@ -1,4 +1,3 @@
-// File: app/components/layout/Hero.tsx
 "use client";
 
 import React, { FC } from "react";
@@ -19,33 +18,32 @@ export type HeroButton = {
 };
 
 export interface HeroProps {
-  /** تیتر بزرگ Hero */
   title: string;
-  /** توضیح کوتاه زیر تیتر */
+
   description?: string;
-  /** آدرس تصویر برای سمت چپ */
+
   imageSrc: string;
   useVideo?: boolean;
   videoSrc?: string;
   videoClassName?: string;
   videoType?: string;
-  /** متن جایگزین تصویر */
+
   imageAlt?: string;
-  /** آرایه دکمه‌های فراخوان عمل (می‌تواند خالی باشد) */
+
   buttons?: HeroButton[];
-  /** کلاس‌های سفارشی کانتینر کلی بخش Hero */
+
   className?: string;
-  /** کلاس‌های سفارشی برای بلوک تصویر */
+
   imageClassName?: string;
-  /** کلاس‌های سفارشی برای بلوک متن */
+
   contentClassName?: string;
-  /** کلاس‌های سفارشی برای تیتر */
+
   titleClassName?: string;
-  /** کلاس‌های سفارشی برای توضیح */
+
   descriptionClassName?: string;
-  /** کلاس‌های سفارشی برای کانتینر دکمه‌ها */
+
   buttonsContainerClassName?: string;
-  /** کلاس‌های پیش‌فرض دکمه‌ها */
+
   buttonClassName?: string;
 }
 
@@ -67,7 +65,6 @@ const Hero: FC<HeroProps> = ({
   buttonClassName = "",
 }) => {
   const renderButton = (btn: HeroButton, idx: number) => {
-    // بر اساس variant کلاس پایه را انتخاب می‌کنیم
     const base =
       btn.variant === "secondary"
         ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -90,7 +87,7 @@ const Hero: FC<HeroProps> = ({
   return (
     <section dir="rtl" className={`w-full ltr bg-white ${className}`}>
       <div className="container mx-auto h-full w-full text-right flex flex-col items-center justify-between gap-10 md:flex-row">
-        {/* محتوا سمت راست */}
+        {}
         <div
           className={`
                    flex flex-col justify-center items-center md:items-start 
@@ -130,7 +127,7 @@ const Hero: FC<HeroProps> = ({
           )}
         </div>
 
-        {/* تصویر سمت چپ */}
+        {}
         <div className={`w-full md:w-1/2 mx-auto ${imageClassName}`}>
           {useVideo && videoSrc ? (
             <video autoPlay loop muted>

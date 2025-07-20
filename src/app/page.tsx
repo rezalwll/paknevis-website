@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import ClientsMarquee from "../components/ClientsMarquee";
+import HeroSticky from "../components/HeroSticky";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,9 @@ export default function HomePage() {
       <section>
         <h2 className="text-2xl font-bold mb-4">مشتریان ما</h2>
         <ClientsMarquee />
+      </section>
+      <section>
+        <HeroSticky />
       </section>
     </>
   );

@@ -107,13 +107,15 @@ body {
 
 /* ---------- custom marquee styles ---------- */
 
-/* تعریف keyframes */
 @keyframes marquee {
-  0%   { transform: translateX(0%); }
-  100% { transform: translateX(50%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
 }
 
-/* کلاس اجرایی انیمیشن */
 .animate-marquee {
   animation: marquee 30s linear infinite;
 }

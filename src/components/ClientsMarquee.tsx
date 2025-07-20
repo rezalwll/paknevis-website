@@ -26,9 +26,8 @@ export default function ClientsMarquee() {
   const trackRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const positionRef = useRef(0);
-  const speed = 0.5; // سرعت حرکت (پیکسل در فریم)
+  const speed = 0.5;
 
-  // دو کپی از مشتریان برای حلقه بی‌نهایت
   const duplicatedClients = [...clients, ...clients];
 
   useEffect(() => {
@@ -36,7 +35,6 @@ export default function ClientsMarquee() {
       if (!isPaused && trackRef.current) {
         positionRef.current -= speed;
 
-        // وقتی به انتهای نوار رسیدیم، موقعیت را ریست کنیم
         const trackWidth = trackRef.current.scrollWidth / 2;
         if (-positionRef.current >= trackWidth) {
           positionRef.current = 0;
@@ -91,6 +89,11 @@ export default function ClientsMarquee() {
           </div>
         ))}
       </div>
+      {}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent"></div>
+
+      {}
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent"></div>
     </div>
   );
 }
