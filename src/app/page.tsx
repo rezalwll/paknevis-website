@@ -13,13 +13,15 @@ export default function HomePage() {
           videoSrc="https://static-web.grammarly.com/1e6ajr2k4140/23h4g1mYtwNqn6ITO66YPH/4dc21be97a0fb1e517a37d5e7ab2ae8c/writing_expert_first_x2.mp4"
           buttons={[
             { text: "شروع کنید", href: "/get-started", variant: "primary" },
-            { text: "درباره ما", href: "/about", variant: "secondary" },
+            { text: "نسخه سازمانی", href: "/about", variant: "secondary" },
           ]}
           className="min-h-screen pt-15"
         />
       </section>
-      <section>
-        <h2 className="text-2xl font-bold mb-4">مشتریان ما</h2>
+      <section className="text-center">
+        <h2 className="text-xl font-bold mb-12 text-gray-600 max-md:mt-30">
+          مورد اطمینان شرکت‌های معتبر و کاربران در سراسر کشور
+        </h2>
         <ClientsMarquee />
       </section>
       <section>

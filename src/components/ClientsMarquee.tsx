@@ -18,7 +18,7 @@ const clients: Client[] = [
   },
   { name: "فرماندهی نیروی انتظامی", logoSrc: "/images/NAJA.svg.png" },
   { name: "شرکت ملی صنایع مس ایران", logoSrc: "/images/NCopper.webp" },
-  { name: "سازمان بازرسی کل کشور", logoSrc: "/images/sazmanbazresi.jpeg" },
+  { name: "سازمان بازرسی کل کشور", logoSrc: "/images/sazmanbazresi.png" },
 ];
 
 export default function ClientsMarquee() {
@@ -81,7 +81,7 @@ export default function ClientsMarquee() {
                 object-contain 
                 filter grayscale 
                 group-hover:grayscale-0 
-                transition duration-300
+                transition duration-200
               "
               onMouseEnter={() => setIsPaused(true)}
             />
