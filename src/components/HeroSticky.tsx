@@ -28,7 +28,7 @@ type HeroStickyProps = {
 
 export default function HeroSticky({}: HeroStickyProps) {
   return (
-    <section dir="rtl" className="relative my-40">
+    <section dir="rtl" className="relative my-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="order-1 md:order-1">
