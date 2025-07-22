@@ -26,23 +26,56 @@ type HeroStickyProps = {
   items?: HeroItem[];
 };
 
-export default function HeroSticky({ items: propsItems, imageSrc, imageAlt }: HeroStickyProps = {}) {
+export default function HeroSticky(
+  { items: propsItems, imageSrc, imageAlt }: HeroStickyProps = {}
+) {
   const displayItems = propsItems || items;
+
   return (
-    <section dir="rtl" className="relative my-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section
+      dir="rtl"
+      className="
+        relative my-20
+        text-slate-800
+        text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
+      "
+    >
+      <div
+        className="
+          mx-auto
+          px-4 sm:px-6 lg:px-8
+          max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-7xl
+        "
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
+          {/* متن‌ها */}
           <div className="order-1 md:order-1">
             {displayItems.map((it, idx) => (
               <div
                 key={idx}
-                className="py-12 md:min-h-screen flex items-center"
+                className="
+                  py-12 lg:py-16
+                  md:min-h-screen
+                  flex items-center
+                "
               >
-                <div className="space-y-4">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
+                <div className="space-y-4 lg:space-y-6">
+                  <h2
+                    className="
+                      text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl
+                      font-bold text-gray-800
+                      leading-snug md:leading-tight
+                    "
+                  >
                     {it.title}
                   </h2>
-                  <p className="text-base sm:text-lg text-gray-600">
+                  <p
+                    className="
+                      text-base sm:text-lg md:text-[1.05rem] lg:text-xl xl:text-[1.15rem] 2xl:text-[1.2rem]
+                      text-gray-600
+                      leading-relaxed md:leading-8
+                    "
+                  >
                     {it.body}
                   </p>
                 </div>
@@ -50,13 +83,23 @@ export default function HeroSticky({ items: propsItems, imageSrc, imageAlt }: He
             ))}
           </div>
 
+          {/* ویدیو / تصویر چسبان */}
           <div className="order-2 md:order-2">
-            <div className="flex items-center justify-center md:sticky md:top-0 md:min-h-screen">
+            <div
+              className="
+                flex items-center justify-center
+                md:sticky md:top-0 md:min-h-screen
+              "
+            >
               <video
                 autoPlay
                 loop
                 muted
-                className="w-full h-auto rounded-lg"
+                className="
+                  w-full h-auto rounded-lg
+                  max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl
+                  shadow-md
+                "
               >
                 <source
                   src="https://static-web.grammarly.com/1e6ajr2k4140/4JFqSLq1U3f6TTcWXvrw4y/1b5800ee28a52f7dd60fa52b306850a3/071824_Section_4_Animation_2x.mp4"

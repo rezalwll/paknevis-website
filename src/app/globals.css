@@ -107,18 +107,24 @@ body {
 
 /* ---------- custom marquee styles ---------- */
 
-@keyframes marquee {
+
+/* عرض محتوا به اندازه‌ی مجموع آیتم‌ها */
+.marquee-track {
+  width: max-content;
+  animation: clients-marquee 25s linear infinite;
+}
+
+/* انیمیشن: یک بار به اندازه نصف (یک سری لوگو) میره چپ،
+   چون محتوای مارکیت رو دوبار پشت هم گذاشتیم */
+@keyframes clients-marquee {
   0% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(50%);
+    transform: translateX(-50%);
   }
 }
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
 .feature-card {
   background-color: transparent;
   position: relative;

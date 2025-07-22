@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 export type Client = {
@@ -22,40 +22,54 @@ const clients: Client[] = [
 ];
 
 export default function ClientsMarquee() {
-  const [isPaused, setIsPaused] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const positionRef = useRef(0);
-  const speed = 0.5;
+  const isPausedRef = useRef(false);
 
-  const duplicatedClients = [...clients, ...clients];
+  const speed = 0.5; // سرعت حرکت (پیکسل در هر فریم)
+
+  // چند بار تکرار کنیم تا روی اسکرین‌های بزرگ هم کل عرض پر بشه
+  const REPEATS = 6;
+  const marqueeClients = Array.from({ length: REPEATS }, () => clients).flat();
 
   useEffect(() => {
-    const animate = () => {
-      if (!isPaused && trackRef.current) {
+    const step = () => {
+      const track = trackRef.current;
+      if (track && !isPausedRef.current) {
+        // حرکت به چپ
         positionRef.current -= speed;
 
-        const trackWidth = trackRef.current.scrollWidth / 2;
-        if (-positionRef.current >= trackWidth) {
-          positionRef.current = 0;
-        }
+        const firstChild = track.firstElementChild as HTMLElement | null;
 
-        if (trackRef.current) {
-          trackRef.current.style.transform = `translateX(${positionRef.current}px)`;
+        if (firstChild) {
+          const firstChildWidth = firstChild.offsetWidth;
+
+          // اگر آیتم اول کامل از سمت چپ خارج شد
+          if (-positionRef.current >= firstChildWidth) {
+            // پوزیشن رو به اندازه همون آیتم جلو می‌بریم
+            positionRef.current += firstChildWidth;
+            track.style.transform = `translateX(${positionRef.current}px)`;
+
+            // و اون آیتم رو می‌ذاریم آخر صف
+            track.appendChild(firstChild);
+          } else {
+            track.style.transform = `translateX(${positionRef.current}px)`;
+          }
         }
       }
 
-      animationRef.current = requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(step);
     };
 
-    animationRef.current = requestAnimationFrame(animate);
+    animationRef.current = requestAnimationFrame(step);
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPaused]);
+  }, []);
 
   return (
     <div className="relative overflow-hidden py-10">
@@ -63,12 +77,16 @@ export default function ClientsMarquee() {
         ref={trackRef}
         className="flex"
         style={{ willChange: "transform" }}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseEnter={() => {
+          isPausedRef.current = true;
+        }}
+        onMouseLeave={() => {
+          isPausedRef.current = false;
+        }}
       >
-        {duplicatedClients.map((client, idx) => (
+        {marqueeClients.map((client, idx) => (
           <div
-            key={idx}
+            key={`${client.name}-${idx}`}
             className="flex flex-col flex-shrink-0 items-center justify-center px-6 group"
           >
             <Image
@@ -83,17 +101,17 @@ export default function ClientsMarquee() {
                 group-hover:grayscale-0 
                 transition duration-200
               "
-              onMouseEnter={() => setIsPaused(true)}
             />
-            <span className="mt-2 text-sm text-center">{client.name}</span>
+            <span className="mt-2 text-sm text-center whitespace-nowrap">
+              {client.name}
+            </span>
           </div>
         ))}
       </div>
-      {}
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent"></div>
 
-      {}
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent"></div>
+      {/* گرادیانت‌های دو طرف برای قشنگی */}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent" />
     </div>
   );
 }

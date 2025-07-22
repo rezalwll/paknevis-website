@@ -168,13 +168,13 @@ const StatsSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="stat-box p-6 rounded-lg shadow-lg bg-white/80 backdrop-blur
+                className="stat-box p-5  md:py-15 lg:py-5 rounded-lg shadow-lg bg-white/80 backdrop-blur
                  transition-all hover:shadow-lg
                  w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(19%-0.5rem)]
                  bg-gradient-to-b from-transparent to-purple-100/30
                  flex"
               >
-                <div className="grid grid-rows-[64px_40px_minmax(100px,auto)] md:grid-rows-[64px_40px_minmax(120px,auto)] gap-2 justify-items-center items-center w-full h-full">
+                <div className="grid grid-rows-[64px_40px_minmax(100px,auto)] md:grid-rows-[64px_40px_minmax(120px,auto)] gap-2 justify-items-center items-center w-full h-50">
                   <div className="flex items-center justify-center h-full">
                     <h3 className="text-3xl md:text-4xl font-bold text-primary-600 tabular-nums">
                       <Counter end={end} run={inView} duration={1200} />
