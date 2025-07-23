@@ -26,7 +26,6 @@ export default function HomePage() {
         <HeroSticky />
       </section>
       <section className="mt-50">
-        {/* هدر */}
         <header className="text-center max-md:pb-30">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
             <span className="text-gray-600">

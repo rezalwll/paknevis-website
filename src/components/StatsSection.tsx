@@ -30,7 +30,6 @@ const stats: Stat[] = [
   },
 ];
 
-/* ---------- useInView هوک  ---------- */
 
 function useInView<T extends HTMLElement>(
   options: IntersectionObserverInit & { once?: boolean } = {
@@ -62,7 +61,6 @@ function useInView<T extends HTMLElement>(
   return { ref, inView } as const;
 }
 
-/* ---------- کامپوننت Counter ---------- */
 
 const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
   end,
@@ -109,7 +107,6 @@ const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
   return <>{formatter.format(val)}</>;
 };
 
-/* ---------- سکشن آمار با بک‌گراند فیکس ---------- */
 
 const StatsSection: React.FC = () => {
   const { ref: sectionRef, inView } = useInView<HTMLElement>({
@@ -125,7 +122,6 @@ const StatsSection: React.FC = () => {
       className="relative bg-white min-h-130 overflow-hidden flex justify-center items-center"
       dir="rtl"
     >
-      {/* گرادینت آبی: وسط سکشن، ابعاد ثابت */}
       <div
         className="
           pointer-events-none
@@ -138,7 +134,6 @@ const StatsSection: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* گرادینت نارنجی: بالا-راست، ابعاد ثابت */}
       <div
         className="
           pointer-events-none
@@ -152,12 +147,10 @@ const StatsSection: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* گرادیانت‌های محوکننده لبه‌ها */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent" />
       <div className="pointer-events-none absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-white to-transparent" />
       <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent" />
 
-      {/* محتوا */}
       <div className="relative z-10 container mx-auto px-6">
         <div className="flex flex-wrap justify-center items-stretch gap-4 text-center">
           {stats.map((stat, index) => {

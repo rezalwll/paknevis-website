@@ -27,9 +27,8 @@ export default function ClientsMarquee() {
   const positionRef = useRef(0);
   const isPausedRef = useRef(false);
 
-  const speed = 0.5; // سرعت حرکت (پیکسل در هر فریم)
+  const speed = 0.5;
 
-  // چند بار تکرار کنیم تا روی اسکرین‌های بزرگ هم کل عرض پر بشه
   const REPEATS = 6;
   const marqueeClients = Array.from({ length: REPEATS }, () => clients).flat();
 
@@ -37,7 +36,6 @@ export default function ClientsMarquee() {
     const step = () => {
       const track = trackRef.current;
       if (track && !isPausedRef.current) {
-        // حرکت به چپ
         positionRef.current -= speed;
 
         const firstChild = track.firstElementChild as HTMLElement | null;
@@ -45,13 +43,10 @@ export default function ClientsMarquee() {
         if (firstChild) {
           const firstChildWidth = firstChild.offsetWidth;
 
-          // اگر آیتم اول کامل از سمت چپ خارج شد
           if (-positionRef.current >= firstChildWidth) {
-            // پوزیشن رو به اندازه همون آیتم جلو می‌بریم
             positionRef.current += firstChildWidth;
             track.style.transform = `translateX(${positionRef.current}px)`;
 
-            // و اون آیتم رو می‌ذاریم آخر صف
             track.appendChild(firstChild);
           } else {
             track.style.transform = `translateX(${positionRef.current}px)`;
@@ -109,7 +104,6 @@ export default function ClientsMarquee() {
         ))}
       </div>
 
-      {/* گرادیانت‌های دو طرف برای قشنگی */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent" />
       <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent" />
     </div>

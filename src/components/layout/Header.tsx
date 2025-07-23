@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback, type CSSProperties } from "react";
+import { useState, useEffect, useMemo, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { DEFAULT_HEADER_THEME, resolveHeaderTheme } from "@/config/headerTheme";
+import { resolveHeaderTheme } from "@/config/headerTheme";
 
 type NavItem = { 
   label: string; 
@@ -47,17 +47,13 @@ const NAV_ITEMS: NavItem[] = [
 
 const Header = () => {
   const pathname = usePathname() || "/";
-  const [theme, setTheme] = useState(DEFAULT_HEADER_THEME);
-  useEffect(() => {
-    // Delay applying path-based theme until after hydration to avoid SSR/client mismatch.
-    setTheme(resolveHeaderTheme(pathname));
-  }, [pathname]);
-  const headerStyle: CSSProperties = {
-    "--header-bg": theme.background,
-    "--header-text": theme.text,
-    "--header-link-hover": theme.linkHover,
-    "--header-cta-bg": theme.buttonBg,
-    "--header-cta-hover-bg": theme.buttonHoverBg,
+  const theme = useMemo(() => resolveHeaderTheme(pathname), [pathname]);
+  const headerStyle = {
+    ["--header-bg" as any]: theme.background,
+    ["--header-text" as any]: theme.text,
+    ["--header-link-hover" as any]: theme.linkHover,
+    ["--header-cta-bg" as any]: theme.buttonBg,
+    ["--header-cta-hover-bg" as any]: theme.buttonHoverBg,
     "--header-cta-text": theme.buttonText,
     "--header-mobile-bg": theme.mobileBackground,
   };
@@ -81,7 +77,7 @@ const Header = () => {
   return (
     <header
       dir="rtl"
-      style={headerStyle}
+      style={headerStyle as React.CSSProperties}
       className="sticky top-0 z-50 shadow-sm bg-[var(--header-bg)] text-[var(--header-text)]"
     >
       <nav className="container mx-auto  flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-10">
