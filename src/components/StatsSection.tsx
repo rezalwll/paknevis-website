@@ -7,29 +7,6 @@ type Stat = {
   desc: string;
 };
 
-// const stats: Stat[] = [
-//   {
-//     value: "165000",
-//     label: "تعداد کل کاربران",
-//     desc: "۱۶۵۰۰۰ کاربر، پاک‌نویس را برای درست‌نویسی انتخاب کرده‌اند؛ جامعه‌ای روبه‌رشد",
-//   },
-//   {
-//     value: "2000",
-//     label: "کاربر فعال روزانه",
-//     desc: "۲۰۰۰ نفر هر روز از پاک‌نویس استفاده می‌کنند؛ توهم به جمعشان بپیوند",
-//   },
-//   {
-//     value: "12000",
-//     label: "تعداد کل متون بررسی شده",
-//     desc: "۱۲۰۰۰ جمله، کلمه و متن تا امروز از نگاه تیزبین پاک‌نویس گذشته‌اند؛ هر کلمه‌ای ارزش دیده‌شدن دارد",
-//   },
-//   {
-//     value: "4000",
-//     label: "تعداد خطاهای اصلاح شده",
-//     desc: "۴۰۰۰ خطای اصلاح شده تا امروز و یک نتیجه؛ نوشتاری روان و بی‌نقص",
-//   },
-// ];
-
 const stats: Stat[] = [
   {
     value: "165000",
@@ -53,6 +30,8 @@ const stats: Stat[] = [
   },
 ];
 
+/* ---------- useInView هوک  ---------- */
+
 function useInView<T extends HTMLElement>(
   options: IntersectionObserverInit & { once?: boolean } = {
     threshold: 0.3,
@@ -65,6 +44,7 @@ function useInView<T extends HTMLElement>(
   useEffect(() => {
     if (!ref.current) return;
     const el = ref.current;
+
     const obs = new IntersectionObserver((entries) => {
       const intersecting = entries.some((e) => e.isIntersecting);
       if (intersecting) {
@@ -81,6 +61,8 @@ function useInView<T extends HTMLElement>(
 
   return { ref, inView } as const;
 }
+
+/* ---------- کامپوننت Counter ---------- */
 
 const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
   end,
@@ -127,6 +109,8 @@ const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
   return <>{formatter.format(val)}</>;
 };
 
+/* ---------- سکشن آمار با بک‌گراند فیکس ---------- */
+
 const StatsSection: React.FC = () => {
   const { ref: sectionRef, inView } = useInView<HTMLElement>({
     threshold: 0.35,
@@ -141,34 +125,48 @@ const StatsSection: React.FC = () => {
       className="relative bg-white min-h-130 overflow-hidden flex justify-center items-center"
       dir="rtl"
     >
+      {/* گرادینت آبی: وسط سکشن، ابعاد ثابت */}
       <div
-        className="absolute inset-y-0 w-full 
-          [background:radial-gradient(circle_at_center,#e5f4f6,transparent_70%)] 
-          blur-3xl -translate-x-1/4
-          [mask-image:linear-gradient(to_right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)] 
-          [mask-repeat:no-repeat] [mask-size:100%_100%]
-          [mask-composite:intersect]
-          [-webkit-mask-image:linear-gradient(to_right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)]"
+        className="
+          pointer-events-none
+          absolute left-0.4 top-1/2
+          -translate-x-1/2 -translate-y-1/2
+          w-[900px] h-[900px]
+          [background:radial-gradient(circle_at_center,#e5f4f6,transparent_70%)]
+          blur-3xl
+        "
         aria-hidden="true"
       />
+
+      {/* گرادینت نارنجی: بالا-راست، ابعاد ثابت */}
       <div
-        className="absolute top-0 left-0 w-120 h-120 
-          [background:radial-gradient(circle_at_center,rgba(255,165,0,0.3),transparent_70%)] 
-          blur-3xl -translate-x-1/3 -translate-y-1/3 z-0"
+        className="
+          pointer-events-none
+          absolute left-[10%] top-0
+          -translate-y-1/2
+          w-[360px] h-[360px]
+          [background:radial-gradient(circle_at_center,rgba(255,165,0,0.35),transparent_70%)]
+          blur-3xl
+          z-0
+        "
         aria-hidden="true"
       />
+
+      {/* گرادیانت‌های محوکننده لبه‌ها */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent" />
       <div className="pointer-events-none absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-white to-transparent" />
       <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent" />
 
+      {/* محتوا */}
       <div className="relative z-10 container mx-auto px-6">
         <div className="flex flex-wrap justify-center items-stretch gap-4 text-center">
           {stats.map((stat, index) => {
             const end = Number(stat.value.replace(/[^\d.-]/g, "")) || 0;
+
             return (
               <div
                 key={index}
-                className="stat-box p-5  md:py-15 lg:py-5 rounded-lg shadow-lg bg-white/80 backdrop-blur
+                className="stat-box p-5 md:py-15 lg:py-5 rounded-lg shadow-lg bg-white/80 backdrop-blur
                  transition-all hover:shadow-lg
                  w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(19%-0.5rem)]
                  bg-gradient-to-b from-transparent to-purple-100/30
@@ -180,12 +178,6 @@ const StatsSection: React.FC = () => {
                       <Counter end={end} run={inView} duration={1200} />
                     </h3>
                   </div>
-
-                  {/* <div className="flex items-center justify-center h-full">
-                    <p className="text-gray-700 font-medium text-center">
-                      {stat.label}
-                    </p>
-                  </div> */}
 
                   <div className="h-full flex items-start justify-center text-center">
                     <p className="text-sm leading-6 text-gray-500 px-1">
