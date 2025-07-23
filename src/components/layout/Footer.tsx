@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect, useState, type CSSProperties } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaTelegramPlane, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
+import { DEFAULT_FOOTER_THEME, resolveFooterTheme } from "@/config/footerTheme";
 type SubNavItem = { label: string; href: string };
 type NavItem = { label: string; href?: string; children?: SubNavItem[] };
 
@@ -35,18 +38,43 @@ const FOOTER_ITEMS: NavItem[] = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname() || "/";
+  const [theme, setTheme] = useState(DEFAULT_FOOTER_THEME);
+
+  useEffect(() => {
+    // Apply theme after hydration to prevent SSR/client mismatch.
+    setTheme(resolveFooterTheme(pathname));
+  }, [pathname]);
+
+  const footerStyle: CSSProperties = {
+    "--footer-bg": theme.background,
+    "--footer-text": theme.text,
+    "--footer-muted": theme.muted,
+    "--footer-heading": theme.heading,
+    "--footer-link": theme.link,
+    "--footer-link-hover": theme.linkHover,
+    "--footer-border": theme.border,
+    "--footer-heading-border": theme.headingBorder,
+    "--footer-icon": theme.icon,
+    "--footer-icon-hover": theme.iconHover,
+  };
+
   return (
-    <footer dir="rtl" className="bg-primary-100 text-highlight-800 pt-10">
+    <footer
+      dir="rtl"
+      style={footerStyle}
+      className="bg-[var(--footer-bg)] text-[var(--footer-text)] pt-10"
+    >
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-9 gap-15 px-6 py-7">
         {}
         <div className="md:col-span-2 flex flex-col items-start">
           <div className="flex items-center mb-3">
             <img src="/mainlogo.png" alt="لوگو" className="w-10 h-10 ml-2" />
-            <span className="text-lg font-semibold text-primary-900">
+            <span className="text-lg font-semibold text-[var(--footer-heading)]">
               پاک‌نویس
             </span>
           </div>
-          <p className="  text-highlight-700 ">
+          <p className="  text-[var(--footer-muted)] ">
             پاک‌نویس، ویرایشگری هوشمند برای نوشته‌های فارسی شما
           </p>
         </div>
@@ -55,7 +83,7 @@ export default function Footer() {
         <div className="md:col-span-5 grid grid-cols-1 sm:grid-cols-3 gap-8 ">
           {FOOTER_ITEMS.map((section) => (
             <div key={section.label}>
-              <h4 className="font-semibold text-primary-900 mb-3 border-b border-primary-300 pb-1">
+              <h4 className="font-semibold text-[var(--footer-heading)] mb-3 border-b border-[var(--footer-heading-border)] pb-1">
                 {section.label}
               </h4>
               <ul className="space-y-2">
@@ -63,7 +91,7 @@ export default function Footer() {
                   <li key={item.label}>
                     <Link
                       href={item.href || "#"}
-                      className="hover:text-primary-700 text-[15px] transition-colors"
+                      className="text-[15px] transition-colors text-[var(--footer-link)] hover:text-[var(--footer-link-hover)]"
                     >
                       {item.label}
                     </Link>
@@ -76,7 +104,7 @@ export default function Footer() {
 
         {}
         <div className="md:col-span-2 flex flex-col items-start">
-          <h4 className="font-semibold text-primary-900 mb-3 border-b border-primary-300 pb-1">
+          <h4 className="font-semibold text-[var(--footer-heading)] mb-3 border-b border-[var(--footer-heading-border)] pb-1">
             شبکه‌های اجتماعی
           </h4>
           <div className="flex space-x-4">
@@ -84,7 +112,7 @@ export default function Footer() {
               href="https://t.me/paknevisaan"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-800 hover:text-primary-600 transition-colors"
+              className="text-[var(--footer-icon)] hover:text-[var(--footer-icon-hover)] transition-colors"
             >
               <FaTelegramPlane size={20} />
             </a>
@@ -92,7 +120,7 @@ export default function Footer() {
               href="https://www.instagram.com/paknevis.ir"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-800 hover:text-primary-600 transition-colors"
+              className="text-[var(--footer-icon)] hover:text-[var(--footer-icon-hover)] transition-colors"
             >
               <FaInstagram size={20} />
             </a>
@@ -100,7 +128,7 @@ export default function Footer() {
               href="https://www.linkedin.com/company/paknevis"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-800 hover:text-primary-600 transition-colors"
+              className="text-[var(--footer-icon)] hover:text-[var(--footer-icon-hover)] transition-colors"
             >
               <FaLinkedin size={20} />
             </a>
@@ -109,11 +137,11 @@ export default function Footer() {
       </div>
 
       {}
-      <div className="border-t border-primary-200 mt-8 py-6 text-sm text-highlight-600 flex flex-col items-center justify-center px-4 text-center">
+      <div className="border-t border-[var(--footer-border)] mt-8 py-6 text-sm text-[var(--footer-muted)] flex flex-col items-center justify-center px-4 text-center">
         <Link
           href="https://www.noorsoft.org/"
           target="_blank"
-          className="flex flex-col items-center gap-2 font-bold text-primary-900 hover:text-primary-700 transition-colors group"
+          className="flex flex-col items-center gap-2 font-bold text-[var(--footer-heading)] hover:text-[var(--footer-link-hover)] transition-colors group"
         >
           <Image
             src="/images/Noor.png"
@@ -130,7 +158,7 @@ export default function Footer() {
           <Link
             href="https://www.noorsoft.org/"
             target="_blank"
-            className="font-bold text-primary-900 hover:text-primary-700 transition-colors"
+            className="font-bold text-[var(--footer-heading)] hover:text-[var(--footer-link-hover)] transition-colors"
           >
             مرکز تحقیقات کامپیوتری علوم اسلامی
           </Link>{" "}
