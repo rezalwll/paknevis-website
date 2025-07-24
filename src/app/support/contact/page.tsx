@@ -1,8 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+function useWindowsScale() {
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const update = () => {
+      // روی ویندوز:
+      // 100%  => devicePixelRatio ≈ 1
+      // 125% => devicePixelRatio ≈ 1.25
+      const dpr = window.devicePixelRatio || 1;
+      setScale(dpr);
+    };
+
+    update();
+    window.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return scale;
+}
+
 
 export default function ContactPage() {
+  const scale = useWindowsScale();
+
+  // اگر اسکیل حدود 125٪ بود، حالت compact فعال بشه
+  const isWin125 = scale > 1.15 && scale < 1.35;
+
+  // کلاس سایز متن برای کل صفحه:
+  const baseTextSizeClass = isWin125
+    ? "scale-100" // اسکیل 125% → کمی کوچیک‌تر
+    : "scale-130"; // اسکیل 100% → همینی که خودت گذاشتی
+
   const [message, setMessage] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -27,12 +61,13 @@ export default function ContactPage() {
       "
     >
       <div
-        className="
+        className={`
           mx-auto w-full
           px-4 md:px-8
           max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-7xl
           mt-[-50px]
-        "
+          ${baseTextSizeClass}
+        `}
       >
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-start">
           <div className="space-y-10 text-slate-700 text-right pt-15">
@@ -166,8 +201,8 @@ export default function ContactPage() {
                   <div className="text-right relative">
                     <label
                       className={`absolute right-3 transition-all duration-300 ease-out pointer-events-none ${focused.firstName || firstName
-                          ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
-                          : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
+                        ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
+                        : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
                         }`}
                     >
                       نام
@@ -195,8 +230,8 @@ export default function ContactPage() {
                   <div className="text-right relative">
                     <label
                       className={`absolute right-3 transition-all duration-300 ease-out pointer-events-none ${focused.lastName || lastName
-                          ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
-                          : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
+                        ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
+                        : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
                         }`}
                     >
                       نام خانوادگی
@@ -226,8 +261,8 @@ export default function ContactPage() {
                 <div className="text-right relative">
                   <label
                     className={`absolute right-3 transition-all duration-300 ease-out pointer-events-none z-10 ${focused.email || email
-                        ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
-                        : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
+                      ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
+                      : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
                       }`}
                   >
                     ایمیل
@@ -258,8 +293,8 @@ export default function ContactPage() {
                 <div className="text-right relative">
                   <label
                     className={`absolute right-3 transition-all duration-300 ease-out pointer-events-none ${focused.phone || phone
-                        ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
-                        : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
+                      ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
+                      : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
                       }`}
                   >
                     شماره تماس
@@ -290,8 +325,8 @@ export default function ContactPage() {
                 <div className="text-right relative">
                   <label
                     className={`absolute right-3 transition-all duration-300.ease-out pointer-events-none z-10 ${focused.message || message
-                        ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
-                        : "top-3 text-sm text-slate-400"
+                      ? "-top-2.5 text-[10px] text-blue-600 bg-white px-1"
+                      : "top-3 text-sm text-slate-400"
                       }`}
                   >
                     چطور می‌توانیم کمک کنیم؟

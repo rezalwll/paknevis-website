@@ -4,7 +4,6 @@ export default function ChromeExtensionDownloadPage() {
       dir="rtl"
       className="min-h-screen bg-white text-gray-800 [--brand:#0ea5e9]"
     >
-      {/* Hero */}
       <section className="relative overflow-hidden">
         <div
           className="absolute -left-20 -top-20 h-72 w-72 rounded-full blur-3xl opacity-30"
@@ -22,7 +21,6 @@ export default function ChromeExtensionDownloadPage() {
         />
 
         <div className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Text (right) */}
           <div className="order-2 md:order-1 text-right">
             <h1 className="text-4xl md:text-5xl font-extrabold leading-[1.2]">
               پاکنویس برای Chrome
@@ -61,11 +59,9 @@ export default function ChromeExtensionDownloadPage() {
             </ul>
           </div>
 
-          {/* Visual (left) */}
           <div className="order-1 md:order-2">
             <div className="relative mx-auto max-w-xl">
               <div className="rounded-2xl shadow-2xl ring-1 ring-black/5 overflow-hidden bg-white">
-                {/* Browser chrome mock */}
                 <div className="h-10 bg-gray-100 flex items-center gap-2 px-4">
                   <span className="h-3 w-3 rounded-full bg-red-400" />
                   <span className="h-3 w-3 rounded-full bg-yellow-400" />
@@ -85,14 +81,12 @@ export default function ChromeExtensionDownloadPage() {
                       </mark>{" "}
                       را فراموش می‌کنید؛ پاکنویس فوراً پیشنهاد اصلاح می‌دهد.
                     </p>
-                    {/* Suggestion pill */}
                     <div className="absolute -bottom-3 left-3 bg-white border rounded-full px-3 py-1 text-xs shadow flex items-center gap-2">
                       <span className="i-lucide-wand2" />
                       پیشنهاد: «فاصله‌گذاری» → اعمال
                     </div>
                   </div>
 
-                  {/* Toolbar mock */}
                   <div className="mt-6 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-gray-500 text-sm">
                       <span className="i-lucide-spell-check" />
@@ -104,7 +98,6 @@ export default function ChromeExtensionDownloadPage() {
                   </div>
                 </div>
               </div>
-              {/* floating badge */}
               <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-lg border p-4 text-right w-56">
                 <div className="text-xs text-gray-500">پیشرفت متن</div>
                 <div className="flex items-center justify-between mt-1">
@@ -125,7 +118,6 @@ export default function ChromeExtensionDownloadPage() {
         </div>
       </section>
 
-      {/* Features */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="order-2 md:order-1 text-right">
@@ -186,7 +178,6 @@ export default function ChromeExtensionDownloadPage() {
         </div>
       </section>
 
-      {/* How it works */}
       <section id="how-it-works" className="py-20 px-6 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1 text-right">
@@ -266,7 +257,6 @@ export default function ChromeExtensionDownloadPage() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section id="faq" className="py-20 px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-right">سؤالات متداول</h2>
@@ -297,7 +287,6 @@ export default function ChromeExtensionDownloadPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
       <section className="py-24 bg-[color:var(--brand)] text-white">
         <div className="max-w-4xl mx-auto px-6 text-center md:text-right">
           <h2 className="text-4xl font-extrabold">
