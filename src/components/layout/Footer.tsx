@@ -31,6 +31,7 @@ const FOOTER_ITEMS: NavItem[] = [
     label: "سایر",
     children: [
       { label: "درباره ما", href: "/about" },
+      { label: "درباره م2ا", href: "/about2" },
       { label: "بلاگ", href: "/blog" },
       { label: "حریم خصوصی", href: "/privacy" },
     ],
