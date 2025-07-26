@@ -33,6 +33,7 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { label: "نسخه سازمانی", href: "/enterprise" },
+  { label: "نسخه سازمانی2", href: "/enterprise2" },
   {
     label: "پشتیبانی",
     href: "#",
