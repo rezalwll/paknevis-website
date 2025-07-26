@@ -96,7 +96,7 @@ const Hero: FC<HeroProps> = ({
                    flex flex-col justify-center items-center md:items-start 
                    space-y-6
                       pr-10 
-                ${contentClassName}
+                ${contentClassName} 
                      `}
         >
           <h1
