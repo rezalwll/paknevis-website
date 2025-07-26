@@ -31,7 +31,6 @@ const FOOTER_ITEMS: NavItem[] = [
     label: "سایر",
     children: [
       { label: "درباره ما", href: "/about" },
-      { label: "درباره م2ا", href: "/about2" },
       { label: "بلاگ", href: "/blog" },
       { label: "حریم خصوصی", href: "/privacy" },
     ],
@@ -59,7 +58,7 @@ export default function Footer() {
     <footer
       dir="rtl"
       style={footerStyle as React.CSSProperties}
-      className="bg-[var(--footer-bg)] text-[var(--footer-text)] pt-10"
+      className="bg-[var(--footer-bg)] text-[var(--footer-text)] pt-10 border-t border-[var(--footer-heading-border)]"
     >
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-9 gap-15 px-6 py-7">
         <div className="md:col-span-2 flex flex-col items-start">

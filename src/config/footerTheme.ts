@@ -46,6 +46,22 @@ const FOOTER_THEME_RULES: FooterThemeRule[] = [
     },
   },
   {
+    match: /^\/enterprise(\/|$)/,
+    theme: {
+      background: "var(--pn-bg, #F9F8F6)",
+      text: "#111827",
+      muted: "#4B5563",
+      heading: "#111827",
+      link: "#111827",
+      linkHover: "var(--pn-accent, #C9B59C)",
+      border: "var(--pn-border, #D9CFC7)",
+      headingBorder: "var(--pn-accent, #C9B59C)",
+      icon: "#111827",
+      iconHover: "var(--pn-accent, #C9B59C)",
+    },
+  },
+  
+  {
     match: /^\/downloads/,
     theme: {
       background: "var(--color-primary-50)",

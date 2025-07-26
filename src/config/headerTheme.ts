@@ -26,6 +26,19 @@ const DEFAULT_HEADER_THEME: HeaderTheme = {
 // Update this list to set a custom header color per route.
 const HEADER_THEME_RULES: HeaderThemeRule[] = [
   {
+    match: /^\/enterprise(\/|$)/,
+    theme: {
+      background: "var(--pn-bg)",
+      mobileBackground: "var(--pn-bg)",
+      text: "#111827",
+      linkHover: "var(--pn-accent)",
+      buttonBg: "#111827",
+      buttonHoverBg: "#0f172a",
+      buttonText: "var(--pn-bg)",
+    },
+  },
+
+  {
     match: /^\/support\/contact\/?$/,
     theme: {
       background: "#e7f0ff",
