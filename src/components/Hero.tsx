@@ -50,7 +50,7 @@ const Hero: FC<HeroProps> = ({
   buttonsContainerClassName = "",
   buttonClassName = "",
 }) => {
-  // ✅ برای سناریو 2: بعد از پایان ویدیو، 10 ثانیه مکث، سپس دوباره پخش
+  // بعد از پایان ویدیو، ۱۰ ثانیه مکث، سپس دوباره پخش
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -63,10 +63,8 @@ const Hero: FC<HeroProps> = ({
 
     const onEnded = () => {
       timeoutId = setTimeout(() => {
-        // از اول و دوباره پلی
         v.currentTime = 0;
         const p = v.play();
-        // اگر مرورگر autoplay را بلاک کرد
         if (p && typeof p.catch === "function") p.catch(() => {});
       }, 10_000);
     };
@@ -89,9 +87,9 @@ const Hero: FC<HeroProps> = ({
       <Link
         key={idx}
         href={btn.href}
-        className={`inline-block rounded px-6 py-3 transition text-sm md:text-base lg:text-[1.05rem] ${base} ${buttonClassName} ${
-          btn.className ?? ""
-        }`}
+        className={`inline-block rounded px-6 py-3 transition
+          text-sm md:text-base lg:text-[1.05rem] xl:text-[1.1rem] 2xl:text-[1.15rem]
+          ${base} ${buttonClassName} ${btn.className ?? ""}`}
       >
         {btn.text}
       </Link>
@@ -137,12 +135,14 @@ const Hero: FC<HeroProps> = ({
       <div
         className="
           mx-auto h-full w-full
-          max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl
+          max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1400px]
           text-right flex flex-col md:flex-row items-center justify-between
-          gap-10 lg:gap-14
+          gap-10 lg:gap-14 2xl:gap-20
           px-4 sm:px-6 lg:px-8
+          py-8 lg:py-14
         "
       >
+        {/* ستون متن */}
         <div
           className={`
             flex flex-col justify-center items-center md:items-start
@@ -154,7 +154,7 @@ const Hero: FC<HeroProps> = ({
         >
           <h1
             className={`
-              text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-[3.1rem]
+              text-2xl md:text-3xl lg:text-4xl xl:text-[2.9rem] 2xl:text-[3rem]
               text-gray-800 font-bold leading-snug
               ${titleClassName}
             `}
@@ -165,7 +165,7 @@ const Hero: FC<HeroProps> = ({
           {description && (
             <p
               className={`
-                text-base md:text-lg lg:text-xl xl:text-[1.1rem] 2xl:text-[1.2rem]
+                text-base md:text-lg lg:text-xl xl:text-[1.25rem] 2xl:text-[1.35rem]
                 max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
                 text-justify text-gray-600
                 ${descriptionClassName}
@@ -199,11 +199,12 @@ const Hero: FC<HeroProps> = ({
                   href={f.href}
                   className={`
                     ${f.color}
-                    h-12 cursor-pointer rounded-xl px-2 py-1
+                    h-12 lg:h-14
+                    cursor-pointer rounded-xl px-3 py-2
                     flex items-center justify-between
                     shadow-md transition duration-300
                     hover:bg-primary-300
-                    max-w-[240px]
+                    w-full max-w-[250px] md:max-w-[270px] xl:max-w-[300px]
                   `}
                 >
                   <div className="flex-shrink-0 ml-4 flex items-center justify-center">
@@ -215,7 +216,14 @@ const Hero: FC<HeroProps> = ({
                       className="object-contain"
                     />
                   </div>
-                  <p className="flex-1 text-xs sm:text-sm md:text-[0.95rem] font-medium text-gray-700 text-right">
+                  <p
+                    className="
+                      flex-1
+                      text-xs sm:text-sm md:text-[0.95rem]
+                      lg:text-[1rem] xl:text-[1.05rem] 2xl:text-[1.1rem]
+                      font-medium text-gray-700 text-right
+                    "
+                  >
                     {f.title}
                   </p>
                 </Link>
@@ -224,10 +232,11 @@ const Hero: FC<HeroProps> = ({
           )}
         </div>
 
+        {/* ستون تصویر / ویدیو */}
         <div
           className={`
             w-full md:w-[48%] lg:w-1/2
-            max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+            max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-[680px]
             mx-auto max-md:mt-20
             ${imageClassName}
           `}
@@ -238,8 +247,7 @@ const Hero: FC<HeroProps> = ({
               autoPlay
               muted
               playsInline
-              // ✅ loop حذف شد چون می‌خوایم تأخیر داشته باشیم
-              className={`w-full h-auto ${videoClassName}`}
+              className={`w-full h-auto rounded-2xl ${videoClassName}`}
             >
               <source src={videoSrc} type={videoType} />
             </video>
@@ -251,7 +259,7 @@ const Hero: FC<HeroProps> = ({
                 width={600}
                 height={600}
                 priority
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain rounded-2xl"
               />
             )
           )}
