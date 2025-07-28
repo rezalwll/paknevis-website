@@ -106,11 +106,11 @@ const Header = () => {
             href="/"
             className="text-xl font-medium transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]"
           >
-            <div className="flex items-center">
+            <div className="flex items-center font-bold">
               <img
                 src="/mainlogo.png"
                 alt="پاک‌نویس"
-                className="w-8 h-8 mr-2"
+                className="w-8 h-8 mr-2 "
               />
               پاک‌نویس
             </div>

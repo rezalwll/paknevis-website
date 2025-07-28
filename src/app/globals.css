@@ -1,9 +1,56 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "IRANYekan";
+  src: url("/fonts/iranyekan.woff2") format("woff2"),
+    url("/fonts/iranyekan.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* :root {
 } */
 
 :root {
+   /* ===== Base (صفحه سفید بماند) ===== */
+   --pn-bg: #ffffff;
+   --pn-text: #0f172a;
+   --pn-muted: #3f4f66;
+   --pn-muted-title: #2a3544;
+ 
+   /* ===== Palette (همین 4 تا رنگ) ===== */
+   --pn-p1: #78B9B5;
+   --pn-p2: #0F828C;
+   --pn-p3: #065084;
+   --pn-p4: #320A6B;
+ 
+   /* ===== Usage tokens (برای کل کامپوننت‌ها) ===== */
+   --pn-accent: var(--pn-p2);
+   --pn-accent-2: var(--pn-p3);
+   --pn-accent-strong: var(--pn-p4);
+ 
+   /* سطح‌های ملایم (تینت) — اگر خواستی تیره/روشن‌ترش کن همین‌ها رو تغییر بده */
+   --pn-surface: rgba(120, 185, 181, 0.16);        /* tint از p1 */
+   --pn-surface-2: rgba(154, 203, 208, 0.22);      /* نزدیک p1/p2 */
+   --pn-border: rgba(6, 80, 132, 0.18);            /* tint از p3 */
+ 
+   /* CTA */
+   --pn-cta-bg: var(--pn-accent-2);
+   --pn-cta-hover: var(--pn-accent-strong);
+   --pn-cta-text: #ffffff;
+ 
+   /* ===== Header/Footer (آبی ملایم) ===== */
+   --pn-hf-bg: #f1f3f9;          /* آبی/سبز ملایم */
+   --pn-hf-mobile-bg: rgba(120, 185, 181, 0.18);
+   --pn-hf-text: #0f172a;
+   --pn-hf-border: rgba(6, 80, 132, 0.22);
+   --pn-hf-link-hover: var(--pn-accent-strong);
+ 
+   --pn-hf-button-bg: var(--pn-accent-2);
+   --pn-hf-button-hover-bg: var(--pn-accent);
+   --pn-hf-button-text: #ffffff;
+
   /* primary */
   --color-primary-900: #0096a6;
   --color-primary-800: #19a0ae;
@@ -87,18 +134,8 @@
   --color-highlight-200: #e9ecef;
   --color-highlight-150: #f1f3f5;
   --color-highlight-100: #f8f9fa;
-
-  --pn-bg: #F9F8F6;
-  /* اصلی */
-  --pn-surface: #EFE9E3;
-  /* سطح‌ها */
-  --pn-border: #D9CFC7;
-  /* بوردرها */
-  --pn-accent: #C9B59C;
-  /* اکسنت */
 }
-
-.pn-theme-warm {
+/* .pn-theme-warm {
   --pn-bg: #F9F8F6;
   --pn-surface: #EFE9E3;
   --pn-border: #D9CFC7;
@@ -109,11 +146,7 @@
   --pn-surface: #CBF1F5;
   --pn-border: #A6E3E9;
   --pn-accent: #71C9CE;
-}
-
-* {
-  font-family: Vazir, Calibri, SansSerif, serif;
-}
+} */
 
 *:not(input):not(textarea) {
   caret-color: transparent !important;
@@ -127,7 +160,7 @@ textarea {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "IRANYekan", Calibri, SansSerif, serif;
 }
 
 

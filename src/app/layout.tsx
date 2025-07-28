@@ -18,11 +18,11 @@ export default function RootLayout({
     <html lang="fa" >
       <head>
         <title></title>
-        <link
-          href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v26.0.2/dist/font-face.css"
+        {/* <link
+          href="https://cdn.jsdelivr.net/npm/typeface-iranyekan@0.0.11/index.css"
           rel="stylesheet"
           type="text/css"
-        />
+        /> */}
         <link
           rel="icon"
           type="image/x-icon"

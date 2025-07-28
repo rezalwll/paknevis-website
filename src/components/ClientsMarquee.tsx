@@ -104,8 +104,9 @@ export default function ClientsMarquee() {
         ))}
       </div>
 
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent" />
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-[color:var(--pn-bg)] to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-[color:var(--pn-bg)] to-transparent" />
+
     </div>
   );
 }

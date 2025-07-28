@@ -13,9 +13,9 @@ const FOOTER_ITEMS: NavItem[] = [
   {
     label: "دانلود",
     children: [
-      { label: "افزونه ورد", href: "/download/word" },
-      { label: "افزونه کروم", href: "/download/chrome" },
-      { label: "کیبورد", href: "/download/keyboard" },
+      { label: "افزونهٔ وُرد", href: "/download/word" },
+      { label: "افزونهٔ مرورگر", href: "/download/chrome" },
+      { label: "کیبورد اندروید", href: "/download/keyboard" },
       { label: "ویرایشگر برخط", href: "/editor" },
     ],
   },
@@ -30,7 +30,7 @@ const FOOTER_ITEMS: NavItem[] = [
   {
     label: "سایر",
     children: [
-      { label: "درباره ما", href: "/about" },
+      { label: "دربارۀ ما", href: "/about" },
       { label: "بلاگ", href: "/blog" },
       { label: "حریم خصوصی", href: "/privacy" },
     ],
@@ -69,7 +69,7 @@ export default function Footer() {
             </span>
           </div>
           <p className="  text-[var(--footer-muted)] ">
-            پاک‌نویس، ویرایشگری هوشمند برای نوشته‌های فارسی شما
+           ویرایشگری هوشمند برای نوشته‌های فارسی شما
           </p>
         </div>
 
