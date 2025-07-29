@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <main className="bg-[color:var(--pn-bg)] text-[color:var(--pn-text)]">
       {/* HERO اصلی */}
-      <section className="-mt-10 bg-[color:var(--pn-bg)]">
+      <section className="-mt-8 bg-[color:var(--pn-bg)]">
         <Hero
           title={
             <>
