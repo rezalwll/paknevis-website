@@ -23,7 +23,8 @@
    --pn-p1: #78B9B5;
    --pn-p2: #0F828C;
    --pn-p3: #065084;
-   --pn-p4: #320A6B;
+   --pn-p4: #0762A1;
+   --pn-p5: #b5d8f1;
  
    /* ===== Usage tokens (برای کل کامپوننت‌ها) ===== */
    --pn-accent: var(--pn-p2);
@@ -135,18 +136,7 @@
   --color-highlight-150: #f1f3f5;
   --color-highlight-100: #f8f9fa;
 }
-/* .pn-theme-warm {
-  --pn-bg: #F9F8F6;
-  --pn-surface: #EFE9E3;
-  --pn-border: #D9CFC7;
-  --pn-accent: #C9B59C;
-}
-.pn-theme-aqua {
-  --pn-bg: #E3FDFD;
-  --pn-surface: #CBF1F5;
-  --pn-border: #A6E3E9;
-  --pn-accent: #71C9CE;
-} */
+
 
 *:not(input):not(textarea) {
   caret-color: transparent !important;

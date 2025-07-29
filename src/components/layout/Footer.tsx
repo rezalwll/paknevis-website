@@ -68,8 +68,9 @@ export default function Footer() {
               پاک‌نویس
             </span>
           </div>
-          <p className="  text-[var(--footer-muted)] ">
-           ویرایشگری هوشمند برای نوشته‌های فارسی شما
+          <p className="text-[var(--footer-muted)] leading-7">
+            <span className="block">ویرایشگری هوشمند</span>
+            <span className="block">برای نوشته‌های فارسی شما</span>
           </p>
         </div>
 
@@ -97,7 +98,7 @@ export default function Footer() {
         </div>
 
         {}
-        <div className="md:col-span-2 flex flex-col items-start">
+        <div className="md:col-span-2 flex flex-col items-center">
           <h4 className="font-semibold text-[var(--footer-heading)] mb-3 border-b border-[var(--footer-heading-border)] pb-1">
             شبکه‌های اجتماعی
           </h4>

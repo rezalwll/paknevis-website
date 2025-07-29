@@ -11,6 +11,12 @@ export type HeroButton = {
   className?: string;
 };
 
+type FeatureItem = {
+  title: string;
+  href: string;
+  variant?: "primary" | "outline" | "default";
+};
+
 export interface HeroProps {
   title: React.ReactNode;
   description?: string;
@@ -76,6 +82,21 @@ const Hero: FC<HeroProps> = ({
     };
   }, [useVideo, videoSrc]);
 
+  const featureClassNames = (variant: FeatureItem["variant"] = "default") => {
+    const base =
+      "inline-flex h-12 items-center justify-center gap-2 rounded-xl px-5 md:px-6 font-extrabold text-xs sm:text-sm md:text-[0.95rem] lg:text-[1rem] xl:text-[1.05rem] 2xl:text-[1.1rem] shadow-sm transition duration-200 w-full max-w-[250px] md:max-w-[270px] xl:max-w-[300px]";
+
+    if (variant === "primary") {
+      return `${base} bg-[color:var(--pn-cta-bg)] text-[color:var(--pn-cta-text)] hover:bg-[color:var(--pn-cta-hover)]`;
+    }
+
+    if (variant === "outline") {
+      return `${base} border-2 border-[color:var(--pn-cta-bg)] bg-[color:var(--pn-bg)] text-[color:var(--pn-text)] hover:bg-[color:var(--color-primary-100)]`;
+    }
+
+    return `${base} border border-[color:var(--pn-border)] bg-[color:var(--pn-surface)] text-[color:var(--pn-text)] hover:border-[color:var(--pn-accent-2)]`;
+  };
+
   const renderButton = (btn: HeroButton, idx: number) => {
     const base =
       btn.variant === "secondary"
@@ -95,11 +116,11 @@ const Hero: FC<HeroProps> = ({
     );
   };
 
-  const features = [
-    { imageSrc: "/images/word-icon.png", title: "دانلود افزونهٔ  وُرد", href: "/download/word", color: "bg-[color:var(--pn-surface)]" },
-    { imageSrc: "/images/online editor.png", title: "ویرایشگر برخط (آنلاین)", href: "/download/editor", color: "bg-[color:var(--pn-surface-2)]" },
-    { imageSrc: "/images/chrome_icon.png", title: "دانلود افزونهٔ  مرورگر", href: "/download/chrome", color: "bg-[color:var(--pn-surface)]" },
-    { imageSrc: "/images/android-icons.png", title: "دانلود کیبورد اندروید", href: "/download/keyboard", color: "bg-[color:var(--pn-surface-2)]" },
+  const features: FeatureItem[] = [
+    { title: "دانلود افزونهٔ وُرد", href: "/download/word", variant: "primary" },
+    { title: "ویرایشگر برخط (آنلاین)", href: "/download/editor", variant: "outline" },
+    { title: "دانلود افزونهٔ مرورگر", href: "/download/chrome", variant: "primary" },
+    { title: "دانلود کیبورد اندروید", href: "/download/keyboard", variant: "outline" },
   ];
 
   return (
@@ -185,36 +206,9 @@ const Hero: FC<HeroProps> = ({
                 <Link
                   key={i}
                   href={f.href}
-                  className={`
-                    ${f.color}
-                    h-12 lg:h-14
-                    cursor-pointer rounded-xl px-3 py-2
-                    flex items-center justify-between
-                    border border-[color:var(--pn-border)]
-                    shadow-sm transition duration-200
-                    hover:border-[color:var(--pn-accent-2)]
-                    w-full max-w-[250px] md:max-w-[270px] xl:max-w-[300px]
-                  `}
+                  className={featureClassNames(f.variant)}
                 >
-                  <div className="flex-shrink-0 ml-4 flex items-center justify-center">
-                    <Image
-                      src={f.imageSrc}
-                      alt={f.title}
-                      width={45}
-                      height={45}
-                      className="object-contain"
-                    />
-                  </div>
-                  <p
-                    className="
-                      flex-1
-                      text-xs sm:text-sm md:text-[0.95rem]
-                      lg:text-[1rem] xl:text-[1.05rem] 2xl:text-[1.1rem]
-                      font-medium text-[color:var(--pn-text)] text-right
-                    "
-                  >
-                    {f.title}
-                  </p>
+                  <span className="whitespace-nowrap sm:whitespace-normal text-center">{f.title}</span>
                 </Link>
               ))}
             </div>
@@ -245,7 +239,7 @@ const Hero: FC<HeroProps> = ({
               imageSrc && (
                 <Image
                   src={imageSrc}
-                  alt={imageAlt ?? title}
+                  alt={typeof imageAlt === "string" ? imageAlt : String(title)}
                   width={600}
                   height={600}
                   priority
