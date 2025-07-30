@@ -55,13 +55,13 @@ function buildStarts(n: number, perView: number) {
 export default function EnterprisePricingCarousel() {
     const plans: Plan[] = useMemo(
         () => [
-            { title: "طرح ۱", price: "۷۷m", per: "۲۰ کاربر", desc: "توضیح کوتاه پلن. مناسب شروع کار." },
-            { title: "طرح ۲", price: "۱۲۷m", per: "۶۰ کاربر", desc: "امکانات بیشتر برای تیم‌های متوسط.", popular: true },
-            { title: "طرح ۳", price: "۲۲۵m", per: "۱۳۰ کاربر", desc: "مناسب سازمان‌های رو به رشد." },
-            { title: "طرح ۴", price: "۳۲۰m", per: "۲۰۰ کاربر", desc: "پشتیبانی و امکانات کامل‌تر." },
-            { title: "طرح ۵", price: "۴۸۰m", per: "۳۵۰ کاربر", desc: "برای واحدهای بزرگ سازمانی." },
-            { title: "طرح ۶", price: "۶۵۰m", per: "۵۰۰ کاربر", desc: "پیکربندی اختصاصی و SLA." },
-            { title: "طرح ۷", price: "۹۰۰m", per: "۸۰۰ کاربر", desc: "بالاترین سطح خدمات و سفارشی‌سازی." },
+            { title: "طرح ۱", price: "۷۷", per: "۲۰ کاربر", desc: "توضیح کوتاه پلن. مناسب شروع کار." },
+            { title: "طرح ۲", price: "۱۲۷", per: "۶۰ کاربر", desc: "امکانات بیشتر برای تیم‌های متوسط.", popular: true },
+            { title: "طرح ۳", price: "۲۲۵", per: "۱۳۰ کاربر", desc: "مناسب سازمان‌های رو به رشد." },
+            { title: "طرح ۴", price: "۳۲۰", per: "۲۰۰ کاربر", desc: "پشتیبانی و امکانات کامل‌تر." },
+            { title: "طرح ۵", price: "۴۸۰", per: "۳۵۰ کاربر", desc: "برای واحدهای بزرگ سازمانی." },
+            { title: "طرح ۶", price: "۶۵۰", per: "۵۰۰ کاربر", desc: "پیکربندی اختصاصی و SLA." },
+            { title: "طرح ۷", price: "۹۰۰", per: "۸۰۰ کاربر", desc: "بالاترین سطح خدمات و سفارشی‌سازی." },
         ],
         []
     );
@@ -100,11 +100,11 @@ export default function EnterprisePricingCarousel() {
         "absolute -top-3 left-1/2 -translate-x-1/2 " +
         "rounded-full bg-[var(--pn-surface)] px-4 py-1 " +
         "text-[11px] font-extrabold text-slate-800 " +
-        "border border-[var(--pn-border)] shadow-sm";
+        "border border-[var(--pn-border)] shadow-sm z-10";
 
     const titleText = "text-xl font-black text-slate-800";
     const priceText = "text-5xl font-black text-slate-900";
-    const perText = "mt-1 text-[11px] font-semibold text-slate-500";
+    const perText = "mt-3 text-[13px] font-semibold text-slate-500";
 
     const lineTop = "mx-auto mt-2 h-[3px] w-10 rounded-full bg-[var(--pn-accent)]";
     const lineMid = "mx-auto my-5 h-[3px] w-12 rounded-full bg-[var(--pn-accent)]";
@@ -172,6 +172,7 @@ export default function EnterprisePricingCarousel() {
 
                                                     <div className="mt-8">
                                                         <div className={priceText}>{plan.price}</div>
+                                                        میلیون
                                                         <div className={perText}>{plan.per}</div>
                                                     </div>
 
