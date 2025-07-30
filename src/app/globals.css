@@ -25,7 +25,7 @@
   --pn-p3: #1a5ba9;
   --pn-p4: #065084;
   --pn-p5: #b5d8f14b;
-  --pn-p6: #bde8f534;
+  --pn-p6: #cce3ff52;
 
   /* ===== Usage tokens (برای کل کامپوننت‌ها) ===== */
   --pn-accent: var(--pn-p2);
@@ -226,4 +226,68 @@ body {
 
 .no-scrollbar::-webkit-scrollbar-thumb {
   background: transparent;
+}
+
+/* Reusable CTA buttons */
+@layer components {
+  .pn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    padding-inline: 1.5rem;
+    gap: 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.3;
+    border: 0 solid transparent;
+    color: var(--pn-text);
+    background-color: transparent;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .pn-btn:focus-visible {
+    outline: 2px solid var(--pn-accent-2);
+    outline-offset: 2px;
+  }
+
+  .pn-btn-primary {
+    background-color: var(--pn-cta-bg);
+    color: var(--pn-cta-text);
+  }
+
+  .pn-btn-primary:hover {
+    background-color: var(--pn-cta-hover);
+    color: var(--pn-cta-text);
+  }
+
+  .pn-btn-outline {
+    border: 2px solid var(--pn-cta-bg);
+    background-color: var(--pn-bg);
+    color: var(--pn-text);
+  }
+
+  .pn-btn-outline:hover {
+    background-color: var(--pn-surface);
+    color: var(--pn-text);
+  }
+  .pn-btn-outline2 {
+    border: 2px solid #8b9bb2;
+    background-color: var(--pn-bg);
+    color: var(--pn-text);
+  }
+
+  .pn-btn-outline2:hover {
+    background-color: var(--pn-surface);
+    color: var(--pn-text);
+  }
 }

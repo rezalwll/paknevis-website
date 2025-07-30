@@ -44,7 +44,7 @@ const features = [
 
 function FeaturesFancy() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-20 lg:py-24" dir="rtl">
+    <section className="relative overflow-hidden bg-white py-16 md:py-20 lg:py-24 mt-30" dir="rtl">
       <div className="relative mx-auto max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-[1400px] px-6 sm:px-8">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
@@ -105,8 +105,8 @@ function CompatRow({
   return (
     <div className="flex items-center gap-3">
       {/* icon RIGHT */}
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-black/10 bg-black/[0.02] text-sky-700">
-        <Icon className="h-4 w-4" />
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-black/10 bg-sky-500/10 text-sky-700 ">
+        <Icon className="h-4 w-4 " />
       </span>
 
       {/* inline text */}
@@ -114,7 +114,7 @@ function CompatRow({
         <span className="shrink-0 text-sm font-extrabold text-gray-900">
           {title}:
         </span>
-        <span className="truncate text-sm text-gray-600">{desc}</span>
+        <span className="truncate text-gray-600">{desc}</span>
       </div>
     </div>
   );
@@ -225,24 +225,14 @@ export default function Home() {
           <a
             href="#"
             className="
-              inline-flex items-center justify-center
-              mt-6 sm:mt-8
-              px-6 sm:px-7 lg:px-8
-              py-3 lg:py-3.5
-              rounded-lg
-              text-white font-semibold
-              text-base sm:text-lg lg:text-[1.05rem]
-              bg-gradient-to-r from-[#66C0FF] to-[#61adc4]
-              bg-[length:200%_100%] bg-right hover:bg-left
-              transition-all duration-500 shadow-md
+              pn-btn pn-btn-primary mt-10 scale-115
             "
           >
-            دانلود
+            دانلود افزونهٔ وُرد
           </a>
         </div>
       </section>
 
-      {/* اسکرین‌شات زیر هیرو */}
       <section className="px-4 sm:px-6 lg:px-8 text-center -mt-16 sm:-mt-20 lg:-mt-24">
         <div className="mx-auto max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-[1400px]">
           <img
@@ -256,7 +246,6 @@ export default function Home() {
       <FeaturesFancy />
       <CompatibilityHero />
 
-      {/* Download banner – UI جدید، وسط‌چین، یک دکمه */}
       <section
         dir="rtl"
         className="
@@ -307,122 +296,14 @@ export default function Home() {
             <div className="mt-7 lg:mt-8 flex justify-center">
               <a
                 href="/downloads/word"
-                className="
-            inline-flex items-center justify-center
-            h-11 lg:h-12
-            rounded-xl
-            px-8 lg:px-10
-            text-sm sm:text-base lg:text-[1.05rem]
-            font-extrabold
-            bg-[color:var(--pn-cta-bg)]
-            text-[color:var(--pn-cta-text)]
-            shadow-sm
-            transition
-            hover:bg-[color:var(--pn-cta-hover)]
-          "
+                className="pn-btn pn-btn-primary text-sm sm:text-base lg:text-[1.05rem] px-8 lg:px-10 lg:h-12"
               >
-                دانلود و نصب افزونه
+                دانلود و نصب افزونهٔ
               </a>
             </div>
           </div>
         </div>
       </section>
-
-      <section className="py-24 bg-blue-600 text-white text-center mb-20">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-bold mb-6">نوشتن حرفه‌ای را از امروز شروع کنید</h2>
-          <p className="text-lg text-blue-100 leading-relaxed mb-10">
-            با افزونه پاکنویس برای Word، تنها با چند کلیک متن خود را از اشتباهات نگارشی و املایی پاک کنید.
-            دیگر نیازی به بازخوانی‌های طولانی نیست!
-          </p>
-          <button className="bg-white text-blue-600 hover:bg-blue-50 px-10 py-3 rounded-xl text-lg font-semibold transition">
-            دانلود و نصب افزونه
-          </button>
-        </div>
-      </section>
-
-      {/* Download banner – نسخه بزرگ‌تر برای صفحات بزرگ */}
-      <section
-        dir="rtl"
-        className="mt-16 md:mt-20 px-4 pb-16 md:pb-20 bg-[color:var(--pn-bg)]"
-      >
-        <div className="mx-auto max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-7xl">
-          <div
-            className="
-        relative rounded-[20px]
-        bg-[color:var(--pn-bg)]
-        border border-[color:var(--pn-border)]
-        px-6 py-7
-        sm:px-8 sm:py-8
-        lg:px-12 lg:py-10
-        text-center
-        transition-[transform,box-shadow,border-color] duration-200 ease-out
-        hover:border-[color:var(--pn-accent-2)]
-        
-      "
-          >
-            <h3
-              className="
-          mt-1
-          text-xl sm:text-2xl md:text-[1.6rem] lg:text-[1.9rem]
-          font-black
-          text-[color:var(--pn-text)]
-        "
-            >
-              نوشتن حرفه‌ای را از امروز با پاک‌نویس شروع کنید
-            </h3>
-
-            <p
-              className="
-          mx-auto mt-3
-          max-w-2xl md:max-w-3xl lg:max-w-4xl
-          text-sm sm:text-base lg:text-[1.05rem]
-          leading-8
-          text-[color:var(--pn-muted)]
-        "
-            >
-              نسخهٔ مناسب خودتان را دانلود کنید و خطاهای املایی، نگارشی و فاصله‌گذاری را
-              فقط با چند کلیک اصلاح کنید.
-            </p>
-
-            <div className="mt-7 lg:mt-8 flex flex-wrap justify-center gap-3 lg:gap-4">
-              <a
-                href="/downloads/word"
-                className="
-            inline-flex h-11 lg:h-12 items-center justify-center gap-2 rounded-xl
-            bg-[color:var(--pn-cta-bg)]
-            px-7 lg:px-9
-            text-sm sm:text-[0.95rem] lg:text-[1.02rem]
-            font-extrabold
-            text-[color:var(--pn-cta-text)]
-            shadow-sm
-            transition hover:bg-[color:var(--pn-cta-hover)]
-          "
-              >
-                دانلود افزونهٔ Word
-              </a>
-
-              <a
-                href="/downloads/chrome"
-                className="
-            inline-flex h-11 lg:h-12 items-center justify-center gap-2 rounded-xl
-            border-2 border-[color:var(--pn-cta-bg)]
-            bg-[color:var(--pn-bg)]
-            px-7 lg:px-9
-            text-sm sm:text-[0.95rem] lg:text-[1.02rem]
-            font-extrabold
-            text-[color:var(--pn-text)]
-            shadow-sm
-            transition hover:bg-[color:var(--pn-surface)]
-          "
-              >
-                دانلود افزونهٔ مرورگر
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </main>
   );
 }

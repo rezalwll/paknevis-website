@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <main className="bg-[color:var(--pn-bg)] text-[color:var(--pn-text)]">
       {/* HERO اصلی */}
-      <section className="-mt-8 bg-[color:var(--pn-bg)]">
+      <section className="bg-[color:var(--pn-bg)]">
         <Hero
           title={
             <>
@@ -30,20 +30,24 @@ export default function HomePage() {
         />
       </section>
 
+
+
+      {/* سکشن HeroSticky */}
+      <section className="bg-[color:var(--pn-bg)]">
+        <HeroSticky />
+      </section>
+
+
       {/* لوگو / مارکی مشتری‌ها */}
-      <section className="text-center px-4 bg-[color:var(--pn-bg)] mt-5">
+      {/* <section className="text-center px-4 bg-[color:var(--pn-bg)] mt-5">
         <h2 className="text-lg sm:text-xl md:text-xl font-bold mb-6 sm:mb-8 md:mb-10 text-[color:var(--pn-muted-title)]">
           مورد اعتماد سازمان‌ها، نویسندگان و کاربران حرفه‌ای در سراسر کشور
         </h2>
         <div className="max-w-7xl mx-auto">
           <ClientsMarquee />
         </div>
-      </section>
+      </section> */}
 
-      {/* سکشن HeroSticky */}
-      <section className="bg-[color:var(--pn-bg)]">
-        <HeroSticky />
-      </section>
 
       {/* آمار */}
       <section className="mb-16 md:mb-20 bg-[color:var(--pn-bg)]">
@@ -85,24 +89,14 @@ export default function HomePage() {
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <a
                 href="/downloads/word"
-                className="
-                  inline-flex h-11 items-center justify-center gap-2 rounded-xl
-                  bg-[color:var(--pn-cta-bg)] px-6 text-sm font-extrabold
-                  text-[color:var(--pn-cta-text)]
-                  shadow-sm transition hover:bg-[color:var(--pn-cta-hover)]
-                "
+                className="pn-btn pn-btn-primary"
               >
                 دانلود افزونهٔ وُرد
               </a>
 
               <a
                 href="/downloads/chrome"
-                className="
-                  inline-flex h-11 items-center justify-center gap-2 rounded-xl
-                  border-2 border-[color:var(--pn-cta-bg)]
-                  bg-[color:var(--pn-bg)] px-6 text-sm font-extrabold text-[color:var(--pn-text)]
-                  shadow-sm transition hover:bg-[color:var(--pn-surface)]
-                "
+                className="pn-btn pn-btn-outline"
               >
                 دانلود افزونهٔ  مرورگر
               </a>
