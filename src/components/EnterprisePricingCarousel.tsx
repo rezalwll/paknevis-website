@@ -88,19 +88,16 @@ export default function EnterprisePricingCarousel() {
     const cardBase =
         "relative rounded-[18px] bg-[var(--pn-bg)] " +
         "border border-[var(--pn-border)] " +
-        "transition-[transform,box-shadow,border-color] duration-200 ease-out ";
+        "transition-[transform,box-shadow,border-color] duration-200 ease-out";
 
-    const cardPopular =
-        "border-[3px] border-[var(--pn-accent)] ";
-
-    const cardSelected =
-        "border-[3px] !border-[var(--pn-accent)] ";
+    const cardSelected = "border-[3px] !border-[var(--pn-accent)] z-10";
 
     const pillPopular =
-        "absolute -top-3 left-1/2 -translate-x-1/2 " +
+        "absolute z-20 left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 " +
         "rounded-full bg-[var(--pn-surface)] px-4 py-1 " +
         "text-[11px] font-extrabold text-slate-800 " +
-        "border border-[var(--pn-border)] shadow-sm z-10";
+        "border border-[var(--pn-border)] shadow-sm";
+
 
     const titleText = "text-xl font-black text-slate-800";
     const priceText = "text-5xl font-black text-slate-900";
@@ -130,7 +127,8 @@ export default function EnterprisePricingCarousel() {
         <section dir="rtl" className="w-full">
             <div className="mx-auto max-w-6xl px-4">
                 <div className="relative">
-                    <div className="overflow-hidden rounded-2xl bg-[var(--pn-bg)]">
+                    {/* Mixing overflow-x hidden with translate3d turns the Y overflow into clipped/auto in browsers, which hid the pill when it sat above the card. Padding the viewport and using a single overflow-hidden keeps badges inside without relying on z-index hacks. */}
+                    <div className="overflow-hidden rounded-2xl bg-[var(--pn-bg)] pt-3 sm:pt-4">
                         <div
                             className="flex will-change-transform transform-gpu transition-transform duration-1200 ease-[cubic-bezier(0.22,1,0.36,1)]"
                             style={{ transform: `translate3d(${page * 100}%,0,0)` }}
@@ -145,45 +143,50 @@ export default function EnterprisePricingCarousel() {
                                         {items.map((plan, i) => {
                                             const globalIndex = starts[pi] + i;
                                             const isSelected = globalIndex === selectedIndex;
+                                            const selectCard = () => setSelectedIndex(globalIndex);
 
                                             return (
-                                                <article
+                                                <div
                                                     key={`${starts[pi]}-${i}-${plan.title}`}
-                                                    dir="rtl"
-                                                    role="button"
-                                                    tabIndex={0}
-                                                    onClick={() => setSelectedIndex(globalIndex)}
-                                                    onKeyDown={(e) => {
-                                                        if (e.key === "Enter" || e.key === " ") {
-                                                            e.preventDefault();
-                                                            setSelectedIndex(globalIndex);
-                                                        }
-                                                    }}
-                                                    className={[
-                                                        cardBase,
-                                                        "h-full text-center px-8 pt-10 pb-8",
-                                                        plan.popular ? cardSelected : "",
-                                                    ].join(" ")}
+                                                    className="relative h-full"
+                                                    onClick={selectCard}
                                                 >
                                                     {plan.popular ? <div className={pillPopular}>محبوب</div> : null}
 
-                                                    <h3 className={titleText}>{plan.title}</h3>
-                                                    <div className={lineTop} />
+                                                    <article
+                                                        dir="rtl"
+                                                        role="button"
+                                                        tabIndex={0}
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === "Enter" || e.key === " ") {
+                                                                e.preventDefault();
+                                                                selectCard();
+                                                            }
+                                                        }}
+                                                        className={[
+                                                            cardBase,
+                                                            "h-full text-center px-8 pt-10 pb-8",
+                                                            plan.popular ? cardSelected : "",
+                                                        ].join(" ")}
+                                                    >
+                                                        <h3 className={titleText}>{plan.title}</h3>
+                                                        <div className={lineTop} />
 
-                                                    <div className="mt-8">
-                                                        <div className={priceText}>{plan.price}</div>
-                                                        میلیون
-                                                        <div className={perText}>{plan.per}</div>
-                                                    </div>
+                                                        <div className="mt-8">
+                                                            <div className={priceText}>{plan.price}</div>
+                                                            میلیون
+                                                            <div className={perText}>{plan.per}</div>
+                                                        </div>
 
-                                                    <p className={descText}>{plan.desc}</p>
+                                                        <p className={descText}>{plan.desc}</p>
 
-                                                    <div className={lineMid} />
+                                                        <div className={lineMid} />
 
-                                                    <a className={btnOutline} href="#">
-                                                        شروع کنید
-                                                    </a>
-                                                </article>
+                                                        <a className={btnOutline} href="#">
+                                                            شروع کنید
+                                                        </a>
+                                                    </article>
+                                                </div>
                                             );
                                         })}
                                     </div>

@@ -358,90 +358,10 @@ export default function EnterprisePage() {
 
       {/* LONG CONTENT */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:py-16">
-        {/* امکانات */}
-        <div className="mt-10">
-          <div className="text-center">
-            <IconPill Icon={ScrollText} className={`${accentBorder} ${accentText}`}>
-              راهنمای کامل
-            </IconPill>
 
-            <h3 className="mt-3 text-xl font-black sm:text-2xl">راهنمای کامل نسخهٔ آفلاین</h3>
-            <p className="mx-auto mt-2 max-w-3xl text-sm leading-8 text-slate-700 sm:text-base">
-              پس از بررسی دقیق، یکی از طرح‌ها را انتخاب کنید و از طریق ایمیل با ما پاک‌نویس در ارتباط باشید.
-            </p>
-          </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            <IconChip Icon={Building2} text="مخصوص سازمان‌ها" />
-            <IconChip Icon={WifiOff} text="بدون اینترنت" />
-            <IconChip Icon={Headphones} text="پشتیبانی" />
-          </div>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {featureCards.map((x) => (
-              <div key={x.t} className={`${cardBase} p-5`}>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h4 className="text-sm font-black text-slate-900">{x.t}</h4>
-                    <p className="mt-2 text-sm leading-7 text-slate-700">{x.d}</p>
-                  </div>
-
-                  <span className="inline-flex h-10 w-10 flex-none items-center justify-center rounded-2xl bg-[var(--pn-surface)] border border-[var(--pn-border)] text-slate-800">
-                    <x.icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* آکاردئون */}
-          <div className="mt-6 space-y-3">
-            {[...featureDetails, ...accordion].map((x) => (
-              <details
-                key={x.s}
-                className={`${cardBase} group p-5 ${"featured" in x && x.featured ? cardFeatured : ""
-                  }`}
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-                  <span className="flex items-center gap-3">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--pn-surface)] border border-[var(--pn-border)] text-slate-800">
-                      <x.icon className="h-4.5 w-4.5" aria-hidden="true" />
-                    </span>
-                    <span className="text-sm font-black text-slate-900 sm:text-base">{x.s}</span>
-                  </span>
-
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--pn-border)] text-slate-700 transition-transform duration-200 group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-
-                <div className="mt-4 space-y-3 text-sm leading-8 text-slate-700">
-                  {x.p.map((t, i) => (
-                    <p key={i}>{t}</p>
-                  ))}
-
-                  {"list" in x && Array.isArray(x.list) && x.list.length ? (
-                    <ul className="mt-2 space-y-2 pr-4">
-                      {(x.list as string[]).map((it) => (
-                        <li key={it} className="flex items-start gap-2">
-                          <span className="mt-[0.55rem] h-2 w-2 rounded-full bg-[var(--pn-accent)]" />
-                          <span>{it}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-
-        {/* مزایا */}
         <div className="mt-12">
           <div className="text-center">
-            <IconPill Icon={TrendingUp} className={`${accentBorder} ${accentText}`}>
-              مزایا
-            </IconPill>
             <h3 className="mt-3 text-xl font-black sm:text-2xl">استفاده از نسخهٔ آفلاین چه مزایایی دارد؟</h3>
             <p className="mx-auto mt-2 max-w-3xl text-sm leading-8 text-slate-700 sm:text-base">
               مزایای کلیدی استفاده از پاک‌نویس در سازمان شما:
@@ -466,49 +386,11 @@ export default function EnterprisePage() {
           </div>
         </div>
 
-        {/* نبودن پاک‌نویس */}
-        <div className={`${cardBase} mt-10 p-6`}>
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--pn-surface)] border border-[var(--pn-border)]">
-                  <FileWarning className="h-5 w-5 text-slate-800" aria-hidden="true" />
-                </span>
-                <h3 className="text-lg font-black sm:text-xl">نبودن پاک‌نویس چه تأثیری روی سازمان دارد؟</h3>
-              </div>
 
-              <p className="mt-2 text-sm leading-8 text-slate-700">
-                اگر از پاک‌نویس استفاده نکنید، سازمان شما موارد زیر را از دست خواهد داد:
-              </p>
-            </div>
-          </div>
-
-          <ul className="mt-4 grid gap-3 sm:grid-cols-3">
-            {withoutPaknevis.map((it) => (
-              <li
-                key={it.t}
-                className="flex items-center gap-3 rounded-2xl border border-[var(--pn-border)] bg-[var(--pn-bg)] px-4 py-3 shadow-sm"
-              >
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--pn-surface)] border border-[var(--pn-border)] text-slate-800">
-                  <it.icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span className="text-sm font-bold text-slate-800">{it.t}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="mt-4 text-sm leading-8 text-slate-700">
-            کیفیت پایین متن‌های رسمی می‌تواند فرصت‌های همکاری را کاهش دهد؛ چون متن‌های پر از غلط، اعتماد و اعتبار را پایین می‌آورد.
-          </p>
-        </div>
 
         {/* نصب */}
         <div className="mt-10">
           <div className="text-center">
-            <IconPill Icon={HardDriveDownload} className={`${accentBorder} ${accentText}`}>
-              نصب و راه‌اندازی
-            </IconPill>
-
             <h3 className="mt-3 text-xl font-black sm:text-2xl">نحوهٔ نصب نسخهٔ آفلاین</h3>
             <p className="mx-auto mt-2 max-w-3xl text-sm leading-8 text-slate-700 sm:text-base">
               از انتخاب طرح تا نصب و بهره‌برداری:

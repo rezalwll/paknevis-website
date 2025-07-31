@@ -33,7 +33,6 @@ const NAV_ITEMS: NavItem[] = [
     href: "#",
     children: [
       { label: "راهنما", href: "/support/help" },
-      { label: "پرسش‌های متداول", href: "/support/faq" },
       { label: "ارتباط با ما", href: "/support/contact" },
     ],
   },
@@ -113,42 +112,61 @@ const Header = () => {
 
           { }
           <ul className="hidden sm:flex items-center md:space-x-6 space-x-3 sm:text-sm md:text-base">
-            {NAV_ITEMS.map((item) => (
-              <li
-                key={item.label}
-                className="relative group"
-                onMouseEnter={() => setOpenDropdown(item.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
-                <div className="flex items-center cursor-pointer transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]">
-                  <Link href={item.href}>{item.label}</Link>
-                  {item.children && (
-                    <ChevronDownIcon className="w-4 h-4 mr-1 transition-transform duration-200 group-hover:rotate-180" />
-                  )}
-                </div>
-                {item.children && (
-                  <ul
-                    className={`absolute top-full right-0 bg-white shadow rounded overflow-hidden transform transition-all duration-300 origin-top
-                    ${openDropdown === item.label
-                        ? "opacity-100 scale-y-100"
-                        : "opacity-0 scale-y-0"
+            {NAV_ITEMS.map((item) => {
+              const isDropdownOpen = openDropdown === item.label;
+              return (
+                <li
+                  key={item.label}
+                  className="relative group"
+                  onMouseEnter={() => setOpenDropdown(item.label)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
+                  {item.children ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setOpenDropdown((prev) =>
+                          prev === item.label ? null : item.label
+                        )
                       }
+                      aria-expanded={isDropdownOpen}
+                      className="flex items-center gap-1 cursor-pointer transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)] bg-transparent border-0 p-0"
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDownIcon
+                        className={`w-4 h-4 mr-1 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : "group-hover:rotate-180"
+                          }`}
+                      />
+                    </button>
+                  ) : (
+                    <div className="flex items-center cursor-pointer transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]">
+                      <Link href={item.href}>{item.label}</Link>
+                    </div>
+                  )}
+                  {item.children && (
+                    <ul
+                      className={`absolute top-full right-0 bg-white shadow rounded overflow-hidden transform transition-all duration-300 origin-top
+                    ${isDropdownOpen
+                          ? "opacity-100 scale-y-100"
+                          : "opacity-0 scale-y-0"
+                        }
                   `}
-                  >
-                    {item.children.map((sub) => (
-                      <li key={sub.label}>
-                        <Link
-                          href={sub.href}
-                          className="block text-sm px-4 py-2 whitespace-nowrap transition-colors hover:text-[var(--header-link-hover)]"
-                        >
-                          {sub.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+                    >
+                      {item.children.map((sub) => (
+                        <li key={sub.label}>
+                          <Link
+                            href={sub.href}
+                            className="block text-sm px-4 py-2 whitespace-nowrap transition-colors hover:text-[var(--header-link-hover)]"
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
         {/* <div>
