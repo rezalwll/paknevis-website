@@ -218,32 +218,135 @@ export default function ChromeExtensionDownloadPage() {
 
 
       {/* Final CTA */}
-      <section className="py-24 bg-[color:var(--brand)] text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center md:text-right">
-          <h2 className="text-4xl font-extrabold">
-            ویرایش فارسی در وب، همین حالا
-          </h2>
-          <p className="mt-4 text-blue-100 text-lg leading-relaxed">
-            پاکنویس به شما کمک می‌کند تا متون خود را دقیق و سریع ویرایش کنید؛
-            اشتباهات نگارشی و املایی را اصلاح و انرژی بیشتری برای ایده‌های
-            خلاقانه داشته باشید.
-          </p>
-          <div className="mt-10 flex gap-4 justify-center md:justify-end">
-            <a
-              href="#"
-              className="rounded-xl px-8 py-3 bg-white text-[color:var(--brand)] font-semibold hover:bg-blue-50"
+
+
+
+      <section
+        dir="rtl"
+        className="
+    mt-16 md:mt-20
+    px-4 pb-16 md:pb-24
+    bg-[color:var(--pn-bg)]
+  "
+      >
+        <div className="mx-auto max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-7xl">
+          <div
+            className="
+        relative
+        overflow-hidden
+        rounded-[22px]
+        border border-[color:var(--pn-border)]
+        px-6 py-9
+        sm:px-8 sm:py-10
+        lg:px-14 lg:py-12
+        text-center
+        shadow-sm
+        transition-[transform,box-shadow,border-color] duration-200 ease-out
+        hover:border-[color:var(--pn-accent-2)]
+      "
+          >
+            {/* Chrome watermark (خیلی محو) */}
+            <div
+              aria-hidden="true"
+              className="
+          pointer-events-none
+          absolute -top-10 -left-10
+          h-44 w-44 sm:h-52 sm:w-52
+          opacity-[0.20]
+          blur-[0.2px]
+        "
             >
-              افزودن به Chrome
-            </a>
-            <a
-              href="#how-it-works"
-              className="rounded-xl px-8 py-3 border border-white/40 font-semibold hover:bg-white/10"
+              <div className="relative h-full w-full">
+                <Image
+                  src="/images/google-chrome.png"
+                  alt=""
+                  fill
+                  sizes="220px"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+            <div
+              aria-hidden="true"
+              className="
+          pointer-events-none
+          absolute -bottom-10 -right-10
+          h-44 w-44 sm:h-52 sm:w-52
+          opacity-[0.20]
+          blur-[0.2px]
+        "
             >
-              نحوهٔ کار
-            </a>
+              <div className="relative h-full w-full">
+                <Image
+                  src="/images/Firefox_logo.png"
+                  alt=""
+                  fill
+                  sizes="220px"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+            <div
+              aria-hidden="true"
+              className="
+          pointer-events-none
+          absolute -bottom-10 -left-10
+          h-44 w-44 sm:h-52 sm:w-52
+          opacity-[0.20]
+          blur-[0.2px]
+        "
+            >
+              <div className="relative h-full w-full">
+                <Image
+                  src="/images/Edge_logo.png"
+                  alt=""
+                  fill
+                  sizes="220px"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+
+            <h3
+              className="
+          text-xl sm:text-2xl md:text-[1.7rem] lg:text-[2.1rem]
+          font-black
+          text-[color:var(--pn-text)]
+        "
+            >
+              ویرایش فارسی در وب، همین حالا
+            </h3>
+
+            <p
+              className="
+          mx-auto mt-3
+          max-w-2xl md:max-w-3xl lg:max-w-4xl
+          text-sm sm:text-base lg:text-[1.05rem]
+          leading-8
+          text-[color:var(--pn-muted)]
+        "
+            >
+              پاکنویس به شما کمک می‌کند تا متون خود را دقیق و سریع ویرایش کنید؛
+              اشتباهات نگارشی و املایی را اصلاح و انرژی بیشتری برای ایده‌های خلاقانه
+              داشته باشید.
+            </p>
+
+            <div className="mt-7 lg:mt-8 flex justify-center">
+              <a
+                href="/downloads/word"
+                className="
+            pn-btn pn-btn-primary
+            text-sm sm:text-base lg:text-[1.05rem]
+            px-8 lg:px-10 lg:h-12
+            inline-flex items-center gap-2 flex-row-reverse
+          "
+              >
+
+                <span>افزودن به Chrome</span>
+              </a>
+            </div>
           </div>
         </div>
-
       </section>
 
     </div>

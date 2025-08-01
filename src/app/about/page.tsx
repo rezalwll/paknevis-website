@@ -108,16 +108,16 @@ export default function AboutPage() {
   return (
     <main
       dir="rtl"
-      className="bg-gradient-to-b from-slate-50 via-white to-white text-slate-800"
+      className="bg-gradient-to-b from-slate-50/40 via-white to-white text-slate-800"
     >
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-l from-emerald-50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-l from-emerald-50/30 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 lg:px-10">
           {/* هیروی اصلی */}
           <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] items-center">
             <div className="space-y-4 text-right">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-relaxed text-slate-900">
-                همراه نوشتار فارسی؛ از ۱۳۹۶ تا امروز
+                همراه نوشتار فارسی
               </h1>
               <p className="text-sm sm:text-base leading-7 text-slate-600 max-w-3xl">
                 پاک‌نویس با هدف افزایش دقت و سرعت نویسندگان فارسی ایجاد شد. هدف
@@ -128,10 +128,10 @@ export default function AboutPage() {
 
             <div className="relative">
               <div
-                className="absolute -inset-5 rounded-3xl bg-emerald-100 blur-3xl opacity-60"
+                className="absolute -inset-5 rounded-3xl bg-emerald-30 blur-3xl opacity-60"
                 aria-hidden
               />
-              <div className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-xl shadow-emerald-50">
+              <div className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-xl shadow-emerald-50/30">
                 <img
                   src="/images/Online editor.png"
                   alt="تصویر تیم یا محصول پاک‌نویس"
@@ -142,7 +142,7 @@ export default function AboutPage() {
           </section>
 
           {/* هیرو دوم: داستان ما */}
-          <section className="mt-14 overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-l from-white via-emerald-50 to-white p-6 shadow-lg shadow-emerald-50">
+          <section className="mt-14 overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-l from-white via-emerald-50/30 to-white p-6 shadow-lg shadow-emerald-50/30">
             <div className="grid gap-6 lg:grid-cols-[0.5fr_1fr] items-center">
               <div className="space-y-4">
                 <div className="text-right space-y-2">
@@ -167,7 +167,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white/80 border border-emerald-100 p-5 shadow-inner shadow-emerald-50">
+              <div className="rounded-2xl bg-white/80 border border-emerald-100 p-5 shadow-inner shadow-emerald-50/30">
                 <p className="text-sm sm:text-base leading-7 text-slate-700 whitespace-pre-line">
                   {aboutBody}
                 </p>
@@ -219,159 +219,168 @@ export default function AboutPage() {
                 viewBox="0 0 48 48"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.6"
+                strokeWidth="2.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden="true"
               >
-                <path d="M10 16h28" />
-                <path d="M16 16v12" />
-                <path d="M24 16v12" />
-                <path d="M32 16v12" />
-                <circle cx="16" cy="12" r="3" />
-                <circle cx="24" cy="12" r="3" />
-                <circle cx="32" cy="12" r="3" />
-                <circle cx="16" cy="32" r="3" />
-                <circle cx="24" cy="32" r="3" />
-                <circle cx="32" cy="32" r="3" />
+                {/* خط افقی وسط */}
+                <path d="M10 22H38" />
+
+                {/* سه شاخه بالا */}
+                <path d="M14 22V13" />
+                <path d="M24 22V13" />
+                <path d="M34 22V13" />
+
+                {/* دو شاخه پایین (بین شاخه‌های بالا) */}
+                <path d="M19 22V31" />
+                <path d="M29 22V31" />
+
+                {/* دایره‌های بالا */}
+                <circle cx="14" cy="10" r="3" />
+                <circle cx="24" cy="10" r="3" />
+                <circle cx="34" cy="10" r="3" />
+
+                {/* دایره‌های پایین */}
+                <circle cx="19" cy="34" r="3" />
+                <circle cx="29" cy="34" r="3" />
               </svg>
+
               <p className="mt-3 text-2xl font-extrabold text-[#001A4B]">
                 این تازه یک شروعه
               </p>
             </div>
 
             <div className="relative mt-10">
-  {/* ✅ MOBILE/TABLET (<lg) — عمودی + کارت چسبیده به خط قرمز */}
-<div  dir="ltr" className="lg:hidden [--rail:28px] [--conn:42px] [--gutter:calc(var(--rail)+var(--conn)+48px)] ">
-  <ol
-    className="
+              {/* ✅ MOBILE/TABLET (<lg) — عمودی + کارت چسبیده به خط قرمز */}
+              <div dir="ltr" className="lg:hidden [--rail:28px] [--conn:42px] [--gutter:calc(var(--rail)+var(--conn)+48px)] ">
+                <ol
+                  className="
       relative mx-auto max-w-3xl px-4
       before:content-[''] before:absolute
       before:left-[var(--rail)] before:top-0 before:bottom-0
       before:w-[2px] before:bg-[#001A4B]
       space-y-10
     "
-  >
-    {/* فلش پایین کنار خط (مثل عکس) */}
-    <div className="pointer-events-none absolute left-[var(--rail)] -top-6 -translate-x-1/2">
-      <svg
-        className="h-6 w-6 text-[#001A4B]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 5v14" />
-        <path d="M7 14l5 5 5-5" />
-      </svg>
-    </div>
+                >
+                  {/* فلش پایین کنار خط (مثل عکس) */}
+                  <div className="pointer-events-none absolute left-[var(--rail)] -top-6 -translate-x-1/2">
+                    <svg
+                      className="h-6 w-6 text-[#001A4B]"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 5v14" />
+                      <path d="M7 14l5 5 5-5" />
+                    </svg>
+                  </div>
 
-    {milestones.map((item, idx) => (
-      <li
-        key={`${item.year}-${idx}`}
-        className="grid grid-cols-[calc(var(--rail)+var(--conn))_1fr] items-center"
-      >
-        {/* ستون چپ: نقطه + کانکتور + خط قرمز (لبه‌ی ستون) */}
-        <div className="relative h-[240px]">
-          {/* نقطه روی ریل */}
-          <span
-            className="
+                  {milestones.map((item, idx) => (
+                    <li
+                      key={`${item.year}-${idx}`}
+                      className="grid grid-cols-[calc(var(--rail)+var(--conn))_1fr] items-center"
+                    >
+                      {/* ستون چپ: نقطه + کانکتور + خط قرمز (لبه‌ی ستون) */}
+                      <div className="relative h-[240px]">
+                        {/* نقطه روی ریل */}
+                        <span
+                          className="
               absolute left-[var(--rail)] top-1/2
               -translate-x-1/2 -translate-y-1/2
               h-3 w-3 rounded-full bg-[#001A4B]
             "
-          />
-          {/* کانکتور تا مرز ستون */}
-          <span
-            className="
+                        />
+                        {/* کانکتور تا مرز ستون */}
+                        <span
+                          className="
               absolute left-[var(--rail)] top-1/2
               -translate-y-1/2
               h-px w-[calc(100%-var(--rail))] bg-[#001A4B]
             "
-          />
-          {/* خط قرمز دقیقاً روی مرز ستون => کارت می‌چسبه */}
-          <span
-            className="
+                        />
+                        {/* خط قرمز دقیقاً روی مرز ستون => کارت می‌چسبه */}
+                        <span
+                          className="
               absolute right-0 top-1/2
               -translate-y-1/2
               h-10 w-[2px] bg-red-600
             "
-          />
-        </div>
+                        />
+                      </div>
 
-        {/* ستون راست: کارت (بدون gap => چسبیده به خط قرمز) */}
-        <div className="justify-self-start">
-          <div className="w-[min(340px,calc(100vw-var(--gutter)))]">
-            <div
-              className="
+                      {/* ستون راست: کارت (بدون gap => چسبیده به خط قرمز) */}
+                      <div className="justify-self-start">
+                        <div className="w-[min(340px,calc(100vw-var(--gutter)))]">
+                          <div
+                            className="
                 relative h-[240px] w-full
                 rounded-[18px]
                 border border-slate-200/80
-                bg-gradient-to-b from-slate-50 to-white
+                bg-gradient-to-b from-slate-50/40 to-white
                 shadow-[0_18px_44px_rgba(15,23,42,0.08)]
                 px-5 py-4
                 flex flex-col items-center justify-between
               "
-              style={{
-                fontFamily: "IRANYekanXFaNum, Vazirmatn, system-ui, sans-serif",
-              }}
-            >
-              <div className="w-full text-center">
-                <div className="text-xl font-extrabold text-slate-700">{item.year}</div>
-                <div className="mx-auto mt-2 h-px w-28 bg-red-600" />
+
+                          >
+                            <div className="w-full text-center">
+                              <div className="text-xl font-extrabold text-slate-700">{item.year}</div>
+                              <div className="mx-auto mt-2 h-px w-28 bg-red-600" />
+                            </div>
+
+                            <div className="flex justify-center">
+                              <MilestoneIcon index={idx} />
+                            </div>
+
+                            <div className="text-center">
+                              <div className="text-[18px] font-extrabold text-[#001A4B] leading-7">
+                                {item.title}
+                              </div>
+                              <div className="mt-2 text-sm text-slate-600 leading-7">
+                                {item.desc}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
               </div>
 
-              <div className="flex justify-center">
-                <MilestoneIcon index={idx} />
-              </div>
 
-              <div className="text-center">
-                <div className="text-[18px] font-extrabold text-[#001A4B] leading-7">
-                  {item.title}
-                </div>
-                <div className="mt-2 text-sm text-slate-600 leading-7">
-                  {item.desc}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-    ))}
-  </ol>
-</div>
-
-
-  {/* =========================
+              {/* =========================
       ✅ DESKTOP (lg+) — افقی (کد خودت)
      ========================= */}
-  <div className="hidden lg:block">
-    <div className="pointer-events-none absolute left-0 right-0 bottom-8 h-px bg-[#001A4B]" />
+              <div className="hidden lg:block">
+                <div className="pointer-events-none absolute left-0 right-0 bottom-8 h-px bg-[#001A4B]" />
 
-    <div className="pointer-events-none absolute right-0 bottom-8 -translate-y-1/2">
-      <svg
-        className="h-5 w-5 text-[#001A4B]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M20 12H6" />
-        <path d="M10 8l-4 4 4 4" />
-      </svg>
-    </div>
+                <div className="pointer-events-none absolute right-0 bottom-8 -translate-y-1/2">
+                  <svg
+                    className="h-5 w-5 text-[#001A4B]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 12H6" />
+                    <path d="M10 8l-4 4 4 4" />
+                  </svg>
+                </div>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 items-end">
-      {milestones.map((item, idx) => (
-        <div key={item.year} className="min-w-0 flex flex-col items-center h-full">
-          <div
-            className="
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 items-end">
+                  {milestones.map((item, idx) => (
+                    <div key={item.year} className="min-w-0 flex flex-col items-center h-full">
+                      <div
+                        className="
               relative w-full h-[240px]
               px-4 py-3
               flex flex-col items-center justify-between
@@ -379,38 +388,38 @@ export default function AboutPage() {
               rounded-lg border border-[#e1e1e1]
               outline-none
             "
-            style={{ fontFamily: "IRANYekanXFaNum, Vazirmatn, system-ui, sans-serif" }}
-          >
-            <div className="w-full text-center">
-              <div className="text-xl font-extrabold text-slate-700">{item.year}</div>
-              <div className="mx-auto mt-2 h-px w-24 bg-red-600" />
-            </div>
 
-            <div className="flex justify-center">
-              <MilestoneIcon index={idx} />
-            </div>
+                      >
+                        <div className="w-full text-center">
+                          <div className="text-xl font-extrabold text-slate-700">{item.year}</div>
+                          <div className="mx-auto mt-2 h-px w-24 bg-red-600" />
+                        </div>
 
-            <div className="text-center">
-              <div className="text-[16px] font-extrabold leading-7 text-[#001A4B]">
-                {item.title}
+                        <div className="flex justify-center">
+                          <MilestoneIcon index={idx} />
+                        </div>
+
+                        <div className="text-center">
+                          <div className="text-[16px] font-extrabold leading-7 text-[#001A4B]">
+                            {item.title}
+                          </div>
+                          <div className="mt-2 text-xs text-slate-600 leading-6">
+                            {item.desc}
+                          </div>
+                        </div>
+
+                        <div className="absolute left-1/2 -translate-x-1/2 -bottom-px h-px w-16 bg-red-600" />
+                      </div>
+
+                      <div className="relative h-[72px] w-full">
+                        <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[34px] w-px bg-[#001A4B]" />
+                        <div className="absolute left-1/2 top-[34px] -translate-x-1/2 h-3 w-3 rounded-full bg-[#001A4B]" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="mt-2 text-xs text-slate-600 leading-6">
-                {item.desc}
-              </div>
             </div>
-
-            <div className="absolute left-1/2 -translate-x-1/2 -bottom-px h-px w-16 bg-red-600" />
-          </div>
-
-          <div className="relative h-[72px] w-full">
-            <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[34px] w-px bg-[#001A4B]" />
-            <div className="absolute left-1/2 top-[34px] -translate-x-1/2 h-3 w-3 rounded-full bg-[#001A4B]" />
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
 
 
           </section>
@@ -422,8 +431,8 @@ export default function AboutPage() {
 
 function Badge({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-emerald-700 border border-emerald-100 shadow-sm">
+    <span className="inline-flex items-center rounded-full bg-emerald-50/30 px-3 py-1 text-emerald-700 border border-emerald-100 shadow-sm">
       {children}
-    </span> 
+    </span>
   );
 }

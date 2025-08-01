@@ -12,7 +12,14 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "ویرایشگر برخط", href: "/editor" },
+  {
+    label: "ویرایشگر برخط",
+    href: "#",
+    children: [
+      { label: "ویرایشگر برخط", href: "https://editor.paknevis.ir" },
+      { label: "پیشنهاد علائم نگارشی", href: "https://ai.paknevis.ir" },
+    ],
+  },
   {
     label: "دانلود",
     href: "",
@@ -20,7 +27,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "افزونه ورد", href: "/downloads/word" },
       { label: "افزونه کروم", href: "/downloads/chrome" },
       { label: "کیبورد", href: "/downloads/keyboard" },
-      { label: "ویرایشگر برخط", href: "/editor" },
+      { label: "ویرایشگر برخط", href: "https://editor.paknevis.ir" },
       { label: "k1", href: "/downloads/k1" },
       { label: "k2", href: "/downloads/k2" },
       { label: "k3", href: "/downloads/k3" },
@@ -145,7 +152,7 @@ const Header = () => {
                   )}
                   {item.children && (
                     <ul
-                      className={`absolute top-full right-0 bg-white shadow rounded overflow-hidden transform transition-all duration-300 origin-top
+                      className={`absolute top-7 right-0 bg-white shadow rounded overflow-hidden transform transition-all duration-300 origin-top
                     ${isDropdownOpen
                           ? "opacity-100 scale-y-100"
                           : "opacity-0 scale-y-0"
