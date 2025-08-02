@@ -1,6 +1,72 @@
 import Image from "next/image";
-import Hero from "../../../components/Hero";
-
+import {
+  Keyboard as KeyboardIcon,
+  QrCode,
+  Download,
+  Smartphone,
+  ShieldCheck,
+  WandSparkles,
+  ReplaceAll,
+  Type as TypeIcon,
+  CheckCircle2,
+  Globe,
+  Zap,
+  Languages,
+} from "lucide-react";
+// کارت ساده
+function SCard({ title, icon, children, className = "" }: { title?: React.ReactNode; icon?: React.ReactNode; children?: React.ReactNode; className?: string }) {
+  return (
+    <div className={`rounded-2xl border border-gray-200 bg-white shadow-sm ${className}`}>
+      {(title || icon) && (
+        <div className="p-5 flex items-center gap-3">
+          {icon}
+          {title && <h3 className="font-bold text-gray-900">{title}</h3>}
+        </div>
+      )}
+      <div className={`${title || icon ? "pt-0" : ""} p-5`}>{children}</div>
+    </div>
+  );
+}
+function Card({
+  children,
+  className = "",
+  as: As = "div",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  as?: any;
+}) {
+  return (
+    <As
+      className={`rounded-2xl border border-gray-200 bg-white shadow-sm ${className}`}
+    >
+      {children}
+    </As>
+  );
+}
+function CardHeader({ children, className = "" }: any) {
+  return <div className={`p-5 ${className}`}>{children}</div>;
+}
+function CardTitle({ children, className = "" }: any) {
+  return <h3 className={`font-bold text-gray-900 ${className}`}>{children}</h3>;
+}
+function CardContent({ children, className = "" }: any) {
+  return <div className={`p-5 pt-0 ${className}`}>{children}</div>;
+}
+const APP = {
+  name: "کیبورد اندروید پاک‌نویس",
+  slug: "pakanavis-keyboard",
+  version: "v1.0.0",
+  size: "18 MB",
+  minAndroid: "Android 8.0+ (Oreo)",
+  lastUpdate: "01 Nov 2025",
+  apkUrl: "https://example.com/pakanavis-keyboard.apk", // TODO
+  gpUrl: "https://play.google.com/store/apps/details?id=ir.pakanavis.keyboard", // TODO
+  bazaarUrl: "https://cafebazaar.ir/app/ir.pakanavis.keyboard", // TODO
+  myketUrl: "https://myket.ir/app/ir.pakanavis.keyboard", // TODO
+  privacyUrl: "#privacy",
+  changelogUrl: "#changelog",
+};
 export default function ChromeExtensionDownloadPage() {
   return (
     <div
@@ -90,14 +156,14 @@ export default function ChromeExtensionDownloadPage() {
                   className="object-contain scale-[2] pointer-events-none pr-20 pb-16"
                 />
                 <div className="relative overflow-hidden scale-80 flex items-center justify-center py-10">
-                <Image
-                  src="/images/iphone.png"
-                  alt=""
-                  fill
-                  priority
-                  sizes=""
-                  className="object-contain pointer-events-none absolute"
-                />
+                  <Image
+                    src="/images/iphone.png"
+                    alt=""
+                    fill
+                    priority
+                    sizes=""
+                    className="object-contain pointer-events-none absolute"
+                  />
                   <video
                     autoPlay
                     loop
@@ -114,133 +180,92 @@ export default function ChromeExtensionDownloadPage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-20 px-6 bg-[color:var(--pn-p6)]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center ">
-          <div className=" order-2 text-right">
-            <h2 className="text-3xl font-bold">چرا پاکنویس در وب؟</h2>
-            <p className="mt-4 text-gray-600 leading-relaxed">
-              هنگام نوشتن در فرم‌ها، ایمیل‌ها و اسناد آنلاین، پاکنویس به‌صورت
-              بلادرنگ خطاها را شناسایی و اصلاح می‌کند تا روی ایده‌های خلاقانه
-              تمرکز کنید، نه روی جزئیات خسته‌کنندهٔ تایپ.
-            </p>
-            <ul className="mt-6 space-y-3">
-              <li className="flex items-start gap-2 text-gray-700">
-                <Image
-                  src="/mainlogo.png"
-                  alt="پاک‌نویس"
-                  width={20}
-                  height={20}
-                  className="mt-0.5 h-5 w-5 shrink-0"
-                />
-                <span>تشخیص خودکار غلط‌های رایج فارسی و پیشنهاد جایگزین</span>
-              </li>
-              <li className="flex items-start gap-2 text-gray-700">
-                <Image
-                  src="/mainlogo.png"
-                  alt="پاک‌نویس"
-                  width={20}
-                  height={20}
-                  className="mt-0.5 h-5 w-5 shrink-0"
-                />
-                <span>تطابق با استانداردهای نگارش فارسی و نشانه‌گذاری</span>
-              </li>
-              <li className="flex items-start gap-2 text-gray-700">
-                <Image
-                  src="/mainlogo.png"
-                  alt="پاک‌نویس"
-                  width={20}
-                  height={20}
-                  className="mt-0.5 h-5 w-5 shrink-0"
-                />
-                <span>کار در جیمیل، گوگل‌شیت، شبکه‌های اجتماعی و اغلب ابزارهای وب</span>
-              </li>
-              <li className="flex items-start gap-2 text-gray-700">
-                <Image
-                  src="/mainlogo.png"
-                  alt="پاک‌نویس"
-                  width={20}
-                  height={20}
-                  className="mt-0.5 h-5 w-5 shrink-0"
-                />
-                <span>تجربهٔ سریع و روان؛ سبک و کم‌مصرف</span>
-              </li>
+      <section id="features" className="mx-auto max-w-7xl px-4 py-20">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">چرا این کیبورد با بقیه فرق داره؟</h2>
+        <div className="grid md:grid-cols-3 gap-5">
+          {[
+            { icon: WandSparkles, title: "اصلاح آنی", desc: "املا، نیم‌فاصله، نشانه‌گذاری." },
+            { icon: ReplaceAll, title: "هوشمند و روان", desc: "پیشنهادهای دقیق مطابق رفتار شما." },
+            { icon: ShieldCheck, title: "حریم خصوصی", desc: "هیچ متنی بدون رضایت شما ارسال نمی‌شود." },
+            { icon: Globe, title: "سازگار با همه‌جا", desc: "پیام‌رسان، مرورگر، فرم‌های وب و… ." },
+            { icon: Zap, title: "پرسرعت و سبک", desc: "پاسخ‌گویی سریع و مصرف پایین باتری." },
+            { icon: Languages, title: "چندزبانه", desc: "تمرکز ویژه روی فارسی و چینش استاندارد." },
+          ].map(({ icon: Icon, title, desc }) => (
+            <SCard
+              key={title}
+              title={<span className="text-base">{title}</span>}
+              icon={
+                <div className="h-10 w-10 rounded-xl bg-indigo-50 border border-indigo-100 grid place-items-center">
+                  <Icon className="h-5 w-5 text-indigo-700" />
+                </div>
+              }
+            >
+              <p className="text-sm text-gray-700 leading-7">{desc}</p>
+            </SCard>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-20">
+        <h2 className="text-2xl font-extrabold text-gray-900 mb-8">
+          راه‌اندازی در چهار قدم
+        </h2>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm leading-7 text-gray-700">
+          {[
+            {
+              step: "۱",
+              title: "دانلود و نصب",
+              body: "فایل APK را نصب کن یا از پلی/بازار/مایکت بگیر.",
+            },
+            {
+              step: "۲",
+              title: "فعال‌سازی",
+              body: "برو به Settings → System → Languages & input → On-screen keyboard → Manage keyboards و پاک‌نویس رو روشن کن.",
+            },
+            {
+              step: "۳",
+              title: "کیبورد پیش‌فرض",
+              body: "همان‌جا یا از پایین صفحه تایپ، پاک‌نویس رو به کیبورد اصلی گوشی انتخاب کن.",
+            },
+            {
+              step: "۴",
+              title: "شخصی‌سازی",
+              body: "کلید نیم‌فاصله، استایل، و حالت Performance رو از بخش تنظیمات داخل خود کیبورد ست کن.",
+            },
+          ].map((b) => (
+            <div
+              key={b.step}
+              className="rounded-2xl border border-gray-200 bg-white shadow-sm p-4 flex flex-col"
+            >
+              <div className="text-xs text-indigo-700 font-medium bg-indigo-50 border border-indigo-200 rounded-lg w-fit px-2 py-1 mb-3">
+                قدم {b.step}
+              </div>
+              <div className="font-bold text-gray-900 mb-2">{b.title}</div>
+              <div className="text-gray-700">{b.body}</div>
+            </div>
+          ))}
+        </div>
+
+
+      </section>
+
+
+
+      <section id="changelog" className="mx-auto max-w-7xl px-4 pb-20">
+        <Card>
+          <CardHeader>
+            <CardTitle>تغییرات آخرین نسخه</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm text-gray-700 leading-8">
+            <ul className="list-disc pr-5 space-y-2">
+              <li>بهبود هوش اصلاح نشانه‌گذاری و نیم‌فاصله</li>
+              <li>کاهش مصرف رم در دستگاه‌های ضعیف</li>
+              <li>رفع باگ جابجایی نشانگر در برخی اپ‌ها</li>
             </ul>
-          </div>
-          <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg
-          :max-w-xl rounded-3xl">
-            <div className="relative overflow-hidden ">
-              <img
-                src="/images/Online editor.png"
-                alt="پشتیبانی از نسخه‌های مختلف Word"
-                className="h-auto w-full rounded-2xl"
-              />
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </section>
-
-      {/* How it works */}
-      <section id="how-it-works" className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="text-right">
-            <h2 className="text-3xl font-bold">راهنمای نصب و فعال‌سازی</h2>
-            <ol className="mt-6 space-y-4 text-gray-700">
-              <li className="flex items-start gap-3">
-                <span className="mt-1 h-6 w-6 rounded-full bg-[color:var(--color-primary-500)] text-white flex items-center justify-center text-sm">
-                  1
-                </span>
-                <div>
-                  <div className="font-semibold">افزودن به Chrome</div>
-                  <div className="text-gray-600">
-                    از فروشگاه کروم افزونه را نصب کنید و آیکون پاکنویس را در
-                    نوار ابزار ببینید.
-                  </div>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 h-6 w-6 rounded-full bg-[color:var(--color-primary-500)] text-white flex items-center justify-center text-sm">
-                  2
-                </span>
-                <div>
-                  <div className="font-semibold">فعال‌سازی در صفحهٔ وب</div>
-                  <div className="text-gray-600">
-                    روی هر فیلد نوشتاری بروید؛ پاکنویس به‌صورت خودکار فعال و
-                    پیشنهادها را نشان می‌دهد.
-                  </div>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 h-6 w-6 rounded-full bg-[color:var(--color-primary-500)] text-white flex items-center justify-center text-sm">
-                  3
-                </span>
-                <div>
-                  <div className="font-semibold">اعمال با یک کلیک</div>
-                  <div className="text-gray-600">
-                    پیشنهادها را بررسی و با یک کلیک اعمال کنید؛ متن شما بی‌نقص
-                    می‌شود.
-                  </div>
-                </div>
-              </li>
-            </ol>
-
-          </div>
-          <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg
-          :max-w-xl rounded-3xl">
-            <div className="relative overflow-hidden ">
-              <img
-                src="/images/Online editor.png"
-                alt="پشتیبانی از نسخه‌های مختلف Word"
-                className="h-auto w-full rounded-2xl"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* Final CTA */}
 
 
 
@@ -273,7 +298,7 @@ export default function ChromeExtensionDownloadPage() {
               aria-hidden="true"
               className="
           pointer-events-none
-          absolute -top-10 -left-10
+          absolute -bottom-35 -left-10
           h-44 w-44 sm:h-52 sm:w-52
           opacity-[0.20]
           blur-[0.2px]
@@ -281,10 +306,10 @@ export default function ChromeExtensionDownloadPage() {
             >
               <div className="relative h-full w-full">
                 <Image
-                  src="/images/google-chrome.png"
+                  src="/images/icons8-android.svg"
                   alt=""
                   fill
-                  sizes="220px"
+                  sizes=""
                   className="object-contain"
                 />
               </div>
@@ -293,7 +318,7 @@ export default function ChromeExtensionDownloadPage() {
               aria-hidden="true"
               className="
           pointer-events-none
-          absolute -bottom-10 -right-10
+          absolute top-10 right-0
           h-44 w-44 sm:h-52 sm:w-52
           opacity-[0.20]
           blur-[0.2px]
@@ -301,7 +326,7 @@ export default function ChromeExtensionDownloadPage() {
             >
               <div className="relative h-full w-full">
                 <Image
-                  src="/images/Firefox_logo.png"
+                  src="/images/icons8-android.svg"
                   alt=""
                   fill
                   sizes="220px"
@@ -320,13 +345,13 @@ export default function ChromeExtensionDownloadPage() {
         "
             >
               <div className="relative h-full w-full">
-                <Image
+                {/* <Image
                   src="/images/Edge_logo.png"
                   alt=""
                   fill
                   sizes="220px"
                   className="object-contain"
-                />
+                /> */}
               </div>
             </div>
 
@@ -337,7 +362,7 @@ export default function ChromeExtensionDownloadPage() {
           text-[color:var(--pn-text)]
         "
             >
-              ویرایش فارسی در وب، همین حالا
+              تایپ فارسی بدون غلط
             </h3>
 
             <p
@@ -349,23 +374,33 @@ export default function ChromeExtensionDownloadPage() {
           text-[color:var(--pn-muted)]
         "
             >
-              پاکنویس به شما کمک می‌کند تا متون خود را دقیق و سریع ویرایش کنید؛
-              اشتباهات نگارشی و املایی را اصلاح و انرژی بیشتری برای ایده‌های خلاقانه
-              داشته باشید.
+              کیبورد اندروید پاک‌نویس با اصلاح املایی، نگارشی و نشانه‌گذاری در لحظه، متن‌های شما را در همهٔ اپ‌ها تمیز و حرفه‌ای می‌کند
             </p>
 
-            <div className="mt-7 lg:mt-8 flex justify-center">
+            <div className="mt-7 lg:mt-8 flex justify-center gap-12">
               <a
                 href="/downloads/word"
-                className="
-            pn-btn pn-btn-primary
-            text-sm sm:text-base lg:text-[1.05rem]
-            px-8 lg:px-10 lg:h-12
-            inline-flex items-center gap-2 flex-row-reverse
-          "
+                className=""
               >
+                <Image
+                  src="/images/bazar.png"
+                  alt="پاک‌نویس"
+                  width={200}
+                  height={200}
+                  className="mt-1  shrink-0"
+                />               </a>
 
-                <span>افزودن به Chrome</span>
+              <a
+                href="/downloads/chrome"
+                className=""
+              >
+                <Image
+                  src="/images/myket.png"
+                  alt="پاک‌نویس"
+                  width={207}
+                  height={200}
+                  className="  shrink-0"
+                />
               </a>
             </div>
           </div>

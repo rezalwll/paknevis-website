@@ -66,16 +66,16 @@ export default function HomePage() {
       </section>
 
       {/* Download banner */}
-      <section dir="rtl" className="mt-30 px-4 pb-16 md:pb-20 bg-[color:var(--pn-bg)]">
-        <div className="mx-auto max-w-6xl">
+      <section dir="rtl" className="mt-40 px-4 pb-16 md:pb-20 bg-[color:var(--pn-bg)] bg-[linear-gradient(rgba(255,255,255,0.13),rgba(0,204,255,0.13))]">
+        <div className="mx-auto max-w-6xl ">
           <div
             className="
               relative rounded-[18px]
-              bg-[color:var(--pn-bg)]
+              bg-[color:var(--pn-bg)] shadow-[0_0_10px_#ccf7ff]
               border border-[color:var(--pn-border)]
               p-8 text-center
-              transition-[transform,box-shadow,border-color] duration-200 ease-out
-              hover:border-[color:var(--pn-accent-2)]
+              
+              
             "
           >
             <h3 className="mt-3 text-xl font-black sm:text-2xl">
