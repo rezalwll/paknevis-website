@@ -13,7 +13,7 @@ export default function ChromeExtensionDownloadPage() {
         className="
         bg-[color:var(--pn-bg)]
         text-[color:var(--pn-text)]
-        py-16 md:py-20 lg:py-24 
+        
       "
       >
         <div className="mx-auto max-w-5xl lg:max-w-6xl 2xl:max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -47,16 +47,27 @@ export default function ChromeExtensionDownloadPage() {
               <div className="mt-6 flex flex-wrap justify-start gap-3">
                 <a
                   href="/downloads/word"
-                  className="pn-btn pn-btn-primary"
+                  className=""
                 >
-                  دانلود افزونهٔ کروم
-                </a>
+                  <Image
+                    src="/images/bazar.png"
+                    alt="پاک‌نویس"
+                    width={200}
+                    height={200}
+                    className="mt-1  shrink-0"
+                  />               </a>
 
                 <a
                   href="/downloads/chrome"
-                  className="pn-btn pn-btn-outline2"
+                  className=""
                 >
-                  دانلود افزونهٔ  فایرفاکس
+                  <Image
+                    src="/images/myket.png"
+                    alt="پاک‌نویس"
+                    width={207}
+                    height={200}
+                    className="  shrink-0"
+                  />
                 </a>
               </div>
             </div>
@@ -70,13 +81,29 @@ export default function ChromeExtensionDownloadPage() {
                 
               "
               >
-                <div className="relative overflow-hidden ">
+                <Image
+                  src="/images/sds.jpg"
+                  alt=""
+                  fill
+                  priority
+                  sizes=""
+                  className="object-contain scale-[2] pointer-events-none pr-20 pb-16"
+                />
+                <div className="relative overflow-hidden scale-80 flex items-center justify-center py-10">
+                <Image
+                  src="/images/iphone.png"
+                  alt=""
+                  fill
+                  priority
+                  sizes=""
+                  className="object-contain pointer-events-none absolute"
+                />
                   <video
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className={`w-[60%] h-auto rounded-xl mx-auto`}
+                    className={`w-[60%] h-auto rounded-xl mx-auto  z-10 scale-90 pr-5`}
                   >
                     <source src="/images/android.mp4" type="video/mp4" />
                   </video>
