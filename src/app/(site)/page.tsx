@@ -1,7 +1,7 @@
-import Hero from "../components/Hero";
-import ClientsMarquee from "../components/ClientsMarquee";
-import HeroSticky from "../components/HeroSticky";
-import StatsSection from "../components/StatsSection";
+import Hero from "@/components/Hero";
+import ClientsMarquee from "@/components/ClientsMarquee";
+import HeroSticky from "@/components/HeroSticky";
+import StatsSection from "@/components/StatsSection";
 
 export default function HomePage() {
   return (

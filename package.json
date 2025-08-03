@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "bootstrap:admin": "node --env-file=.env scripts/bootstrap-admin.mjs"
   },
   "dependencies": {
     "-": "^0.0.1",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ComponentType, SVGProps } from "react";
-import EnterprisePricingCarousel from "../../components/EnterprisePricingCarousel";
-import ClientsMarquee from "../../components/ClientsMarquee";
+import EnterprisePricingCarousel from "@/components/EnterprisePricingCarousel";
+import ClientsMarquee from "@/components/ClientsMarquee";
 import {
   BadgeCheck,
   BookCheck,

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
+
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "پاک‌نویس | نرم‌افزار ویرایش متن فارسی",
@@ -15,28 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" >
+    <html lang="fa">
       <head>
         <title></title>
-        {/* <link
-          href="https://cdn.jsdelivr.net/npm/typeface-iranyekan@0.0.11/index.css"
-          rel="stylesheet"
-          type="text/css"
-        /> */}
         <link
           rel="icon"
           type="image/x-icon"
           href="https://paknevis.ir/static/web_client/favicon.ico"
         />
       </head>
-      <body>
-        <Header />
-        {/* <main className="flex-grow container mx-auto mt-10 px-4 sm:px-6 md:px-0"> */}
-        <main className="">
-          {children}
-        </main>
-        <Footer />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
