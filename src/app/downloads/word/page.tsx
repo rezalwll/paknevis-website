@@ -165,7 +165,7 @@ function CompatibilityHero() {
           :max-w-xl rounded-3xl">
             <div className="relative overflow-hidden ">
               <img
-                src="/images/Wavy_Bus-25_Single-11.jpg"
+                src="/images/word3.jpg"
                 alt="پشتیبانی از نسخه‌های مختلف Word"
                 className="h-auto w-full rounded-2xl"
               />
@@ -249,14 +249,16 @@ export default function Home() {
       <section
         dir="rtl"
         className="
-    mt-16 md:mt-20
+    
     px-4 pb-16 md:pb-24
     bg-[color:var(--pn-bg)]
   "
       >
-        <div className="mx-auto max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-7xl">
+        <div className=" mx-auto max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-7xl">
+
           <div
             className="
+            
         relative
         rounded-[22px]
         border border-[color:var(--pn-border)]
@@ -270,6 +272,26 @@ export default function Home() {
         
       "
           >
+            <div
+              aria-hidden="true"
+              className="
+                  pointer-events-none
+                         absolute bottom-35 left-10
+                   h-34 w-34 sm:h-34 sm:w-34
+                      opacity-[0.20]
+                      blur-[0.2px]
+                       "
+            >
+              <div className="relative h-full w-full">
+                <Image
+                  src="/images/word-icon.png"
+                  alt=""
+                  fill
+                  sizes=""
+                  className="object-contain"
+                />
+              </div>
+            </div>
             <h3
               className="
           text-xl sm:text-2xl md:text-[1.7rem] lg:text-[2.1rem]

@@ -13,10 +13,10 @@ export default function HomePage() {
             <>
               <span className="block">پاک‌نویس</span>
               <span className="block">ویرایش هوشمند متن فارسی</span>
-              <span className="block">هر جا که می‌نویسید</span>
+              {/* <span className="block">هر جا که می‌نویسید</span> */}
             </>
           }
-          description="پاک‌نویس ویرایشگری هوشمند برای نوشته‌های فارسی شماست. این ابزار به شما کمک می‌کند متن‌های خود را بدون غلط املایی و نگارشی، استاندارد و حرفه‌ای بنویسید. پاک‌نویس در قالب افزونهٔ وُرد، افزونهٔ مرورگر، کیبورد اندروید و نسخهٔ برخط در دسترس است."
+          description=" پاک‌نویس به شما کمک می‌کند متن‌های خود را بدون غلط املایی و نگارشی، استاندارد و حرفه‌ای بنویسید. پاک‌نویس در قالب افزونهٔ وُرد، افزونهٔ مرورگر، کیبورد اندروید و نسخهٔ برخط در دسترس است."
           useVideo={true}
           showCards={true}
           videoSrc="/images/video 1_3.mp4"
@@ -38,15 +38,7 @@ export default function HomePage() {
       </section>
 
 
-      {/* لوگو / مارکی مشتری‌ها */}
-      {/* <section className="text-center px-4 bg-[color:var(--pn-bg)] mt-5">
-        <h2 className="text-lg sm:text-xl md:text-xl font-bold mb-6 sm:mb-8 md:mb-10 text-[color:var(--pn-muted-title)]">
-          مورد اعتماد سازمان‌ها، نویسندگان و کاربران حرفه‌ای در سراسر کشور
-        </h2>
-        <div className="max-w-7xl mx-auto">
-          <ClientsMarquee />
-        </div>
-      </section> */}
+
 
 
       {/* آمار */}
@@ -95,7 +87,7 @@ export default function HomePage() {
               </a>
 
               <a
-                href="/downloads/chrome"
+                href="/downloads/extensions"
                 className="pn-btn pn-btn-outline"
               >
                 دانلود افزونهٔ  مرورگر

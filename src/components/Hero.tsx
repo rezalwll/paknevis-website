@@ -128,7 +128,7 @@ const Hero: FC<HeroProps> = ({
       dir="rtl"
       className={`
         relative w-full ltr overflow-hidden
-        bg-[color:var(--pn-bg)] text-[color:var(--pn-text)]
+        bg-[#f4f5f7] text-[color:var(--pn-text)]
         text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
         ${className}
       `}

@@ -280,6 +280,7 @@ body {
     background-color: var(--pn-surface);
     color: var(--pn-text);
   }
+
   .pn-btn-outline2 {
     border: 2px solid #8b9bb2;
     background-color: var(--pn-bg);
@@ -290,4 +291,28 @@ body {
     background-color: var(--pn-surface);
     color: var(--pn-text);
   }
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(28px);
+  opacity: .22;
+  pointer-events: none;
+}
+
+.blob-a {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(closest-side, #66C0FF, transparent 70%);
+  right: 15%;
+  top: -10%;
+}
+
+.blob-b {
+  width: 760px;
+  height: 760px;
+  background: radial-gradient(closest-side, #0094F0, transparent 65%);
+  left: 10%;
+  bottom: -28%;
 }

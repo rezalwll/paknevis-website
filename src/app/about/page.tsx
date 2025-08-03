@@ -57,18 +57,35 @@ const values = [
 ];
 
 function MilestoneIcon({ index }: { index: number }) {
-  // آیکون‌ها فقط برای زیبایی طرح‌اند (ساده و نزدیک به تم)
   const common = "h-14 w-14 text-slate-700";
   switch (index) {
-    case 0: // شروع
+    case 0:
       return (
-        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className={common}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <path d="M12 2l3 7h7l-5.5 4 2.1 7L12 16l-6.6 4 2.1-7L2 9h7l3-7z" />
         </svg>
       );
-    case 1: // ورد/نوشتن
+    case 1:
       return (
-        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className={common}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <path d="M4 19h16" />
           <path d="M7 17l10-10" />
           <path d="M16.5 6.5l1 1" />
@@ -77,27 +94,54 @@ function MilestoneIcon({ index }: { index: number }) {
           <path d="M12 10h6" />
         </svg>
       );
-    case 2: // زیرساخت/سرور
+    case 2:
       return (
-        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className={common}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="4" y="4" width="16" height="6" rx="2" />
           <rect x="4" y="14" width="16" height="6" rx="2" />
           <path d="M8 7h.01M8 17h.01" />
           <path d="M12 7h6M12 17h6" />
         </svg>
       );
-    case 3: // نسخه وب و تیمی
+    case 3:
       return (
-        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className={common}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="3" y="4" width="18" height="16" rx="2" />
           <path d="M3 9h18" />
           <path d="M8 7h.01M12 7h.01M16 7h.01" />
           <path d="M8 16h8" />
         </svg>
       );
-    default: // همراه شما
+    default:
       return (
-        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className={common}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <path d="M20.8 7.7c-.8-2.3-3.5-3.4-5.6-2-1 .6-1.7 1.5-2.2 2.2-.5-.7-1.2-1.6-2.2-2.2-2.1-1.4-4.8-.3-5.6 2C2.4 10.4 3.5 13 6 15l6 5 6-5c2.5-2 3.6-4.6 2.8-7.3z" />
         </svg>
       );
@@ -111,10 +155,11 @@ export default function AboutPage() {
       className="bg-gradient-to-b from-slate-50/40 via-white to-white text-slate-800"
     >
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-l from-emerald-50/30 via-transparent to-transparent" />
+        {/* emerald -> #f3b394 */}
+        <div className="absolute inset-0 bg-gradient-to-l from-[#f3xb394]/18 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 lg:px-10">
           {/* هیروی اصلی */}
-          <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] items-center">
+          <section className="grid gap-8 lg:grid-cols-[0.9fr_0.9fr] items-center">
             <div className="space-y-4 text-right">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-relaxed text-slate-900">
                 همراه نوشتار فارسی
@@ -127,13 +172,14 @@ export default function AboutPage() {
             </div>
 
             <div className="relative">
+              {/* emerald -> #f3b394 */}
               <div
-                className="absolute -inset-5 rounded-3xl bg-emerald-30 blur-3xl opacity-60"
+                className="absolute -inset-5 rounded-3xl bg-[#f3bc394]/35 blur-3xl opacity-60"
                 aria-hidden
               />
-              <div className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-xl shadow-emerald-50/30">
+              <div className="relative overflow-hidden rounded-3xl border border-[#f3b394]/35 bg-white shadow-xl shadow-[#f3bd394]/25">
                 <img
-                  src="/images/Online editor.png"
+                  src="/images/about.webp"
                   alt="تصویر تیم یا محصول پاک‌نویس"
                   className="h-full w-full object-cover"
                 />
@@ -142,7 +188,7 @@ export default function AboutPage() {
           </section>
 
           {/* هیرو دوم: داستان ما */}
-          <section className="mt-14 overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-l from-white via-emerald-50/30 to-white p-6 shadow-lg shadow-emerald-50/30">
+          <section className="mt-14 overflow-hidden rounded-3xl border border-[#f3b394]/35 bg-gradient-to-l from-white via-[#f3db394]/18 to-white p-6 shadow-lg shadow-[#f3b394]/25">
             <div className="grid gap-6 lg:grid-cols-[0.5fr_1fr] items-center">
               <div className="space-y-4">
                 <div className="text-right space-y-2">
@@ -158,16 +204,16 @@ export default function AboutPage() {
                 <div className="">
                   <div className="aspect-[4/3] w-full">
                     <img
-                      src="/images/Online editor.png"
+                      src="/images/main logo.ico"
                       alt="تصویر تیم پاک‌نویس"
-                      className="h-full w-full object-cover"
+                      className="h-50 w-50 object-cover mx-auto"
                     />
                     <div className="" />
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white/80 border border-emerald-100 p-5 shadow-inner shadow-emerald-50/30">
+              <div className="rounded-2xl bg-white/80 border border-[#f3b394]/35 p-5 shadow-inner shadow-[#f3b394]/25">
                 <p className="text-sm sm:text-base leading-7 text-slate-700 whitespace-pre-line">
                   {aboutBody}
                 </p>
@@ -184,13 +230,14 @@ export default function AboutPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                 مأموریت و ارزش‌ها
               </h2>
-              <div className="h-px flex-1 bg-gradient-to-l from-emerald-200 to-transparent" />
+              {/* emerald -> #f3b394 */}
+              <div className="h-px flex-1 bg-gradient-to-l from-[#f3b394]/70 to-transparent" />
             </div>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
               {values.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md transition"
+                  className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm shadow-[#f3b394]/25  hover:shadow-md transition"
                 >
                   <h3 className="text-sm sm:text-base font-semibold text-slate-900 mb-2">
                     {item.title}
@@ -203,16 +250,16 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* ✅ تایم‌لاین جدید (همون طرح کارت‌های اتصال‌دار) */}
+          {/* ✅ تایم‌لاین جدید */}
           <section className="mt-14">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                 مسیر رشد
               </h2>
-              <div className="h-px flex-1 bg-gradient-to-l from-emerald-200 to-transparent" />
+              {/* emerald -> #f3b394 */}
+              <div className="h-px flex-1 bg-gradient-to-l from-[#f3b394]/70 to-transparent" />
             </div>
 
-            {/* عنوان وسط مثل طرح */}
             <div className="mt-8 flex flex-col items-center justify-center">
               <svg
                 className="h-12 w-12 text-[#001A4B]"
@@ -224,24 +271,15 @@ export default function AboutPage() {
                 strokeLinejoin="round"
                 aria-hidden="true"
               >
-                {/* خط افقی وسط */}
                 <path d="M10 22H38" />
-
-                {/* سه شاخه بالا */}
                 <path d="M14 22V13" />
                 <path d="M24 22V13" />
                 <path d="M34 22V13" />
-
-                {/* دو شاخه پایین (بین شاخه‌های بالا) */}
                 <path d="M19 22V31" />
                 <path d="M29 22V31" />
-
-                {/* دایره‌های بالا */}
                 <circle cx="14" cy="10" r="3" />
                 <circle cx="24" cy="10" r="3" />
                 <circle cx="34" cy="10" r="3" />
-
-                {/* دایره‌های پایین */}
                 <circle cx="19" cy="34" r="3" />
                 <circle cx="29" cy="34" r="3" />
               </svg>
@@ -252,8 +290,11 @@ export default function AboutPage() {
             </div>
 
             <div className="relative mt-10">
-              {/* ✅ MOBILE/TABLET (<lg) — عمودی + کارت چسبیده به خط قرمز */}
-              <div dir="ltr" className="lg:hidden [--rail:28px] [--conn:42px] [--gutter:calc(var(--rail)+var(--conn)+48px)] ">
+              {/* ✅ MOBILE/TABLET (<lg) */}
+              <div
+                dir="ltr"
+                className="lg:hidden [--rail:28px] [--conn:42px] [--gutter:calc(var(--rail)+var(--conn)+48px)] "
+              >
                 <ol
                   className="
       relative mx-auto max-w-3xl px-4
@@ -263,7 +304,6 @@ export default function AboutPage() {
       space-y-10
     "
                 >
-                  {/* فلش پایین کنار خط (مثل عکس) */}
                   <div className="pointer-events-none absolute left-[var(--rail)] -top-6 -translate-x-1/2">
                     <svg
                       className="h-6 w-6 text-[#001A4B]"
@@ -285,9 +325,7 @@ export default function AboutPage() {
                       key={`${item.year}-${idx}`}
                       className="grid grid-cols-[calc(var(--rail)+var(--conn))_1fr] items-center"
                     >
-                      {/* ستون چپ: نقطه + کانکتور + خط قرمز (لبه‌ی ستون) */}
                       <div className="relative h-[240px]">
-                        {/* نقطه روی ریل */}
                         <span
                           className="
               absolute left-[var(--rail)] top-1/2
@@ -295,7 +333,6 @@ export default function AboutPage() {
               h-3 w-3 rounded-full bg-[#001A4B]
             "
                         />
-                        {/* کانکتور تا مرز ستون */}
                         <span
                           className="
               absolute left-[var(--rail)] top-1/2
@@ -303,7 +340,6 @@ export default function AboutPage() {
               h-px w-[calc(100%-var(--rail))] bg-[#001A4B]
             "
                         />
-                        {/* خط قرمز دقیقاً روی مرز ستون => کارت می‌چسبه */}
                         <span
                           className="
               absolute right-0 top-1/2
@@ -313,7 +349,6 @@ export default function AboutPage() {
                         />
                       </div>
 
-                      {/* ستون راست: کارت (بدون gap => چسبیده به خط قرمز) */}
                       <div className="justify-self-start">
                         <div className="w-[min(340px,calc(100vw-var(--gutter)))]">
                           <div
@@ -326,10 +361,11 @@ export default function AboutPage() {
                 px-5 py-4
                 flex flex-col items-center justify-between
               "
-
                           >
                             <div className="w-full text-center">
-                              <div className="text-xl font-extrabold text-slate-700">{item.year}</div>
+                              <div className="text-xl font-extrabold text-slate-700">
+                                {item.year}
+                              </div>
                               <div className="mx-auto mt-2 h-px w-28 bg-red-600" />
                             </div>
 
@@ -353,10 +389,7 @@ export default function AboutPage() {
                 </ol>
               </div>
 
-
-              {/* =========================
-      ✅ DESKTOP (lg+) — افقی (کد خودت)
-     ========================= */}
+              {/* ✅ DESKTOP (lg+) */}
               <div className="hidden lg:block">
                 <div className="pointer-events-none absolute left-0 right-0 bottom-8 h-px bg-[#001A4B]" />
 
@@ -378,7 +411,10 @@ export default function AboutPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 items-end">
                   {milestones.map((item, idx) => (
-                    <div key={item.year} className="min-w-0 flex flex-col items-center h-full">
+                    <div
+                      key={item.year}
+                      className="min-w-0 flex flex-col items-center h-full"
+                    >
                       <div
                         className="
               relative w-full h-[240px]
@@ -388,10 +424,11 @@ export default function AboutPage() {
               rounded-lg border border-[#e1e1e1]
               outline-none
             "
-
                       >
                         <div className="w-full text-center">
-                          <div className="text-xl font-extrabold text-slate-700">{item.year}</div>
+                          <div className="text-xl font-extrabold text-slate-700">
+                            {item.year}
+                          </div>
                           <div className="mx-auto mt-2 h-px w-24 bg-red-600" />
                         </div>
 
@@ -420,8 +457,6 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-
-
           </section>
         </div>
       </div>
@@ -431,7 +466,7 @@ export default function AboutPage() {
 
 function Badge({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-emerald-50/30 px-3 py-1 text-emerald-700 border border-emerald-100 shadow-sm">
+    <span className="inline-flex items-center rounded-full bg-[#f3b394]/18 px-3 py-1 text-[#B45C23] border border-[#f3b394]/35 shadow-sm">
       {children}
     </span>
   );

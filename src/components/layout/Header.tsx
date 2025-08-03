@@ -25,13 +25,8 @@ const NAV_ITEMS: NavItem[] = [
     href: "",
     children: [
       { label: "افزونه ورد", href: "/downloads/word" },
-      { label: "افزونه کروم", href: "/downloads/chrome" },
+      { label: "افزونه مرورگر", href: "/downloads/extensions" },
       { label: "کیبورد", href: "/downloads/keyboard" },
-      { label: "ویرایشگر برخط", href: "https://editor.paknevis.ir" },
-      { label: "k1", href: "/downloads/k1" },
-      { label: "k2", href: "/downloads/k2" },
-      { label: "k3", href: "/downloads/k3" },
-      { label: "k4", href: "/downloads/k4" },
     ],
   },
   { label: "نسخه سازمانی", href: "/enterprise" },
@@ -54,7 +49,7 @@ const Header = () => {
     ["--header-link-hover" as any]: "var(--pn-hf-link-hover)",
     ["--header-cta-bg" as any]: "var(--pn-hf-button-bg)",
     ["--header-cta-hover-bg" as any]: "var(--pn-hf-button-hover-bg)",
-    "--header-cta-text":"var(--pn-hf-button-text)",
+    "--header-cta-text": "var(--pn-hf-button-text)",
     "--header-mobile-bg": "var(--pn-hf-mobile-bg)",
   };
 
