@@ -9,6 +9,58 @@ type GlobalDbState = typeof globalThis & {
 
 const globalDb = globalThis as GlobalDbState;
 
+const DEFAULT_ENTERPRISE_PLANS = [
+  {
+    title: "طرح ۱",
+    priceMillion: 77,
+    userCount: 20,
+    description: "توضیح کوتاه پلن. مناسب شروع کار.",
+    isPopular: false,
+  },
+  {
+    title: "طرح ۲",
+    priceMillion: 127,
+    userCount: 60,
+    description: "امکانات بیشتر برای تیم‌های متوسط.",
+    isPopular: true,
+  },
+  {
+    title: "طرح ۳",
+    priceMillion: 225,
+    userCount: 130,
+    description: "مناسب سازمان‌های رو به رشد.",
+    isPopular: false,
+  },
+  {
+    title: "طرح ۴",
+    priceMillion: 320,
+    userCount: 200,
+    description: "پشتیبانی و امکانات کامل‌تر.",
+    isPopular: false,
+  },
+  {
+    title: "طرح ۵",
+    priceMillion: 480,
+    userCount: 350,
+    description: "برای واحدهای بزرگ سازمانی.",
+    isPopular: false,
+  },
+  {
+    title: "طرح ۶",
+    priceMillion: 650,
+    userCount: 500,
+    description: "پیکربندی اختصاصی و SLA.",
+    isPopular: false,
+  },
+  {
+    title: "طرح ۷",
+    priceMillion: 900,
+    userCount: 800,
+    description: "بالاترین سطح خدمات و سفارشی‌سازی.",
+    isPopular: false,
+  },
+] as const;
+
 function getRequiredEnv(name: string): string {
   const value = process.env[name];
 
@@ -140,6 +192,109 @@ export async function ensureAppSchema(): Promise<void> {
           CREATE INDEX IF NOT EXISTS contact_messages_created_at_idx
           ON contact_messages(created_at DESC);
         `);
+
+        await client.query(`
+          CREATE TABLE IF NOT EXISTS enterprise_plans (
+            id BIGSERIAL PRIMARY KEY,
+            title VARCHAR(120) NOT NULL,
+            price_million NUMERIC(12, 2) NOT NULL CHECK (price_million > 0),
+            user_count INTEGER NOT NULL CHECK (user_count > 0),
+            description VARCHAR(320) NOT NULL,
+            is_popular BOOLEAN NOT NULL DEFAULT FALSE,
+            is_active BOOLEAN NOT NULL DEFAULT TRUE,
+            sort_order INTEGER NOT NULL DEFAULT 0 CHECK (sort_order >= 0),
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+          );
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS title VARCHAR(120) NOT NULL DEFAULT '';
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS price_million NUMERIC(12, 2) NOT NULL DEFAULT 1;
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS user_count INTEGER NOT NULL DEFAULT 1;
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS description VARCHAR(320) NOT NULL DEFAULT '';
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS is_popular BOOLEAN NOT NULL DEFAULT FALSE;
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS is_active BOOLEAN NOT NULL DEFAULT TRUE;
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS sort_order INTEGER NOT NULL DEFAULT 0;
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+        `);
+
+        await client.query(`
+          ALTER TABLE enterprise_plans
+          ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+        `);
+
+        await client.query(`
+          CREATE INDEX IF NOT EXISTS enterprise_plans_active_sort_idx
+          ON enterprise_plans(is_active, sort_order, id);
+        `);
+
+        await client.query(`
+          CREATE UNIQUE INDEX IF NOT EXISTS enterprise_plans_single_popular_idx
+          ON enterprise_plans ((1))
+          WHERE is_popular = TRUE;
+        `);
+
+        const enterprisePlanCount = await client.query<{ count: number }>(`
+          SELECT COUNT(*)::int AS count
+          FROM enterprise_plans
+        `);
+
+        if ((enterprisePlanCount.rows[0]?.count ?? 0) === 0) {
+          for (const [index, plan] of DEFAULT_ENTERPRISE_PLANS.entries()) {
+            await client.query(
+              `
+                INSERT INTO enterprise_plans (
+                  title,
+                  price_million,
+                  user_count,
+                  description,
+                  is_popular,
+                  is_active,
+                  sort_order
+                )
+                VALUES ($1, $2, $3, $4, $5, TRUE, $6)
+              `,
+              [
+                plan.title,
+                plan.priceMillion,
+                plan.userCount,
+                plan.description,
+                plan.isPopular,
+                index + 1,
+              ],
+            );
+          }
+        }
 
         await client.query("COMMIT");
       } catch (error) {

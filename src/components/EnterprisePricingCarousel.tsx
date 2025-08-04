@@ -1,238 +1,233 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-type Plan = {
-    title: string;
-    price: string;
-    per: string;
-    desc: string;
-    popular?: boolean;
+import type { PublicEnterprisePlan } from "@/lib/admin-types";
+
+type EnterprisePricingCarouselProps = {
+  plans: PublicEnterprisePlan[];
 };
 
-const toFaDigits = (val: string | number) =>
-    val
-        .toString()
-        .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
+function formatPlanNumber(value: number): string {
+  return new Intl.NumberFormat("fa-IR", {
+    maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
+  }).format(value);
+}
 
 function usePerView() {
-    const [perView, setPerView] = useState(1);
+  const [perView, setPerView] = useState(1);
 
-    useEffect(() => {
-        const calc = () => {
-            const w = window.innerWidth;
-            if (w >= 1024) return 4; // lg
-            if (w >= 768) return 3; // md
-            if (w >= 640) return 2; // sm
-            return 1;
-        };
-        const onResize = () => setPerView(calc());
-        onResize();
-        window.addEventListener("resize", onResize);
-        return () => window.removeEventListener("resize", onResize);
-    }, []);
+  useEffect(() => {
+    const calc = () => {
+      const width = window.innerWidth;
 
-    return perView;
+      if (width >= 1024) {
+        return 4;
+      }
+
+      if (width >= 768) {
+        return 3;
+      }
+
+      if (width >= 640) {
+        return 2;
+      }
+
+      return 1;
+    };
+
+    const onResize = () => setPerView(calc());
+
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return perView;
 }
 
-/** Start indexes that avoid a "lonely last page" */
-function buildStarts(n: number, perView: number) {
-    if (n <= 0) return [0];
-    if (n <= perView) return [0];
+function buildStarts(itemCount: number, perView: number) {
+  if (itemCount <= 0) {
+    return [0];
+  }
 
-    const starts: number[] = [0];
+  if (itemCount <= perView) {
+    return [0];
+  }
 
-    for (let i = perView; i < n; i += perView) {
-        const remaining = n - i;
+  const starts: number[] = [0];
 
-        if (remaining < perView) {
-            const lastStart = Math.max(0, n - perView);
-            if (lastStart !== starts[starts.length - 1]) starts.push(lastStart);
-            return starts;
-        }
+  for (let index = perView; index < itemCount; index += perView) {
+    const remaining = itemCount - index;
 
-        starts.push(i);
+    if (remaining < perView) {
+      const lastStart = Math.max(0, itemCount - perView);
+
+      if (lastStart !== starts[starts.length - 1]) {
+        starts.push(lastStart);
+      }
+
+      return starts;
     }
 
-    return starts;
+    starts.push(index);
+  }
+
+  return starts;
 }
 
-export default function EnterprisePricingCarousel() {
-    const plans: Plan[] = useMemo(
-        () => [
-            { title: "طرح ۱", price: "۷۷", per: "۲۰ کاربر", desc: "توضیح کوتاه پلن. مناسب شروع کار." },
-            { title: "طرح ۲", price: "۱۲۷", per: "۶۰ کاربر", desc: "امکانات بیشتر برای تیم‌های متوسط.", popular: true },
-            { title: "طرح ۳", price: "۲۲۵", per: "۱۳۰ کاربر", desc: "مناسب سازمان‌های رو به رشد." },
-            { title: "طرح ۴", price: "۳۲۰", per: "۲۰۰ کاربر", desc: "پشتیبانی و امکانات کامل‌تر." },
-            { title: "طرح ۵", price: "۴۸۰", per: "۳۵۰ کاربر", desc: "برای واحدهای بزرگ سازمانی." },
-            { title: "طرح ۶", price: "۶۵۰", per: "۵۰۰ کاربر", desc: "پیکربندی اختصاصی و SLA." },
-            { title: "طرح ۷", price: "۹۰۰", per: "۸۰۰ کاربر", desc: "بالاترین سطح خدمات و سفارشی‌سازی." },
-        ],
-        []
-    );
+export default function EnterprisePricingCarousel({
+  plans,
+}: EnterprisePricingCarouselProps) {
+  const perViewRaw = usePerView();
+  const perView = Math.min(perViewRaw, Math.max(1, plans.length));
 
-    const perViewRaw = usePerView();
-    const perView = Math.min(perViewRaw, Math.max(1, plans.length));
+  const starts = useMemo(() => buildStarts(plans.length, perView), [plans.length, perView]);
+  const pages = useMemo(
+    () => starts.map((start) => plans.slice(start, start + perView)),
+    [plans, starts, perView],
+  );
+  const totalPages = Math.max(1, pages.length);
+  const defaultSelectedIndex = useMemo(() => {
+    const popularIndex = plans.findIndex((plan) => plan.isPopular);
+    return popularIndex >= 0 ? popularIndex : 0;
+  }, [plans]);
 
-    const starts = useMemo(() => buildStarts(plans.length, perView), [plans.length, perView]);
-    const pages = useMemo(() => starts.map((s) => plans.slice(s, s + perView)), [starts, plans, perView]);
+  const [page, setPage] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
 
-    const totalPages = Math.max(1, pages.length);
-    const [page, setPage] = useState(0);
+  useEffect(() => {
+    setPage((currentPage) => Math.min(currentPage, totalPages - 1));
+  }, [totalPages]);
 
-    useEffect(() => {
-        setPage((p) => Math.min(p, totalPages - 1));
-    }, [totalPages]);
+  useEffect(() => {
+    setSelectedIndex(defaultSelectedIndex);
+  }, [defaultSelectedIndex]);
 
-    const canPrev = page > 0;
-    const canNext = page < totalPages - 1;
+  const cardBase =
+    "relative rounded-[18px] bg-[var(--pn-bg)] border border-[var(--pn-border)] " +
+    "transition-[transform,box-shadow,border-color] duration-200 ease-out";
+  const cardSelected = "border-[3px] !border-[var(--pn-accent)]";
+  const pillPopular =
+    "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#e9f4f3] px-4 py-1 " +
+    "text-[11px] font-extrabold text-slate-800 z-10 border border-[var(--pn-border)] shadow-sm";
+  const titleText = "text-xl font-black text-slate-800";
+  const priceText = "text-5xl font-black text-slate-900";
+  const perText = "mt-3 text-[13px] font-semibold text-slate-500";
+  const lineTop = "mx-auto mt-2 h-[3px] w-10 rounded-full bg-[var(--pn-accent)]";
+  const lineMid = "mx-auto my-5 h-[3px] w-12 rounded-full bg-[var(--pn-accent)]";
+  const descText = "mx-auto mt-6 max-w-[240px] text-[12px] leading-7 text-slate-600";
+  const btnOutline =
+    "inline-flex h-10 items-center justify-center rounded-lg border-2 border-[var(--pn-accent)] " +
+    "bg-[var(--pn-bg)] px-8 text-xs font-extrabold tracking-wider text-slate-900 " +
+    "shadow-[0_10px_18px_rgba(15,23,42,0.06)] transition hover:bg-[var(--pn-surface)]";
 
-    const prev = () => setPage((p) => Math.max(0, p - 1));
-    const next = () => setPage((p) => Math.min(totalPages - 1, p + 1));
+  return (
+    <section dir="rtl" className="w-full">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="relative">
+          <div className="overflow-hidden rounded-2xl bg-[var(--pn-bg)] pt-3 sm:pt-4">
+            <div
+              className="flex transform-gpu will-change-transform transition-transform duration-1200 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{ transform: `translate3d(${page * 100}%, 0, 0)` }}
+            >
+              {pages.map((pageItems, pageIndex) => (
+                <div key={starts[pageIndex]} className="w-full flex-none p-3 sm:p-4">
+                  <div
+                    dir="rtl"
+                    className="grid gap-3 sm:gap-4"
+                    style={{ gridTemplateColumns: `repeat(${perView}, minmax(0, 1fr))` }}
+                  >
+                    {pageItems.map((plan, index) => {
+                      const globalIndex = starts[pageIndex] + index;
+                      const isSelected = globalIndex === selectedIndex;
 
-    const cardBase =
-        "relative rounded-[18px] bg-[var(--pn-bg)] " +
-        "border border-[var(--pn-border)] " +
-        "transition-[transform,box-shadow,border-color] duration-200 ease-out";
-
-    const cardSelected = "border-[3px] !border-[var(--pn-accent)]";
-
-    const pillPopular =
-        "absolute -top-3 left-1/2 -translate-x-1/2 " +
-        "rounded-full bg-[#e9f4f3] px-4 py-1 " +
-        "text-[11px] font-extrabold text-slate-800 z-10 " +
-        "border border-[var(--pn-border)] shadow-sm";
-
-    const titleText = "text-xl font-black text-slate-800";
-    const priceText = "text-5xl font-black text-slate-900";
-    const perText = "mt-3 text-[13px] font-semibold text-slate-500";
-
-    const lineTop = "mx-auto mt-2 h-[3px] w-10 rounded-full bg-[var(--pn-accent)]";
-    const lineMid = "mx-auto my-5 h-[3px] w-12 rounded-full bg-[var(--pn-accent)]";
-
-    const descText = "mx-auto mt-6 max-w-[240px] text-[12px] leading-7 text-slate-600";
-
-    const btnOutline =
-        "inline-flex h-10 items-center justify-center rounded-lg " +
-        "border-2 border-[var(--pn-accent)] bg-[var(--pn-bg)] px-8 " +
-        "text-xs font-extrabold tracking-wider text-slate-900 " +
-        "shadow-[0_10px_18px_rgba(15,23,42,0.06)] cursor-pointer " +
-        "transition hover:bg-[var(--pn-surface)]";
-
-    const defaultSelected = useMemo(() => {
-        const idx = plans.findIndex((p) => p.popular);
-        return idx >= 0 ? idx : 0;
-    }, [plans]);
-
-    const [selectedIndex, setSelectedIndex] = useState(defaultSelected);
-    useEffect(() => setSelectedIndex(defaultSelected), [defaultSelected]);
-
-    return (
-        <section dir="rtl" className="w-full">
-            <div className="mx-auto max-w-6xl px-4">
-                <div className="relative">
-                    {/* Mixing overflow-x hidden with translate3d turns the Y overflow into clipped/auto in browsers, which hid the pill when it sat above the card. Padding the viewport and using a single overflow-hidden keeps badges inside without relying on z-index hacks. */}
-                    <div className="overflow-hidden rounded-2xl bg-[var(--pn-bg)] pt-3 sm:pt-4">
+                      return (
                         <div
-                            className="flex will-change-transform transform-gpu transition-transform duration-1200 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                            style={{ transform: `translate3d(${page * 100}%,0,0)` }}
+                          key={plan.id}
+                          className="relative h-full"
+                          onClick={() => setSelectedIndex(globalIndex)}
                         >
-                            {pages.map((items, pi) => (
-                                <div key={starts[pi]} className="w-full flex-none p-3 sm:p-4">
-                                    <div
-                                        dir="rtl"
-                                        className="grid gap-3 sm:gap-4"
-                                        style={{ gridTemplateColumns: `repeat(${perView}, minmax(0, 1fr))` }}
-                                    >
-                                        {items.map((plan, i) => {
-                                            const globalIndex = starts[pi] + i;
-                                            const isSelected = globalIndex === selectedIndex;
-                                            const selectCard = () => setSelectedIndex(globalIndex);
+                          {plan.isPopular ? <div className={pillPopular}>محبوب</div> : null}
 
-                                            return (
-                                                <div
-                                                    key={`${starts[pi]}-${i}-${plan.title}`}
-                                                    className="relative h-full"
-                                                    onClick={selectCard}
-                                                >
-                                                    {plan.popular ? <div className={pillPopular}>محبوب</div> : null}
+                          <article
+                            dir="rtl"
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter" || event.key === " ") {
+                                event.preventDefault();
+                                setSelectedIndex(globalIndex);
+                              }
+                            }}
+                            className={[
+                              cardBase,
+                              "h-full px-8 pt-10 pb-8 text-center flex flex-col items-center gap-6",
+                              isSelected || plan.isPopular ? cardSelected : "",
+                            ].join(" ")}
+                          >
+                            <div className="flex flex-col items-center gap-4">
+                              <h3 className={titleText}>{plan.title}</h3>
+                              <div className={lineTop} />
 
-                                                    <article
-                                                        dir="rtl"
-                                                        role="button"
-                                                        tabIndex={0}
-                                                        onKeyDown={(e) => {
-                                                            if (e.key === "Enter" || e.key === " ") {
-                                                                e.preventDefault();
-                                                                selectCard();
-                                                            }
-                                                        }}
-                                                        className={[
-                                                            cardBase,
-                                                            "h-full text-center px-8 pt-10 pb-8 flex flex-col items-center gap-6",
-                                                            plan.popular ? cardSelected : "",
-                                                        ].join(" ")}
-                                                    >
-                                                        <div className="flex flex-col items-center gap-4">
-                                                            <h3 className={titleText}>{toFaDigits(plan.title)}</h3>
-                                                            <div className={lineTop} />
-
-                                                            <div className="mt-4">
-                                                                <div className={priceText}>{toFaDigits(plan.price)}</div>
-                                                                میلیون
-                                                                <div className={perText}>{toFaDigits(plan.per)}</div>
-                                                            </div>
-
-                                                            <p className={descText}>{toFaDigits(plan.desc)}</p>
-                                                        </div>
-
-                                                        <div className="flex-1" />
-
-                                                        <div className="flex flex-col items-center gap-4 w-full">
-                                                            <div className={lineMid} />
-
-                                                            <Link href="/support/contact" className={btnOutline} onClick={(e) => e.stopPropagation()}>
-                                                                شروع کنید
-                                                            </Link>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
+                              <div className="mt-4">
+                                <div className={priceText}>{formatPlanNumber(plan.priceMillion)}</div>
+                                <div className="mt-1 text-sm font-bold text-slate-700">میلیون تومان</div>
+                                <div className={perText}>
+                                  {formatPlanNumber(plan.userCount)} کاربر
                                 </div>
-                            ))}
+                              </div>
+
+                              <p className={descText}>{plan.description}</p>
+                            </div>
+
+                            <div className="flex-1" />
+
+                            <div className="flex w-full flex-col items-center gap-4">
+                              <div className={lineMid} />
+
+                              <Link
+                                href="/support/contact"
+                                className={btnOutline}
+                                onClick={(event) => event.stopPropagation()}
+                              >
+                                شروع کنید
+                              </Link>
+                            </div>
+                          </article>
                         </div>
-                    </div>
-
-                    {/* next (به سمت چپ) */}
-                    <button
-                        onClick={next}
-                        disabled={!canNext}
-                        aria-label="بعدی"
-                        className="absolute -left-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40 cursor-pointer"
-                    >
-                        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
-
-                    {/* prev (به سمت راست) */}
-                    <button
-                        onClick={prev}
-                        disabled={!canPrev}
-                        aria-label="قبلی"
-                        className="absolute -right-10 top-1/2 z-10 cursor-pointer -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
-                    >
-                        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
+                      );
+                    })}
+                  </div>
                 </div>
+              ))}
             </div>
-        </section>
-    );
+          </div>
+
+          <button
+            onClick={() => setPage((currentPage) => Math.min(totalPages - 1, currentPage + 1))}
+            disabled={page >= totalPages - 1}
+            aria-label="بعدی"
+            className="absolute -left-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          <button
+            onClick={() => setPage((currentPage) => Math.max(0, currentPage - 1))}
+            disabled={page <= 0}
+            aria-label="قبلی"
+            className="absolute -right-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
 }
-
-

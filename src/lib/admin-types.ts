@@ -91,6 +91,24 @@ export type MessageDashboardCounts = {
   resolvedCount: number;
 };
 
+export type EnterprisePlan = {
+  id: number;
+  title: string;
+  priceMillion: number;
+  userCount: number;
+  description: string;
+  isPopular: boolean;
+  isActive: boolean;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type PublicEnterprisePlan = Pick<
+  EnterprisePlan,
+  "id" | "title" | "priceMillion" | "userCount" | "description" | "isPopular" | "sortOrder"
+>;
+
 export function isAdminRole(value: string): value is AdminRole {
   return ADMIN_ROLES.includes(value as AdminRole);
 }
@@ -104,6 +122,10 @@ export function canManageUsers(role: AdminRole): boolean {
 }
 
 export function canManageAssignments(role: AdminRole): boolean {
+  return role === "super_admin" || role === "support_manager";
+}
+
+export function canManageEnterprisePlans(role: AdminRole): boolean {
   return role === "super_admin" || role === "support_manager";
 }
 

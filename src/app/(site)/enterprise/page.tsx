@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ComponentType, SVGProps } from "react";
 import EnterprisePricingCarousel from "@/components/EnterprisePricingCarousel";
 import ClientsMarquee from "@/components/ClientsMarquee";
+import { listPublicEnterprisePlans } from "@/lib/enterprise-plans";
 import {
   BadgeCheck,
   BookCheck,
@@ -84,8 +85,9 @@ const toFaDigits = (val: string | number) =>
     .toString()
     .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
 
-export default function EnterprisePage() {
+export default async function EnterprisePage() {
   const contactEmail = "sales@paknevis.ir";
+  const plans = await listPublicEnterprisePlans();
 
   // ===== Theme tokens (from CSS vars)
   const accentText = "text-slate-900";
@@ -356,7 +358,25 @@ export default function EnterprisePage() {
           </div>
 
           <div className="mt-10">
-            <EnterprisePricingCarousel />
+            {plans.length > 0 ? (
+              <EnterprisePricingCarousel plans={plans} />
+            ) : (
+              <div className="mx-auto max-w-3xl rounded-[2rem] border border-dashed border-[var(--pn-border)] bg-[var(--pn-surface)] px-6 py-10 text-center">
+                <h3 className="text-xl font-black text-slate-900">فعلاً طرح فعالی ثبت نشده است</h3>
+                <p className="mx-auto mt-3 max-w-2xl text-sm leading-8 text-slate-700 sm:text-base">
+                  مدیر سایت هنوز هیچ پلن فعالی برای نسخه سازمانی منتشر نکرده است. برای دریافت
+                  مشاوره و استعلام، از طریق ایمیل با ما در تماس باشید.
+                </p>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  <a href={makeGeneralMailto(contactEmail)} className={btnOutline}>
+                    ارتباط با ما
+                  </a>
+                  <a href="/support/contact" className={btnSolid}>
+                    ثبت درخواست
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
