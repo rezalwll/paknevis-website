@@ -1,6 +1,7 @@
 import { Pool, type PoolConfig } from "pg";
 
 import type { ContactFormData } from "@/lib/contact";
+import { DEFAULT_HELP_CENTER_CATEGORIES } from "@/lib/help-center-seed";
 
 type GlobalDbState = typeof globalThis & {
   __paknevisDbPool__?: Pool;
@@ -264,6 +265,43 @@ export async function ensureAppSchema(): Promise<void> {
           WHERE is_popular = TRUE;
         `);
 
+        await client.query(`
+          CREATE TABLE IF NOT EXISTS help_categories (
+            id BIGSERIAL PRIMARY KEY,
+            title VARCHAR(120) NOT NULL,
+            icon_key VARCHAR(32) NOT NULL CHECK (
+              icon_key IN ('user', 'credit_card', 'file_warning', 'laptop', 'help_circle', 'building')
+            ),
+            sort_order INTEGER NOT NULL DEFAULT 0 CHECK (sort_order >= 0),
+            is_archived BOOLEAN NOT NULL DEFAULT FALSE,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+          );
+        `);
+
+        await client.query(`
+          CREATE TABLE IF NOT EXISTS help_questions (
+            id BIGSERIAL PRIMARY KEY,
+            category_id BIGINT NOT NULL REFERENCES help_categories(id) ON DELETE CASCADE,
+            question VARCHAR(255) NOT NULL,
+            answer TEXT NOT NULL,
+            sort_order INTEGER NOT NULL DEFAULT 0 CHECK (sort_order >= 0),
+            is_archived BOOLEAN NOT NULL DEFAULT FALSE,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+          );
+        `);
+
+        await client.query(`
+          CREATE INDEX IF NOT EXISTS help_categories_archived_sort_idx
+          ON help_categories(is_archived, sort_order, id);
+        `);
+
+        await client.query(`
+          CREATE INDEX IF NOT EXISTS help_questions_category_archived_sort_idx
+          ON help_questions(category_id, is_archived, sort_order, id);
+        `);
+
         const enterprisePlanCount = await client.query<{ count: number }>(`
           SELECT COUNT(*)::int AS count
           FROM enterprise_plans
@@ -293,6 +331,46 @@ export async function ensureAppSchema(): Promise<void> {
                 index + 1,
               ],
             );
+          }
+        }
+
+        const helpCategoryCount = await client.query<{ count: number }>(`
+          SELECT COUNT(*)::int AS count
+          FROM help_categories
+        `);
+
+        if ((helpCategoryCount.rows[0]?.count ?? 0) === 0) {
+          for (const [categoryIndex, category] of DEFAULT_HELP_CENTER_CATEGORIES.entries()) {
+            const insertedCategory = await client.query<{ id: number }>(
+              `
+                INSERT INTO help_categories (title, icon_key, sort_order, is_archived)
+                VALUES ($1, $2, $3, FALSE)
+                RETURNING id
+              `,
+              [category.title, category.iconKey, categoryIndex + 1],
+            );
+
+            const categoryId = insertedCategory.rows[0]?.id;
+
+            if (!categoryId) {
+              throw new Error("HELP_CATEGORY_SEED_FAILED");
+            }
+
+            for (const [questionIndex, item] of category.questions.entries()) {
+              await client.query(
+                `
+                  INSERT INTO help_questions (
+                    category_id,
+                    question,
+                    answer,
+                    sort_order,
+                    is_archived
+                  )
+                  VALUES ($1, $2, $3, $4, FALSE)
+                `,
+                [categoryId, item.question, item.answer, questionIndex + 1],
+              );
+            }
           }
         }
 

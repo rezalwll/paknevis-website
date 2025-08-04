@@ -15,6 +15,17 @@ export const MESSAGE_STATUSES = [
 
 export type MessageStatus = (typeof MESSAGE_STATUSES)[number];
 
+export const HELP_ICON_KEYS = [
+  "user",
+  "credit_card",
+  "file_warning",
+  "laptop",
+  "help_circle",
+  "building",
+] as const;
+
+export type HelpIconKey = (typeof HELP_ICON_KEYS)[number];
+
 export const ADMIN_ROLE_LABELS: Record<AdminRole, string> = {
   super_admin: "مدیر کل",
   support_manager: "مدیر پشتیبانی",
@@ -33,6 +44,15 @@ export const MESSAGE_STATUS_STYLES: Record<MessageStatus, string> = {
   in_progress: "bg-amber-100 text-amber-800",
   resolved: "bg-emerald-100 text-emerald-700",
   archived: "bg-slate-200 text-slate-700",
+};
+
+export const HELP_ICON_LABELS: Record<HelpIconKey, string> = {
+  user: "کاربر",
+  credit_card: "پرداخت",
+  file_warning: "هشدار فایل",
+  laptop: "دستگاه",
+  help_circle: "راهنما",
+  building: "سازمان",
 };
 
 export type AuthenticatedAdminUser = {
@@ -109,12 +129,51 @@ export type PublicEnterprisePlan = Pick<
   "id" | "title" | "priceMillion" | "userCount" | "description" | "isPopular" | "sortOrder"
 >;
 
+export type HelpQuestion = {
+  id: number;
+  categoryId: number;
+  question: string;
+  answer: string;
+  sortOrder: number;
+  isArchived: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type HelpCategory = {
+  id: number;
+  title: string;
+  iconKey: HelpIconKey;
+  sortOrder: number;
+  isArchived: boolean;
+  createdAt: string;
+  updatedAt: string;
+  questions: HelpQuestion[];
+};
+
+export type PublicHelpQuestion = Pick<
+  HelpQuestion,
+  "id" | "question" | "answer" | "sortOrder"
+>;
+
+export type PublicHelpCategory = {
+  id: number;
+  title: string;
+  iconKey: HelpIconKey;
+  sortOrder: number;
+  questions: PublicHelpQuestion[];
+};
+
 export function isAdminRole(value: string): value is AdminRole {
   return ADMIN_ROLES.includes(value as AdminRole);
 }
 
 export function isMessageStatus(value: string): value is MessageStatus {
   return MESSAGE_STATUSES.includes(value as MessageStatus);
+}
+
+export function isHelpIconKey(value: string): value is HelpIconKey {
+  return HELP_ICON_KEYS.includes(value as HelpIconKey);
 }
 
 export function canManageUsers(role: AdminRole): boolean {
@@ -127,6 +186,10 @@ export function canManageAssignments(role: AdminRole): boolean {
 
 export function canManageEnterprisePlans(role: AdminRole): boolean {
   return role === "super_admin" || role === "support_manager";
+}
+
+export function canManageHelpCenter(role: AdminRole): boolean {
+  return ADMIN_ROLES.includes(role);
 }
 
 export function formatAdminDateTime(value: string | null): string {

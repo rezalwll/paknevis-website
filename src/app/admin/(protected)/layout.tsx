@@ -5,6 +5,7 @@ import { requireAdminUser } from "@/lib/admin-auth";
 import {
   ADMIN_ROLE_LABELS,
   canManageEnterprisePlans,
+  canManageHelpCenter,
   canManageUsers,
   formatAdminDateTime,
 } from "@/lib/admin-types";
@@ -43,6 +44,14 @@ export default async function AdminProtectedLayout({
             >
               پیام‌های تماس
             </Link>
+            {canManageHelpCenter(currentUser.role) ? (
+              <Link
+                href="/admin/help-center"
+                className="block rounded-2xl border border-slate-800 px-4 py-3 text-sm text-slate-200 transition hover:border-sky-500/40 hover:bg-slate-800"
+              >
+                راهنما
+              </Link>
+            ) : null}
             {canManageEnterprisePlans(currentUser.role) ? (
               <Link
                 href="/admin/enterprise-plans"
