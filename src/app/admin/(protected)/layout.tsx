@@ -18,15 +18,15 @@ export default async function AdminProtectedLayout({
   const currentUser = await requireAdminUser();
 
   return (
-    <div dir="rtl" className="min-h-screen bg-slate-950 text-slate-100">
+    <div dir="rtl" className="min-h-screen bg-slate-50 text-slate-900">
       <div className="mx-auto grid min-h-screen max-w-[1600px] lg:grid-cols-[280px_1fr]">
-        <aside className="border-l border-slate-800 bg-slate-900/70 px-6 py-8 backdrop-blur">
-          <p className="text-sm font-medium text-sky-400">پنل مدیریت پاک‌نویس</p>
-          <div className="mt-6 rounded-[1.75rem] border border-slate-800 bg-slate-950/70 p-5">
-            <p className="text-xs text-slate-400">کاربر واردشده</p>
-            <p className="mt-2 text-lg font-semibold text-white">{currentUser.fullName}</p>
-            <p className="mt-1 text-sm text-slate-400">{currentUser.email}</p>
-            <p className="mt-3 inline-flex rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-300">
+        <aside className="border-l border-slate-200 bg-white/90 px-6 py-8 backdrop-blur">
+          <p className="text-sm font-medium text-sky-700">پنل مدیریت پاک‌نویس</p>
+          <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-white/95 p-5">
+            <p className="text-xs text-slate-500">کاربر واردشده</p>
+            <p className="mt-2 text-lg font-semibold text-slate-900">{currentUser.fullName}</p>
+            <p className="mt-1 text-sm text-slate-500">{currentUser.email}</p>
+            <p className="mt-3 inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
               {ADMIN_ROLE_LABELS[currentUser.role]}
             </p>
           </div>
@@ -34,20 +34,20 @@ export default async function AdminProtectedLayout({
           <nav className="mt-8 space-y-3">
             <Link
               href="/admin"
-              className="block rounded-2xl border border-slate-800 px-4 py-3 text-sm text-slate-200 transition hover:border-sky-500/40 hover:bg-slate-800"
+              className="block rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 transition hover:border-sky-500/40 hover:bg-slate-100"
             >
               داشبورد
             </Link>
             <Link
               href="/admin/messages"
-              className="block rounded-2xl border border-slate-800 px-4 py-3 text-sm text-slate-200 transition hover:border-sky-500/40 hover:bg-slate-800"
+              className="block rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 transition hover:border-sky-500/40 hover:bg-slate-100"
             >
               پیام‌های تماس
             </Link>
             {canManageHelpCenter(currentUser.role) ? (
               <Link
                 href="/admin/help-center"
-                className="block rounded-2xl border border-slate-800 px-4 py-3 text-sm text-slate-200 transition hover:border-sky-500/40 hover:bg-slate-800"
+                className="block rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 transition hover:border-sky-500/40 hover:bg-slate-100"
               >
                 راهنما
               </Link>
@@ -55,7 +55,7 @@ export default async function AdminProtectedLayout({
             {canManageEnterprisePlans(currentUser.role) ? (
               <Link
                 href="/admin/enterprise-plans"
-                className="block rounded-2xl border border-slate-800 px-4 py-3 text-sm text-slate-200 transition hover:border-sky-500/40 hover:bg-slate-800"
+                className="block rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 transition hover:border-sky-500/40 hover:bg-slate-100"
               >
                 طرح‌های سازمانی
               </Link>
@@ -63,7 +63,7 @@ export default async function AdminProtectedLayout({
             {canManageUsers(currentUser.role) ? (
               <Link
                 href="/admin/users"
-                className="block rounded-2xl border border-slate-800 px-4 py-3 text-sm text-slate-200 transition hover:border-sky-500/40 hover:bg-slate-800"
+                className="block rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 transition hover:border-sky-500/40 hover:bg-slate-100"
               >
                 کاربران ادمین
               </Link>
@@ -73,29 +73,29 @@ export default async function AdminProtectedLayout({
           <form action={logoutAdminAction} className="mt-8">
             <button
               type="submit"
-              className="w-full rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-200 transition hover:bg-red-500/20"
+              className="w-full rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 transition hover:bg-red-100"
             >
               خروج از حساب
             </button>
           </form>
 
-          <div className="mt-8 rounded-2xl border border-slate-800 bg-slate-950/60 p-4 text-xs leading-6 text-slate-400">
+          <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/90 p-4 text-xs leading-6 text-slate-500">
             <p>راه‌اندازی اولیه ادمین:</p>
-            <code className="mt-2 block rounded-xl bg-slate-900 px-3 py-2 text-[11px] text-slate-300">
+            <code className="mt-2 block rounded-xl bg-white px-3 py-2 text-[11px] text-slate-600">
               npm run bootstrap:admin
             </code>
             <p className="mt-3">
-              بعد از تنظیم envهای <span className="text-slate-200">ADMIN_BOOTSTRAP_*</span> اجرا
+              بعد از تنظیم envهای <span className="text-slate-700">ADMIN_BOOTSTRAP_*</span> اجرا
               شود.
             </p>
             <p className="mt-3">
               زمان فعلی:{" "}
-              <span className="text-slate-200">{formatAdminDateTime(new Date().toISOString())}</span>
+              <span className="text-slate-700">{formatAdminDateTime(new Date().toISOString())}</span>
             </p>
           </div>
         </aside>
 
-        <section className="bg-slate-950 px-4 py-6 md:px-8 lg:px-10">{children}</section>
+        <section className="bg-slate-50 px-4 py-6 md:px-8 lg:px-10">{children}</section>
       </div>
     </div>
   );

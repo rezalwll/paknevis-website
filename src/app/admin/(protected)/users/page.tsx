@@ -74,9 +74,9 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
 
   return (
     <div className="space-y-6">
-      <header className="rounded-[2rem] border border-slate-800 bg-slate-900/70 p-6">
-        <h1 className="text-3xl font-semibold text-white">مدیریت کاربران ادمین</h1>
-        <p className="mt-3 max-w-3xl leading-8 text-slate-400">
+      <header className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+        <h1 className="text-3xl font-semibold text-slate-900">مدیریت کاربران ادمین</h1>
+        <p className="mt-3 max-w-3xl leading-8 text-slate-500">
           از این بخش حساب‌های مدیریتی، نقش‌ها و فعال یا غیرفعال بودن آن‌ها را کنترل کنید.
         </p>
       </header>
@@ -85,8 +85,8 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
         <p
           className={`rounded-2xl px-5 py-4 text-sm ${
             stateMessage.type === "success"
-              ? "bg-emerald-500/10 text-emerald-200"
-              : "bg-red-500/10 text-red-200"
+              ? "bg-emerald-50 text-emerald-700"
+              : "bg-red-50 text-red-700"
           }`}
         >
           {stateMessage.text}
@@ -94,11 +94,11 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
       ) : null}
 
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-[2rem] border border-slate-800 bg-slate-900/70 p-6">
-          <h2 className="text-xl font-semibold text-white">ساخت ادمین جدید</h2>
+        <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+          <h2 className="text-xl font-semibold text-slate-900">ساخت ادمین جدید</h2>
           <form action={createAdminUserAction} className="mt-6 space-y-4">
             <div className="space-y-2">
-              <label htmlFor="fullName" className="block text-sm text-slate-300">
+              <label htmlFor="fullName" className="block text-sm text-slate-600">
                 نام کامل
               </label>
               <input
@@ -106,11 +106,11 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
                 name="fullName"
                 type="text"
                 required
-                className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm text-slate-300">
+              <label htmlFor="email" className="block text-sm text-slate-600">
                 ایمیل
               </label>
               <input
@@ -118,11 +118,11 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
                 name="email"
                 type="email"
                 required
-                className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm text-slate-300">
+              <label htmlFor="password" className="block text-sm text-slate-600">
                 رمز عبور
               </label>
               <input
@@ -131,18 +131,18 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
                 type="password"
                 minLength={8}
                 required
-                className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="role" className="block text-sm text-slate-300">
+              <label htmlFor="role" className="block text-sm text-slate-600">
                 نقش
               </label>
               <select
                 id="role"
                 name="role"
                 defaultValue="support_agent"
-                className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
               >
                 {ADMIN_ROLES.map((role) => (
                   <option key={role} value={role}>
@@ -153,24 +153,24 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
             </div>
             <button
               type="submit"
-              className="w-full rounded-2xl bg-sky-500 px-4 py-3 text-sm font-medium text-slate-950 transition hover:bg-sky-400"
+              className="w-full rounded-2xl bg-sky-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-sky-700"
             >
               ساخت حساب ادمین
             </button>
           </form>
         </section>
 
-        <section className="overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-900/70">
-          <div className="border-b border-slate-800 px-6 py-5">
-            <h2 className="text-xl font-semibold text-white">لیست کاربران مدیریت</h2>
-            <p className="mt-2 text-sm text-slate-400">
+        <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90">
+          <div className="border-b border-slate-200 px-6 py-5">
+            <h2 className="text-xl font-semibold text-slate-900">لیست کاربران مدیریت</h2>
+            <p className="mt-2 text-sm text-slate-500">
               {users.length} حساب ادمین در سیستم ثبت شده است.
             </p>
           </div>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-slate-800">
-              <thead className="bg-slate-950/40">
-                <tr className="text-right text-xs text-slate-400">
+            <table className="min-w-full divide-y divide-slate-200">
+              <thead className="bg-slate-50/80">
+                <tr className="text-right text-xs text-slate-500">
                   <th className="px-6 py-4 font-medium">کاربر</th>
                   <th className="px-6 py-4 font-medium">نقش</th>
                   <th className="px-6 py-4 font-medium">وضعیت</th>
@@ -178,29 +178,29 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
                   <th className="px-6 py-4 font-medium">عملیات</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 text-sm text-slate-200">
+              <tbody className="divide-y divide-slate-200 text-sm text-slate-700">
                 {users.map((user) => (
                   <tr key={user.id}>
                     <td className="px-6 py-5">
-                      <p className="font-medium text-white">{user.fullName}</p>
-                      <p className="mt-1 text-xs text-slate-400">{user.email}</p>
+                      <p className="font-medium text-slate-900">{user.fullName}</p>
+                      <p className="mt-1 text-xs text-slate-500">{user.email}</p>
                       <p className="mt-1 text-xs text-slate-500">
                         ایجاد شده: {formatAdminDateTime(user.createdAt)}
                       </p>
                     </td>
-                    <td className="px-6 py-5 text-slate-300">{ADMIN_ROLE_LABELS[user.role]}</td>
+                    <td className="px-6 py-5 text-slate-600">{ADMIN_ROLE_LABELS[user.role]}</td>
                     <td className="px-6 py-5">
                       <span
                         className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
                           user.isActive
-                            ? "bg-emerald-500/10 text-emerald-200"
-                            : "bg-slate-700 text-slate-300"
+                            ? "bg-emerald-50 text-emerald-700"
+                            : "bg-slate-100 text-slate-700"
                         }`}
                       >
                         {user.isActive ? "فعال" : "غیرفعال"}
                       </span>
                     </td>
-                    <td className="px-6 py-5 text-xs text-slate-400">
+                    <td className="px-6 py-5 text-xs text-slate-500">
                       {formatAdminDateTime(user.lastLoginAt)}
                     </td>
                     <td className="px-6 py-5">
@@ -215,8 +215,8 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
                           type="submit"
                           className={`rounded-full px-4 py-2 text-xs font-medium transition ${
                             user.isActive
-                              ? "border border-red-500/30 bg-red-500/10 text-red-200 hover:bg-red-500/20"
-                              : "border border-emerald-500/30 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20"
+                              ? "border border-red-200 bg-red-50 text-red-700 hover:bg-red-100"
+                              : "border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                           }`}
                         >
                           {user.isActive ? "غیرفعال کردن" : "فعال کردن"}

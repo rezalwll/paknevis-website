@@ -85,9 +85,9 @@ export default async function AdminEnterprisePlansPage({
 
   return (
     <div className="space-y-6">
-      <header className="rounded-[2rem] border border-slate-800 bg-slate-900/70 p-6">
-        <h1 className="text-3xl font-semibold text-white">مدیریت طرح‌های سازمانی</h1>
-        <p className="mt-3 max-w-3xl leading-8 text-slate-400">
+      <header className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+        <h1 className="text-3xl font-semibold text-slate-900">مدیریت طرح‌های سازمانی</h1>
+        <p className="mt-3 max-w-3xl leading-8 text-slate-500">
           از این بخش طرح‌های صفحه نسخه سازمانی را مدیریت کنید، قیمت و تعداد کاربر را تغییر
           دهید، طرح جدید بسازید و مشخص کنید کدام پلن به‌عنوان پیشنهاد محبوب نمایش داده شود.
         </p>
@@ -97,8 +97,8 @@ export default async function AdminEnterprisePlansPage({
         <p
           className={`rounded-2xl px-5 py-4 text-sm ${
             stateMessage.type === "success"
-              ? "bg-emerald-500/10 text-emerald-200"
-              : "bg-red-500/10 text-red-200"
+              ? "bg-emerald-50 text-emerald-700"
+              : "bg-red-50 text-red-700"
           }`}
         >
           {stateMessage.text}
@@ -106,25 +106,25 @@ export default async function AdminEnterprisePlansPage({
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-3">
-        <article className="rounded-[1.75rem] border border-slate-800 bg-slate-900/70 p-5">
-          <p className="text-sm text-slate-400">کل طرح‌ها</p>
-          <p className="mt-3 text-3xl font-semibold text-white">{plans.length}</p>
+        <article className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-5">
+          <p className="text-sm text-slate-500">کل طرح‌ها</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{plans.length}</p>
         </article>
-        <article className="rounded-[1.75rem] border border-slate-800 bg-slate-900/70 p-5">
-          <p className="text-sm text-slate-400">طرح‌های فعال</p>
-          <p className="mt-3 text-3xl font-semibold text-emerald-300">{activeCount}</p>
+        <article className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-5">
+          <p className="text-sm text-slate-500">طرح‌های فعال</p>
+          <p className="mt-3 text-3xl font-semibold text-emerald-700">{activeCount}</p>
         </article>
-        <article className="rounded-[1.75rem] border border-slate-800 bg-slate-900/70 p-5">
-          <p className="text-sm text-slate-400">طرح‌های غیرفعال</p>
-          <p className="mt-3 text-3xl font-semibold text-amber-300">{inactiveCount}</p>
+        <article className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-5">
+          <p className="text-sm text-slate-500">طرح‌های غیرفعال</p>
+          <p className="mt-3 text-3xl font-semibold text-amber-700">{inactiveCount}</p>
         </article>
       </section>
 
-      <section className="rounded-[2rem] border border-slate-800 bg-slate-900/70 p-6">
-        <h2 className="text-xl font-semibold text-white">ساخت طرح جدید</h2>
+      <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+        <h2 className="text-xl font-semibold text-slate-900">ساخت طرح جدید</h2>
         <form action={createEnterprisePlanAction} className="mt-6 grid gap-4 lg:grid-cols-2">
           <div className="space-y-2">
-            <label htmlFor="title" className="block text-sm text-slate-300">
+            <label htmlFor="title" className="block text-sm text-slate-600">
               عنوان طرح
             </label>
             <input
@@ -132,11 +132,11 @@ export default async function AdminEnterprisePlansPage({
               name="title"
               type="text"
               required
-              className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
             />
           </div>
           <div className="space-y-2">
-            <label htmlFor="priceMillion" className="block text-sm text-slate-300">
+            <label htmlFor="priceMillion" className="block text-sm text-slate-600">
               قیمت (میلیون تومان)
             </label>
             <input
@@ -146,11 +146,11 @@ export default async function AdminEnterprisePlansPage({
               min="0.01"
               step="0.01"
               required
-              className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
             />
           </div>
           <div className="space-y-2">
-            <label htmlFor="userCount" className="block text-sm text-slate-300">
+            <label htmlFor="userCount" className="block text-sm text-slate-600">
               تعداد کاربر
             </label>
             <input
@@ -160,11 +160,11 @@ export default async function AdminEnterprisePlansPage({
               min="1"
               step="1"
               required
-              className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
             />
           </div>
           <div className="space-y-2">
-            <label htmlFor="sortOrder" className="block text-sm text-slate-300">
+            <label htmlFor="sortOrder" className="block text-sm text-slate-600">
               ترتیب نمایش
             </label>
             <input
@@ -174,11 +174,11 @@ export default async function AdminEnterprisePlansPage({
               min="0"
               step="1"
               placeholder="اگر خالی باشد آخر لیست قرار می‌گیرد"
-              className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
             />
           </div>
           <div className="space-y-2 lg:col-span-2">
-            <label htmlFor="description" className="block text-sm text-slate-300">
+            <label htmlFor="description" className="block text-sm text-slate-600">
               توضیح طرح
             </label>
             <textarea
@@ -186,21 +186,21 @@ export default async function AdminEnterprisePlansPage({
               name="description"
               rows={4}
               required
-              className="w-full rounded-[1.5rem] border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+              className="w-full rounded-[1.5rem] border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
             />
           </div>
-          <label className="inline-flex items-center gap-3 text-sm text-slate-300 lg:col-span-2">
+          <label className="inline-flex items-center gap-3 text-sm text-slate-600 lg:col-span-2">
             <input
               type="checkbox"
               name="makePopular"
-              className="h-4 w-4 rounded border-slate-600 bg-slate-950 text-sky-500 focus:ring-sky-500"
+              className="h-4 w-4 rounded border-slate-600 bg-slate-50 text-sky-500 focus:ring-sky-500"
             />
             این طرح بلافاصله محبوب شود
           </label>
           <div className="lg:col-span-2">
             <button
               type="submit"
-              className="rounded-2xl bg-sky-500 px-5 py-3 text-sm font-medium text-slate-950 transition hover:bg-sky-400"
+              className="rounded-2xl bg-sky-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-sky-700"
             >
               ساخت طرح جدید
             </button>
@@ -210,8 +210,8 @@ export default async function AdminEnterprisePlansPage({
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-white">لیست طرح‌ها</h2>
-          <p className="text-sm text-slate-400">همه طرح‌ها با وضعیت فعال یا غیرفعال</p>
+          <h2 className="text-xl font-semibold text-slate-900">لیست طرح‌ها</h2>
+          <p className="text-sm text-slate-500">همه طرح‌ها با وضعیت فعال یا غیرفعال</p>
         </div>
 
         {plans.length > 0 ? (
@@ -219,11 +219,11 @@ export default async function AdminEnterprisePlansPage({
             {plans.map((plan) => (
               <article
                 key={plan.id}
-                className="rounded-[2rem] border border-slate-800 bg-slate-900/70 p-6"
+                className="rounded-[2rem] border border-slate-200 bg-white/90 p-6"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <h3 className="text-xl font-semibold text-white">{plan.title}</h3>
+                    <h3 className="text-xl font-semibold text-slate-900">{plan.title}</h3>
                     <p className="mt-2 text-xs text-slate-500">
                       ساخته‌شده: {formatAdminDateTime(plan.createdAt)}
                     </p>
@@ -235,14 +235,14 @@ export default async function AdminEnterprisePlansPage({
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
                         plan.isActive
-                          ? "bg-emerald-500/10 text-emerald-200"
-                          : "bg-slate-700 text-slate-300"
+                          ? "bg-emerald-50 text-emerald-700"
+                          : "bg-slate-100 text-slate-700"
                       }`}
                     >
                       {plan.isActive ? "فعال" : "غیرفعال"}
                     </span>
                     {plan.isPopular ? (
-                      <span className="inline-flex rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-200">
+                      <span className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
                         محبوب
                       </span>
                     ) : null}
@@ -253,17 +253,17 @@ export default async function AdminEnterprisePlansPage({
                   <input type="hidden" name="planId" value={plan.id} />
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="block text-sm text-slate-300">عنوان طرح</label>
+                      <label className="block text-sm text-slate-600">عنوان طرح</label>
                       <input
                         name="title"
                         type="text"
                         defaultValue={plan.title}
                         required
-                        className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                        className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="block text-sm text-slate-300">قیمت (میلیون تومان)</label>
+                      <label className="block text-sm text-slate-600">قیمت (میلیون تومان)</label>
                       <input
                         name="priceMillion"
                         type="number"
@@ -271,11 +271,11 @@ export default async function AdminEnterprisePlansPage({
                         step="0.01"
                         defaultValue={plan.priceMillion}
                         required
-                        className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                        className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="block text-sm text-slate-300">تعداد کاربر</label>
+                      <label className="block text-sm text-slate-600">تعداد کاربر</label>
                       <input
                         name="userCount"
                         type="number"
@@ -283,11 +283,11 @@ export default async function AdminEnterprisePlansPage({
                         step="1"
                         defaultValue={plan.userCount}
                         required
-                        className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                        className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="block text-sm text-slate-300">ترتیب نمایش</label>
+                      <label className="block text-sm text-slate-600">ترتیب نمایش</label>
                       <input
                         name="sortOrder"
                         type="number"
@@ -295,31 +295,31 @@ export default async function AdminEnterprisePlansPage({
                         step="1"
                         defaultValue={plan.sortOrder}
                         required
-                        className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                        className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-sm text-slate-300">توضیح طرح</label>
+                    <label className="block text-sm text-slate-600">توضیح طرح</label>
                     <textarea
                       name="description"
                       rows={4}
                       defaultValue={plan.description}
                       required
-                      className="w-full rounded-[1.5rem] border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500"
+                      className="w-full rounded-[1.5rem] border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="rounded-2xl bg-white px-4 py-3 text-sm font-medium text-slate-950 transition hover:bg-slate-200"
+                    className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                   >
                     ذخیره تغییرات
                   </button>
                 </form>
 
-                <div className="mt-5 flex flex-wrap gap-3 border-t border-slate-800 pt-5">
+                <div className="mt-5 flex flex-wrap gap-3 border-t border-slate-200 pt-5">
                   {plan.isPopular ? (
-                    <span className="inline-flex rounded-2xl border border-sky-500/30 bg-sky-500/10 px-4 py-3 text-sm text-sky-200">
+                    <span className="inline-flex rounded-2xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-700">
                       این طرح محبوب فعلی است
                     </span>
                   ) : plan.isActive ? (
@@ -327,13 +327,13 @@ export default async function AdminEnterprisePlansPage({
                       <input type="hidden" name="planId" value={plan.id} />
                       <button
                         type="submit"
-                        className="rounded-2xl border border-sky-500/30 bg-sky-500/10 px-4 py-3 text-sm font-medium text-sky-200 transition hover:bg-sky-500/20"
+                        className="rounded-2xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm font-medium text-sky-700 transition hover:bg-sky-600/20"
                       >
                         محبوب کردن این طرح
                       </button>
                     </form>
                   ) : (
-                    <span className="inline-flex rounded-2xl border border-slate-700 px-4 py-3 text-sm text-slate-400">
+                    <span className="inline-flex rounded-2xl border border-slate-300 px-4 py-3 text-sm text-slate-500">
                       طرح غیرفعال نمی‌تواند محبوب باشد
                     </span>
                   )}
@@ -349,8 +349,8 @@ export default async function AdminEnterprisePlansPage({
                       type="submit"
                       className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${
                         plan.isActive
-                          ? "border border-red-500/30 bg-red-500/10 text-red-200 hover:bg-red-500/20"
-                          : "border border-emerald-500/30 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20"
+                          ? "border border-red-200 bg-red-50 text-red-700 hover:bg-red-100"
+                          : "border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                       }`}
                     >
                       {plan.isActive ? "غیرفعال کردن طرح" : "فعال کردن طرح"}
@@ -361,7 +361,7 @@ export default async function AdminEnterprisePlansPage({
             ))}
           </div>
         ) : (
-          <div className="rounded-[2rem] border border-dashed border-slate-700 bg-slate-900/40 p-8 text-center text-slate-400">
+          <div className="rounded-[2rem] border border-dashed border-slate-300 bg-slate-50/80 p-8 text-center text-slate-500">
             هنوز هیچ طرحی برای نسخه سازمانی ثبت نشده است.
           </div>
         )}

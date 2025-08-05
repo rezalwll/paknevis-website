@@ -73,28 +73,28 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
 
   return (
     <div className="space-y-6">
-      <header className="rounded-[2rem] border border-slate-800 bg-slate-900/70 p-6">
-        <h1 className="text-3xl font-semibold text-white">صندوق پیام‌های تماس</h1>
-        <p className="mt-3 max-w-3xl leading-8 text-slate-400">
+      <header className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+        <h1 className="text-3xl font-semibold text-slate-900">صندوق پیام‌های تماس</h1>
+        <p className="mt-3 max-w-3xl leading-8 text-slate-500">
           پیام‌های ثبت‌شده از فرم عمومی سایت را از اینجا ببینید، وضعیت‌شان را تغییر دهید و
           مسئول پیگیری تعیین کنید.
         </p>
       </header>
 
-      <section className="rounded-[2rem] border border-slate-800 bg-slate-900/70 p-5">
+      <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-5">
         <form className="grid gap-4 xl:grid-cols-[1.5fr_0.8fr_0.8fr_auto]">
           <input
             type="search"
             name="q"
             defaultValue={filters.search}
             placeholder="جستجو در نام، ایمیل، تلفن یا متن پیام"
-            className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-right text-slate-100 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-right text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10"
           />
 
           <select
             name="status"
             defaultValue={filters.status}
-            className="rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10"
+            className="rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10"
           >
             <option value="">همه وضعیت‌ها</option>
             {MESSAGE_STATUSES.map((status) => (
@@ -108,7 +108,7 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
             <select
               name="assignedTo"
               defaultValue={filters.assignedTo}
-              className="rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10"
+              className="rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10"
             >
               <option value="">همه مسئول‌ها</option>
               <option value="unassigned">بدون مسئول</option>
@@ -124,18 +124,18 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
 
           <button
             type="submit"
-            className="rounded-2xl bg-sky-500 px-5 py-3 text-sm font-medium text-slate-950 transition hover:bg-sky-400"
+            className="rounded-2xl bg-sky-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-sky-700"
           >
             اعمال فیلتر
           </button>
         </form>
       </section>
 
-      <section className="overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-900/70">
-        <div className="flex flex-col gap-3 border-b border-slate-800 px-6 py-5 md:flex-row md:items-center md:justify-between">
+      <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90">
+        <div className="flex flex-col gap-3 border-b border-slate-200 px-6 py-5 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-white">لیست پیام‌ها</h2>
-            <p className="mt-2 text-sm text-slate-400">
+            <h2 className="text-xl font-semibold text-slate-900">لیست پیام‌ها</h2>
+            <p className="mt-2 text-sm text-slate-500">
               {messages.totalCount} پیام در دسترس شماست.
             </p>
           </div>
@@ -145,9 +145,9 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
         </div>
 
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-800">
-            <thead className="bg-slate-950/40">
-              <tr className="text-right text-xs text-slate-400">
+          <table className="min-w-full divide-y divide-slate-200">
+            <thead className="bg-slate-50/80">
+              <tr className="text-right text-xs text-slate-500">
                 <th className="px-6 py-4 font-medium">فرستنده</th>
                 <th className="px-6 py-4 font-medium">خلاصه پیام</th>
                 <th className="px-6 py-4 font-medium">وضعیت</th>
@@ -156,7 +156,7 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
                 <th className="px-6 py-4 font-medium">عملیات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800 text-sm text-slate-200">
+            <tbody className="divide-y divide-slate-200 text-sm text-slate-700">
               {messages.items.length > 0 ? (
                 messages.items.map((message) => {
                   const redirectTo = buildMessagesUrl(filters, messages.currentPage);
@@ -164,14 +164,14 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
                   return (
                     <tr key={message.id} className="align-top">
                       <td className="px-6 py-5">
-                        <p className="font-medium text-white">
+                        <p className="font-medium text-slate-900">
                           {message.firstName} {message.lastName}
                         </p>
-                        <p className="mt-1 text-xs text-slate-400">{message.email}</p>
+                        <p className="mt-1 text-xs text-slate-500">{message.email}</p>
                         <p className="mt-1 text-xs text-slate-500">{message.phone}</p>
                       </td>
                       <td className="px-6 py-5">
-                        <p className="max-w-md leading-7 text-slate-300">
+                        <p className="max-w-md leading-7 text-slate-600">
                           {message.message.length > 120
                             ? `${message.message.slice(0, 120)}...`
                             : message.message}
@@ -194,7 +194,7 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
                           <select
                             name="status"
                             defaultValue={message.status}
-                            className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-slate-200 outline-none transition focus:border-sky-500"
+                            className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs text-slate-700 outline-none transition focus:border-sky-500"
                           >
                             {MESSAGE_STATUSES.map((status) => (
                               <option key={status} value={status}>
@@ -204,14 +204,14 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
                           </select>
                           <button
                             type="submit"
-                            className="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-200 transition hover:border-sky-400 hover:text-white"
+                            className="rounded-full border border-slate-300 px-3 py-1 text-xs text-slate-700 transition hover:border-sky-400 hover:text-slate-900"
                           >
                             ذخیره وضعیت
                           </button>
                         </form>
                       </td>
                       <td className="px-6 py-5">
-                        <p className="text-sm text-slate-200">
+                        <p className="text-sm text-slate-700">
                           {message.assignedToName ?? "بدون مسئول"}
                         </p>
                         {canAssign ? (
@@ -221,7 +221,7 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
                             <select
                               name="assignedTo"
                               defaultValue={message.assignedTo?.toString() ?? ""}
-                              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-slate-200 outline-none transition focus:border-sky-500"
+                              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs text-slate-700 outline-none transition focus:border-sky-500"
                             >
                               <option value="">بدون مسئول</option>
                               {assignableAdmins.map((admin) => (
@@ -232,20 +232,20 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
                             </select>
                             <button
                               type="submit"
-                              className="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-200 transition hover:border-sky-400 hover:text-white"
+                              className="rounded-full border border-slate-300 px-3 py-1 text-xs text-slate-700 transition hover:border-sky-400 hover:text-slate-900"
                             >
                               ثبت مسئول
                             </button>
                           </form>
                         ) : null}
                       </td>
-                      <td className="px-6 py-5 text-xs text-slate-400">
+                      <td className="px-6 py-5 text-xs text-slate-500">
                         {formatAdminDateTime(message.createdAt)}
                       </td>
                       <td className="px-6 py-5">
                         <Link
                           href={`/admin/messages/${message.id}`}
-                          className="inline-flex rounded-full bg-white px-4 py-2 text-xs font-medium text-slate-950 transition hover:bg-slate-200"
+                          className="inline-flex rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
                         >
                           مشاهده جزئیات
                         </Link>
@@ -255,7 +255,7 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
                 })
               ) : (
                 <tr>
-                  <td colSpan={6} className="px-6 py-10 text-center text-sm text-slate-400">
+                  <td colSpan={6} className="px-6 py-10 text-center text-sm text-slate-500">
                     موردی با فیلترهای فعلی پیدا نشد.
                   </td>
                 </tr>
@@ -265,24 +265,24 @@ export default async function AdminMessagesPage({ searchParams }: MessagesPagePr
         </div>
       </section>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[2rem] border border-slate-800 bg-slate-900/70 px-6 py-4 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[2rem] border border-slate-200 bg-white/90 px-6 py-4 text-sm">
         <Link
           href={buildMessagesUrl(filters, Math.max(1, messages.currentPage - 1))}
           className={`rounded-full px-4 py-2 transition ${
             messages.currentPage > 1
-              ? "bg-slate-800 text-slate-100 hover:bg-slate-700"
-              : "cursor-not-allowed bg-slate-900 text-slate-600"
+              ? "bg-slate-100 text-slate-900 hover:bg-slate-200"
+              : "cursor-not-allowed bg-slate-100 text-slate-400"
           }`}
         >
           صفحه قبل
         </Link>
-        <p className="text-slate-400">{messages.totalCount} نتیجه</p>
+        <p className="text-slate-500">{messages.totalCount} نتیجه</p>
         <Link
           href={buildMessagesUrl(filters, Math.min(messages.totalPages, messages.currentPage + 1))}
           className={`rounded-full px-4 py-2 transition ${
             messages.currentPage < messages.totalPages
-              ? "bg-sky-500 text-slate-950 hover:bg-sky-400"
-              : "cursor-not-allowed bg-slate-900 text-slate-600"
+              ? "bg-sky-600 text-white hover:bg-sky-700"
+              : "cursor-not-allowed bg-slate-100 text-slate-400"
           }`}
         >
           صفحه بعد
