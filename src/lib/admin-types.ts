@@ -27,7 +27,7 @@ export const HELP_ICON_KEYS = [
 export type HelpIconKey = (typeof HELP_ICON_KEYS)[number];
 
 export const ADMIN_ROLE_LABELS: Record<AdminRole, string> = {
-  super_admin: "مدیر کل",
+  super_admin: "مدیر سایت",
   support_manager: "مدیر پشتیبانی",
   support_agent: "کارشناس پشتیبانی",
 };
@@ -58,6 +58,7 @@ export const HELP_ICON_LABELS: Record<HelpIconKey, string> = {
 export type AuthenticatedAdminUser = {
   id: number;
   email: string;
+  username: string;
   fullName: string;
   role: AdminRole;
 };
@@ -65,6 +66,7 @@ export type AuthenticatedAdminUser = {
 export type AdminUserSummary = {
   id: number;
   email: string;
+  username: string;
   fullName: string;
   role: AdminRole;
   isActive: boolean;

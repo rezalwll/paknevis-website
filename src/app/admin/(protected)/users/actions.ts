@@ -6,6 +6,12 @@ import { redirect } from "next/navigation";
 import { createAdminUserRecord, updateAdminUserActiveState } from "@/lib/admin-data";
 import { hashPassword, requireAdminRole } from "@/lib/admin-auth";
 import { isAdminRole } from "@/lib/admin-types";
+import {
+  isValidAdminEmail,
+  isValidAdminUsername,
+  normalizeAdminEmail,
+  normalizeAdminUsername,
+} from "@/lib/admin-identity";
 
 function redirectWithState(path: string, key: "error" | "notice", value: string): never {
   redirect(`${path}?${key}=${encodeURIComponent(value)}`);
@@ -15,11 +21,18 @@ export async function createAdminUserAction(formData: FormData) {
   await requireAdminRole(["super_admin"]);
 
   const fullName = String(formData.get("fullName") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const email = normalizeAdminEmail(String(formData.get("email") ?? ""));
+  const username = normalizeAdminUsername(String(formData.get("username") ?? ""));
   const password = String(formData.get("password") ?? "");
   const role = String(formData.get("role") ?? "");
 
-  if (!fullName || !email || password.length < 8 || !isAdminRole(role)) {
+  if (
+    !fullName ||
+    !isValidAdminEmail(email) ||
+    !isValidAdminUsername(username) ||
+    password.length < 8 ||
+    !isAdminRole(role)
+  ) {
     redirectWithState("/admin/users", "error", "invalid-user");
   }
 
@@ -28,6 +41,7 @@ export async function createAdminUserAction(formData: FormData) {
 
     await createAdminUserRecord({
       email,
+      username,
       fullName,
       role,
       passwordHash,
@@ -38,6 +52,12 @@ export async function createAdminUserAction(formData: FormData) {
       "code" in error &&
       (error as Error & { code?: string }).code === "23505"
     ) {
+      const constraint = (error as Error & { constraint?: string }).constraint ?? "";
+
+      if (constraint.includes("username")) {
+        redirectWithState("/admin/users", "error", "username-taken");
+      }
+
       redirectWithState("/admin/users", "error", "email-taken");
     }
 

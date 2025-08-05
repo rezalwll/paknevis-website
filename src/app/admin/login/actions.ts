@@ -26,12 +26,12 @@ export async function loginAdminAction(
   _previousState: LoginActionState,
   formData: FormData,
 ): Promise<LoginActionState> {
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const identifier = String(formData.get("identifier") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
 
-  if (!email || !password) {
+  if (!identifier || !password) {
     return {
-      error: "ایمیل و رمز عبور الزامی است.",
+      error: "ایمیل یا یوزرنیم و رمز عبور الزامی است.",
     };
   }
 
@@ -43,7 +43,7 @@ export async function loginAdminAction(
     : realIp
       ? getClientAddress(realIp)
       : "unknown";
-  const rateLimitKey = `${clientAddress}:${email}`;
+  const rateLimitKey = `${clientAddress}:${identifier}`;
   const retryAfterSeconds = getRemainingLoginCooldownSeconds(rateLimitKey);
 
   if (retryAfterSeconds > 0) {
@@ -52,7 +52,7 @@ export async function loginAdminAction(
     };
   }
 
-  const adminUser = await authenticateAdminUser(email, password);
+  const adminUser = await authenticateAdminUser(identifier, password);
 
   if (!adminUser) {
     registerFailedLoginAttempt(rateLimitKey);

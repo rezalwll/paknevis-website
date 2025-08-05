@@ -25,6 +25,7 @@ export default async function AdminProtectedLayout({
           <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-white/95 p-5">
             <p className="text-xs text-slate-500">کاربر واردشده</p>
             <p className="mt-2 text-lg font-semibold text-slate-900">{currentUser.fullName}</p>
+            <p className="mt-1 text-sm text-slate-500">@{currentUser.username}</p>
             <p className="mt-1 text-sm text-slate-500">{currentUser.email}</p>
             <p className="mt-3 inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
               {ADMIN_ROLE_LABELS[currentUser.role]}
@@ -43,6 +44,12 @@ export default async function AdminProtectedLayout({
               className="block rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 transition hover:border-sky-500/40 hover:bg-slate-100"
             >
               پیام‌های تماس
+            </Link>
+            <Link
+              href="/admin/profile"
+              className="block rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 transition hover:border-sky-500/40 hover:bg-slate-100"
+            >
+              پروفایل من
             </Link>
             {canManageHelpCenter(currentUser.role) ? (
               <Link

@@ -8,7 +8,7 @@ import {
   createAdminSessionRecord,
   deleteAdminSessionRecord,
   findAdminSessionUser,
-  findAdminUserByEmail,
+  findAdminUserByIdentifier,
   touchAdminLastLogin,
 } from "@/lib/admin-data";
 import { type AdminRole, type AuthenticatedAdminUser } from "@/lib/admin-types";
@@ -48,10 +48,10 @@ export async function verifyPassword(
 }
 
 export async function authenticateAdminUser(
-  email: string,
+  identifier: string,
   password: string,
 ): Promise<AuthenticatedAdminUser | null> {
-  const candidate = await findAdminUserByEmail(email);
+  const candidate = await findAdminUserByIdentifier(identifier);
 
   if (!candidate || !candidate.isActive) {
     return null;
@@ -68,6 +68,7 @@ export async function authenticateAdminUser(
   return {
     id: candidate.id,
     email: candidate.email,
+    username: candidate.username,
     fullName: candidate.fullName,
     role: candidate.role,
   };

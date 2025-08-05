@@ -1,6 +1,11 @@
-import { Pool, type PoolConfig } from "pg";
+import { Pool, type PoolClient, type PoolConfig } from "pg";
 
 import type { ContactFormData } from "@/lib/contact";
+import {
+  buildUniqueAdminUsername,
+  createAdminUsernameBaseFromEmail,
+  normalizeAdminUsername,
+} from "@/lib/admin-identity";
 import { DEFAULT_HELP_CENTER_CATEGORIES } from "@/lib/help-center-seed";
 
 type GlobalDbState = typeof globalThis & {
@@ -88,6 +93,48 @@ function getPoolConfig(): PoolConfig {
   };
 }
 
+async function backfillAdminUsernames(client: PoolClient): Promise<void> {
+  const result = await client.query<{
+    id: number;
+    email: string;
+    username: string | null;
+  }>(`
+    SELECT id, email, username
+    FROM admin_users
+    ORDER BY id ASC
+  `);
+
+  const takenUsernames = new Set<string>();
+
+  for (const row of result.rows) {
+    if (row.username?.trim()) {
+      takenUsernames.add(normalizeAdminUsername(row.username));
+    }
+  }
+
+  for (const row of result.rows) {
+    if (row.username?.trim()) {
+      continue;
+    }
+
+    const username = buildUniqueAdminUsername(
+      createAdminUsernameBaseFromEmail(row.email),
+      takenUsernames,
+    );
+
+    await client.query(
+      `
+        UPDATE admin_users
+        SET username = $2
+        WHERE id = $1
+      `,
+      [row.id, username],
+    );
+
+    takenUsernames.add(username);
+  }
+}
+
 export function getDb(): Pool {
   if (!globalDb.__paknevisDbPool__) {
     globalDb.__paknevisDbPool__ = new Pool(getPoolConfig());
@@ -108,6 +155,7 @@ export async function ensureAppSchema(): Promise<void> {
           CREATE TABLE IF NOT EXISTS admin_users (
             id BIGSERIAL PRIMARY KEY,
             email VARCHAR(255) NOT NULL UNIQUE,
+            username VARCHAR(60) NOT NULL,
             full_name VARCHAR(120) NOT NULL,
             password_hash TEXT NOT NULL,
             role VARCHAR(32) NOT NULL CHECK (role IN ('super_admin', 'support_manager', 'support_agent')),
@@ -115,6 +163,23 @@ export async function ensureAppSchema(): Promise<void> {
             last_login_at TIMESTAMPTZ NULL,
             created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
           );
+        `);
+
+        await client.query(`
+          ALTER TABLE admin_users
+          ADD COLUMN IF NOT EXISTS username VARCHAR(60);
+        `);
+
+        await backfillAdminUsernames(client);
+
+        await client.query(`
+          ALTER TABLE admin_users
+          ALTER COLUMN username SET NOT NULL;
+        `);
+
+        await client.query(`
+          CREATE UNIQUE INDEX IF NOT EXISTS admin_users_username_key
+          ON admin_users(username);
         `);
 
         await client.query(`

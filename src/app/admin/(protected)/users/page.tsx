@@ -41,6 +41,13 @@ function getStateMessage(params: Awaited<UsersPageProps["searchParams"]>) {
     };
   }
 
+  if (params.error === "username-taken") {
+    return {
+      type: "error" as const,
+      text: "این یوزرنیم قبلاً ثبت شده است.",
+    };
+  }
+
   if (params.error === "self-disable") {
     return {
       type: "error" as const,
@@ -122,6 +129,21 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
               />
             </div>
             <div className="space-y-2">
+              <label htmlFor="username" className="block text-sm text-slate-600">
+                یوزرنیم
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                pattern="[a-z0-9._-]{3,40}"
+                minLength={3}
+                maxLength={40}
+                required
+                className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-500"
+              />
+            </div>
+            <div className="space-y-2">
               <label htmlFor="password" className="block text-sm text-slate-600">
                 رمز عبور
               </label>
@@ -183,6 +205,7 @@ export default async function AdminUsersPage({ searchParams }: UsersPageProps) {
                   <tr key={user.id}>
                     <td className="px-6 py-5">
                       <p className="font-medium text-slate-900">{user.fullName}</p>
+                      <p className="mt-1 text-xs text-slate-500">@{user.username}</p>
                       <p className="mt-1 text-xs text-slate-500">{user.email}</p>
                       <p className="mt-1 text-xs text-slate-500">
                         ایجاد شده: {formatAdminDateTime(user.createdAt)}

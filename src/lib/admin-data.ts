@@ -12,19 +12,17 @@ import {
   type MessageDashboardCounts,
   type MessageStatus,
 } from "@/lib/admin-types";
+import { normalizeAdminEmail, normalizeAdminUsername } from "@/lib/admin-identity";
 
 type AdminLoginRecord = {
   id: number;
   email: string;
+  username: string;
   fullName: string;
   role: AdminRole;
   isActive: boolean;
   passwordHash: string;
 };
-
-function normalizeEmail(email: string): string {
-  return email.trim().toLowerCase();
-}
 
 function parseNumericId(value: string): number | null {
   const parsed = Number.parseInt(value, 10);
@@ -88,6 +86,7 @@ function buildMessageWhereClause(
 function mapPublicAdminUser(row: {
   id: number;
   email: string;
+  username: string;
   full_name: string;
   role: string;
 }): AuthenticatedAdminUser {
@@ -98,29 +97,37 @@ function mapPublicAdminUser(row: {
   return {
     id: row.id,
     email: row.email,
+    username: row.username,
     fullName: row.full_name,
     role: row.role,
   };
 }
 
-export async function findAdminUserByEmail(email: string): Promise<AdminLoginRecord | null> {
+export async function findAdminUserByIdentifier(
+  identifier: string,
+): Promise<AdminLoginRecord | null> {
   await ensureAppSchema();
+
+  const normalizedEmail = normalizeAdminEmail(identifier);
+  const normalizedUsername = normalizeAdminUsername(identifier);
 
   const result = await getDb().query<{
     id: number;
     email: string;
+    username: string;
     full_name: string;
     role: string;
     is_active: boolean;
     password_hash: string;
   }>(
     `
-      SELECT id, email, full_name, role, is_active, password_hash
+      SELECT id, email, username, full_name, role, is_active, password_hash
       FROM admin_users
       WHERE email = $1
+        OR username = $2
       LIMIT 1
     `,
-    [normalizeEmail(email)],
+    [normalizedEmail, normalizedUsername],
   );
 
   const row = result.rows[0];
@@ -132,6 +139,7 @@ export async function findAdminUserByEmail(email: string): Promise<AdminLoginRec
   return {
     id: row.id,
     email: row.email,
+    username: row.username,
     fullName: row.full_name,
     role: row.role,
     isActive: row.is_active,
@@ -200,11 +208,12 @@ export async function findAdminSessionUser(
   const result = await getDb().query<{
     id: number;
     email: string;
+    username: string;
     full_name: string;
     role: string;
   }>(
     `
-      SELECT au.id, au.email, au.full_name, au.role
+      SELECT au.id, au.email, au.username, au.full_name, au.role
       FROM admin_sessions AS sessions
       INNER JOIN admin_users AS au
         ON au.id = sessions.user_id
@@ -231,6 +240,7 @@ export async function listAdminUsers(): Promise<AdminUserSummary[]> {
   const result = await getDb().query<{
     id: number;
     email: string;
+    username: string;
     full_name: string;
     role: string;
     is_active: boolean;
@@ -238,7 +248,7 @@ export async function listAdminUsers(): Promise<AdminUserSummary[]> {
     created_at: string;
   }>(
     `
-      SELECT id, email, full_name, role, is_active, last_login_at, created_at
+      SELECT id, email, username, full_name, role, is_active, last_login_at, created_at
       FROM admin_users
       ORDER BY created_at DESC
     `,
@@ -254,6 +264,7 @@ export async function listAdminUsers(): Promise<AdminUserSummary[]> {
     users.push({
       id: row.id,
       email: row.email,
+      username: row.username,
       fullName: row.full_name,
       role: row.role,
       isActive: row.is_active,
@@ -271,11 +282,12 @@ export async function listAssignableAdmins(): Promise<AuthenticatedAdminUser[]> 
   const result = await getDb().query<{
     id: number;
     email: string;
+    username: string;
     full_name: string;
     role: string;
   }>(
     `
-      SELECT id, email, full_name, role
+      SELECT id, email, username, full_name, role
       FROM admin_users
       WHERE is_active = TRUE
       ORDER BY full_name ASC
@@ -297,6 +309,7 @@ export async function listAssignableAdmins(): Promise<AuthenticatedAdminUser[]> 
 
 export async function createAdminUserRecord(input: {
   email: string;
+  username: string;
   fullName: string;
   role: AdminRole;
   passwordHash: string;
@@ -305,10 +318,16 @@ export async function createAdminUserRecord(input: {
 
   await getDb().query(
     `
-      INSERT INTO admin_users (email, full_name, password_hash, role)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO admin_users (email, username, full_name, password_hash, role)
+      VALUES ($1, $2, $3, $4, $5)
     `,
-    [normalizeEmail(input.email), input.fullName.trim(), input.passwordHash, input.role],
+    [
+      normalizeAdminEmail(input.email),
+      normalizeAdminUsername(input.username),
+      input.fullName.trim(),
+      input.passwordHash,
+      input.role,
+    ],
   );
 }
 
@@ -356,6 +375,77 @@ export async function updateAdminUserActiveState(
     `,
     [targetUserId, nextActiveState],
   );
+}
+
+export async function updateOwnAdminProfile(input: {
+  userId: number;
+  fullName: string;
+  email: string;
+  username: string;
+}): Promise<void> {
+  await ensureAppSchema();
+
+  const result = await getDb().query(
+    `
+      UPDATE admin_users
+      SET
+        full_name = $2,
+        email = $3,
+        username = $4
+      WHERE id = $1
+        AND is_active = TRUE
+    `,
+    [
+      input.userId,
+      input.fullName.trim(),
+      normalizeAdminEmail(input.email),
+      normalizeAdminUsername(input.username),
+    ],
+  );
+
+  if (result.rowCount === 0) {
+    throw new Error("ADMIN_USER_NOT_FOUND");
+  }
+}
+
+export async function getAdminUserPasswordHashById(
+  userId: number,
+): Promise<string | null> {
+  await ensureAppSchema();
+
+  const result = await getDb().query<{ password_hash: string }>(
+    `
+      SELECT password_hash
+      FROM admin_users
+      WHERE id = $1
+        AND is_active = TRUE
+      LIMIT 1
+    `,
+    [userId],
+  );
+
+  return result.rows[0]?.password_hash ?? null;
+}
+
+export async function updateOwnAdminPassword(input: {
+  userId: number;
+  passwordHash: string;
+}): Promise<void> {
+  await ensureAppSchema();
+
+  const result = await getDb().query(
+    `
+      UPDATE admin_users
+      SET password_hash = $2
+      WHERE id = $1
+        AND is_active = TRUE
+    `,
+    [input.userId, input.passwordHash],
+  );
+
+  if (result.rowCount === 0) {
+    throw new Error("ADMIN_USER_NOT_FOUND");
+  }
 }
 
 export async function getAdminDashboardCounts(
