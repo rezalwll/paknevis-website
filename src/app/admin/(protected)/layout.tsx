@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { logoutAdminAction } from "@/app/admin/(protected)/actions";
 import { requireAdminUser } from "@/lib/admin-auth";
@@ -21,7 +22,17 @@ export default async function AdminProtectedLayout({
     <div dir="rtl" className="min-h-screen bg-slate-50 text-slate-900">
       <div className="mx-auto grid min-h-screen max-w-[1600px] lg:grid-cols-[280px_1fr]">
         <aside className="border-l border-slate-200 bg-white/90 px-6 py-8 backdrop-blur">
-          <p className="text-sm font-medium text-sky-700">پنل مدیریت پاک‌نویس</p>
+          <div className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50/70 px-4 py-3">
+            <Image
+              src="/mainlogo.png"
+              alt="لوگوی پاک‌نویس"
+              width={36}
+              height={36}
+              className="h-9 w-9 object-contain"
+              priority
+            />
+            <p className="text-sm font-semibold text-sky-700">پنل مدیریت پاک‌نویس</p>
+          </div>
           <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-white/95 p-5">
             <p className="text-xs text-slate-500">کاربر واردشده</p>
             <p className="mt-2 text-lg font-semibold text-slate-900">{currentUser.fullName}</p>
