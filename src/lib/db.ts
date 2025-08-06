@@ -260,6 +260,25 @@ export async function ensureAppSchema(): Promise<void> {
         `);
 
         await client.query(`
+          CREATE TABLE IF NOT EXISTS page_views (
+            path VARCHAR(255) NOT NULL,
+            view_date DATE NOT NULL,
+            count INTEGER NOT NULL DEFAULT 0,
+            PRIMARY KEY (path, view_date)
+          );
+        `);
+
+        await client.query(`
+          CREATE INDEX IF NOT EXISTS page_views_view_date_idx
+          ON page_views(view_date);
+        `);
+
+        await client.query(`
+          CREATE INDEX IF NOT EXISTS page_views_view_date_count_idx
+          ON page_views(view_date, count DESC);
+        `);
+
+        await client.query(`
           CREATE TABLE IF NOT EXISTS enterprise_plans (
             id BIGSERIAL PRIMARY KEY,
             title VARCHAR(120) NOT NULL,

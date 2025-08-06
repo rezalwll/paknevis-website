@@ -1,5 +1,6 @@
 import { getDb, ensureAppSchema } from "@/lib/db";
 import {
+  type AdminDashboardSummary,
   canManageAssignments,
   isAdminRole,
   isMessageStatus,
@@ -13,6 +14,7 @@ import {
   type MessageStatus,
 } from "@/lib/admin-types";
 import { normalizeAdminEmail, normalizeAdminUsername } from "@/lib/admin-identity";
+import { getDashboardAnalyticsSummary } from "@/lib/page-views";
 
 type AdminLoginRecord = {
   id: number;
@@ -481,6 +483,22 @@ export async function getAdminDashboardCounts(
     newCount: row?.new_count ?? 0,
     inProgressCount: row?.in_progress_count ?? 0,
     resolvedCount: row?.resolved_count ?? 0,
+  };
+}
+
+export async function getAdminDashboardSummary(
+  user: AuthenticatedAdminUser,
+): Promise<AdminDashboardSummary> {
+  await ensureAppSchema();
+
+  const [messageCounts, analytics] = await Promise.all([
+    getAdminDashboardCounts(user),
+    getDashboardAnalyticsSummary(),
+  ]);
+
+  return {
+    messages: messageCounts,
+    analytics,
   };
 }
 

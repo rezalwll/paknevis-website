@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { listContactMessages, getAdminDashboardCounts } from "@/lib/admin-data";
+import { getAdminDashboardSummary, listContactMessages } from "@/lib/admin-data";
 import { requireAdminUser } from "@/lib/admin-auth";
 import {
   MESSAGE_STATUS_LABELS,
@@ -10,47 +10,209 @@ import {
 
 export const dynamic = "force-dynamic";
 
+const numberFormatter = new Intl.NumberFormat("fa-IR");
+const trendDateFormatter = new Intl.DateTimeFormat("fa-IR", {
+  month: "short",
+  day: "numeric",
+});
+
+function formatDashboardNumber(value: number): string {
+  return numberFormatter.format(value);
+}
+
+function formatTrendDateLabel(value: string): string {
+  return trendDateFormatter.format(new Date(`${value}T00:00:00`));
+}
+
+function formatTrackedPathLabel(path: string): string {
+  if (path === "/") {
+    return "صفحه اصلی";
+  }
+
+  return path;
+}
+
 export default async function AdminDashboardPage() {
   const currentUser = await requireAdminUser();
-  const counts = await getAdminDashboardCounts(currentUser);
-  const recentMessages = await listContactMessages(
-    {
-      page: 1,
-      pageSize: 5,
-      search: "",
-      status: "",
-      assignedTo: "",
-    },
-    currentUser,
+  const [dashboard, recentMessages] = await Promise.all([
+    getAdminDashboardSummary(currentUser),
+    listContactMessages(
+      {
+        page: 1,
+        pageSize: 5,
+        search: "",
+        status: "",
+        assignedTo: "",
+      },
+      currentUser,
+    ),
+  ]);
+
+  const maxTrendViews = Math.max(
+    1,
+    ...dashboard.analytics.dailyTrend.map((item) => item.views),
   );
 
   return (
     <div className="space-y-8">
       <header className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
         <p className="text-sm text-sky-700">داشبورد ادمین</p>
-        <h1 className="mt-3 text-3xl font-semibold text-slate-900">مرکز مدیریت پیام‌های کاربران</h1>
+        <h1 className="mt-3 text-3xl font-semibold text-slate-900">نمای کلی سایت و پیام‌ها</h1>
         <p className="mt-4 max-w-3xl leading-8 text-slate-500">
-          از اینجا می‌توانید پیام‌های جدید را ببینید، روند پیگیری را کنترل کنید و مسئول هر
-          مورد را مشخص کنید.
+          از این بخش می‌توانید وضعیت پیام‌های جدید و آمار بازدید سایت را در یک نگاه ببینید.
         </p>
       </header>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <article className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-5">
           <p className="text-sm text-slate-500">کل پیام‌ها</p>
-          <p className="mt-3 text-3xl font-semibold text-slate-900">{counts.totalCount}</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">
+            {formatDashboardNumber(dashboard.messages.totalCount)}
+          </p>
         </article>
         <article className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-5">
           <p className="text-sm text-slate-500">پیام‌های جدید</p>
-          <p className="mt-3 text-3xl font-semibold text-sky-700">{counts.newCount}</p>
+          <p className="mt-3 text-3xl font-semibold text-sky-700">
+            {formatDashboardNumber(dashboard.messages.newCount)}
+          </p>
         </article>
         <article className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-5">
-          <p className="text-sm text-slate-500">در حال پیگیری</p>
-          <p className="mt-3 text-3xl font-semibold text-amber-700">{counts.inProgressCount}</p>
+          <p className="text-sm text-slate-500">بازدید امروز</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">
+            {formatDashboardNumber(dashboard.analytics.todayViews)}
+          </p>
         </article>
         <article className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-5">
-          <p className="text-sm text-slate-500">پاسخ داده شده</p>
-          <p className="mt-3 text-3xl font-semibold text-emerald-700">{counts.resolvedCount}</p>
+          <p className="text-sm text-slate-500">بازدید ۷ روز اخیر</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">
+            {formatDashboardNumber(dashboard.analytics.last7DaysViews)}
+          </p>
+        </article>
+      </section>
+
+      <section className="grid gap-4 xl:grid-cols-[1fr_1.2fr]">
+        <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm text-slate-500">نیازمند رسیدگی</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-900">
+                {formatDashboardNumber(dashboard.messages.newCount)} پیام جدید
+              </h2>
+            </div>
+            <span className="inline-flex rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700">
+              جدید
+            </span>
+          </div>
+          <p className="mt-4 leading-7 text-slate-500">
+            پیام‌های تازه ثبت‌شده را بررسی کنید تا پاسخ‌گویی و پیگیری آن‌ها عقب نماند.
+          </p>
+          <Link
+            href="/admin/messages?status=new"
+            className="mt-6 inline-flex rounded-full bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700"
+          >
+            مشاهده پیام‌های جدید
+          </Link>
+        </article>
+
+        <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+          <p className="text-sm text-slate-500">میانبرهای سریع</p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/admin/messages"
+              className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-medium text-slate-800 transition hover:border-sky-400 hover:bg-white"
+            >
+              پیام‌ها
+            </Link>
+            <Link
+              href="/admin/help-center"
+              className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-medium text-slate-800 transition hover:border-sky-400 hover:bg-white"
+            >
+              Help Center
+            </Link>
+            <Link
+              href="/admin/enterprise-plans"
+              className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-medium text-slate-800 transition hover:border-sky-400 hover:bg-white"
+            >
+              پلن‌ها
+            </Link>
+            <Link
+              href="/admin/profile"
+              className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-medium text-slate-800 transition hover:border-sky-400 hover:bg-white"
+            >
+              پروفایل
+            </Link>
+          </div>
+        </article>
+      </section>
+
+      <section className="grid gap-4 xl:grid-cols-[1.2fr_0.9fr]">
+        <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">روند بازدید ۷ روز اخیر</h2>
+              <p className="mt-2 text-sm text-slate-500">نمای روزانه بازدید صفحات عمومی سایت</p>
+            </div>
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">
+              ۷ روز
+            </span>
+          </div>
+
+          <div className="mt-8 grid grid-cols-7 items-end gap-3">
+            {dashboard.analytics.dailyTrend.map((item) => {
+              const barHeight = Math.max(12, Math.round((item.views / maxTrendViews) * 180));
+
+              return (
+                <div key={item.date} className="flex flex-col items-center gap-3">
+                  <span className="text-xs text-slate-500">
+                    {formatDashboardNumber(item.views)}
+                  </span>
+                  <div className="flex h-48 w-full items-end justify-center rounded-[1.5rem] bg-slate-50 px-2 py-3">
+                    <div
+                      className="w-full rounded-full bg-sky-500/85"
+                      style={{ height: `${barHeight}px` }}
+                    />
+                  </div>
+                  <span className="text-center text-xs text-slate-500">
+                    {formatTrendDateLabel(item.date)}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </article>
+
+        <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">صفحات پربازدید</h2>
+              <p className="mt-2 text-sm text-slate-500">بر پایه مجموع بازدید ۷ روز اخیر</p>
+            </div>
+          </div>
+
+          <div className="mt-6 space-y-3">
+            {dashboard.analytics.topPages.length > 0 ? (
+              dashboard.analytics.topPages.map((page, index) => (
+                <div
+                  key={page.path}
+                  className="flex items-center justify-between rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs text-slate-400">#{formatDashboardNumber(index + 1)}</p>
+                    <p className="mt-1 truncate font-medium text-slate-900">
+                      {formatTrackedPathLabel(page.path)}
+                    </p>
+                  </div>
+                  <p className="text-sm font-medium text-sky-700">
+                    {formatDashboardNumber(page.views)} بازدید
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div className="rounded-[1.5rem] border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+                هنوز داده‌ای برای بازدید صفحات ثبت نشده است.
+              </div>
+            )}
+          </div>
         </article>
       </section>
 
@@ -64,7 +226,7 @@ export default async function AdminDashboardPage() {
             href="/admin/messages"
             className="inline-flex w-fit items-center rounded-full bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700"
           >
-            مشاهده صندوق ورودی
+            مشاهده صندوق پیام‌ها
           </Link>
         </div>
 
@@ -101,7 +263,7 @@ export default async function AdminDashboardPage() {
                     <td className="px-6 py-4">
                       <Link
                         href={`/admin/messages/${message.id}`}
-                        className="text-sky-700 transition hover:text-sky-700"
+                        className="text-sky-700 transition hover:text-sky-800"
                       >
                         باز کردن پیام
                       </Link>

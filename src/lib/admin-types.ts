@@ -113,6 +113,28 @@ export type MessageDashboardCounts = {
   resolvedCount: number;
 };
 
+export type DashboardTopPage = {
+  path: string;
+  views: number;
+};
+
+export type DashboardDailyTrendItem = {
+  date: string;
+  views: number;
+};
+
+export type DashboardAnalyticsSummary = {
+  todayViews: number;
+  last7DaysViews: number;
+  topPages: DashboardTopPage[];
+  dailyTrend: DashboardDailyTrendItem[];
+};
+
+export type AdminDashboardSummary = {
+  messages: MessageDashboardCounts;
+  analytics: DashboardAnalyticsSummary;
+};
+
 export type EnterprisePlan = {
   id: number;
   title: string;
