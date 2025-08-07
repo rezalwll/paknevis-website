@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { validateContactPayload } from "@/lib/contact";
 import { insertContactMessage } from "@/lib/db";
+import { sendUserCommentChrome } from "@/lib/user-comments-chrome";
 
 export const runtime = "nodejs";
 
@@ -29,6 +30,20 @@ export async function POST(request: Request) {
         fieldErrors: validation.fieldErrors,
       },
       { status: 400 },
+    );
+  }
+
+  try {
+    await sendUserCommentChrome(validation.data);
+  } catch (error) {
+    console.error("Failed to send contact form message to user-comments-chrome service.", error);
+
+    return NextResponse.json(
+      {
+        ok: false,
+        message: "ارسال پیام با خطا مواجه شد. لطفاً دوباره تلاش کنید.",
+      },
+      { status: 502 },
     );
   }
 
