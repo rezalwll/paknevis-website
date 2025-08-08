@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Hero from "@/components/Hero";
 import {
   Zap,
   Sparkles,
@@ -7,9 +6,7 @@ import {
   FileText,
   Monitor,
   AppWindow,
-  Wifi,
-  BadgeCheck,
-} from "lucide-react";
+  Wifi,} from "lucide-react";
 
 const features = [
   {
@@ -98,7 +95,7 @@ function CompatRow({
   title,
   desc,
 }: {
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   desc: string;
 }) {
@@ -164,11 +161,7 @@ function CompatibilityHero() {
           <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg
           :max-w-xl rounded-3xl">
             <div className="relative overflow-hidden ">
-              <img
-                src="/images/word3.jpg"
-                alt="پشتیبانی از نسخه‌های مختلف Word"
-                className="h-auto w-full rounded-2xl"
-              />
+              <Image src="/images/word3.jpg" alt="???????? ?? ???????? ????? Word" width={1100} height={700} className="h-auto w-full rounded-2xl" />
             </div>
           </div>
         </div>
@@ -235,11 +228,7 @@ export default function Home() {
 
       <section className="px-4 sm:px-6 lg:px-8 text-center -mt-16 sm:-mt-20 lg:-mt-24">
         <div className="mx-auto max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-[1400px]">
-          <img
-            src="/images/Word.png"
-            alt="paknevis App Screenshot"
-            className="w-full max-w-[1400px] mx-auto rounded-2xl shadow-2xl object-contain"
-          />
+          <Image src="/images/Word.png" alt="paknevis App Screenshot" width={1400} height={900} className="w-full max-w-[1400px] mx-auto rounded-2xl shadow-2xl object-contain" />
         </div>
       </section>
 
@@ -329,3 +318,5 @@ export default function Home() {
     </main>
   );
 }
+
+

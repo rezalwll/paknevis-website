@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Hero from "@/components/Hero";
 
 export default function ChromeExtensionDownloadPage() {
   return (
@@ -147,11 +146,7 @@ export default function ChromeExtensionDownloadPage() {
           <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg
           :max-w-xl rounded-3xl">
             <div className="relative overflow-hidden ">
-              <img
-                src="/images/ex2.webp"
-                alt="پشتیبانی از نسخه‌های مختلف Word"
-                className="h-auto w-3/4 rounded-2xl"
-              />
+              <Image src="/images/ex2.webp" alt="???????? ?? ???????? ????? Word" width={900} height={600} className="h-auto w-3/4 rounded-2xl" />
             </div>
           </div>
         </div>
@@ -217,11 +212,7 @@ export default function ChromeExtensionDownloadPage() {
           <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg
           :max-w-xl rounded-3xl">
             <div className="relative overflow-hidden ">
-              <img
-                src="/images/ext.webp"
-                alt="پشتیبانی از نسخه‌های مختلف Word"
-                className="h-auto w-full rounded-2xl"
-              />
+              <Image src="/images/ext.webp" alt="???????? ?? ???????? ????? Word" width={1100} height={700} className="h-auto w-full rounded-2xl" />
             </div>
           </div>
         </div>
@@ -364,3 +355,5 @@ export default function ChromeExtensionDownloadPage() {
     </div>
   );
 }
+
+

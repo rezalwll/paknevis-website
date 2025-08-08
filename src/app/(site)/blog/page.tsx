@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+import Image from "next/image";
 
 import { posts } from "./posts";
 
@@ -29,7 +30,7 @@ export default function BlogPage() {
                   font-semibold text-slate-900
                 "
               >
-                وبلاگ پاک‌نویس
+                ????? ????????
               </h1>
               <p
                 className="
@@ -38,15 +39,15 @@ export default function BlogPage() {
                   text-slate-500 max-w-xl leading-relaxed
                 "
               >
-                اینجا آخرین نکته‌ها درباره محتوا، تجربه مشتری و رشد محصول را
-                می‌خوانید. هر هفته با داستان‌ها و نمونه‌های تازه برمی‌گردیم.
+                ????? ????? ??????? ?????? ?????? ????? ????? ? ??? ????? ??
+                ?????????. ?? ???? ?? ????????? ? ????????? ???? ??????????.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 max-w-md ml-auto">
               <input
                 type="search"
-                placeholder="جست‌وجوی موضوع، کلیدواژه یا عنوان..."
+                placeholder="???????? ?????? ???????? ?? ?????..."
                 className="
                   flex-1 rounded-full border border-slate-200 bg-white
                   px-4 py-2.5
@@ -63,7 +64,7 @@ export default function BlogPage() {
                   hover:bg-slate-800 transition
                 "
               >
-                جست‌وجو
+                ???????
               </button>
             </div>
           </div>
@@ -78,22 +79,22 @@ export default function BlogPage() {
             "
           >
             <button className="border-b-2 border-slate-900 pb-3 text-slate-900 font-medium cursor-pointer">
-              همه
+              ???
             </button>
             <button className="pb-3 hover:text-slate-900 cursor-pointer">
-              تازه‌ها
+              ???????
             </button>
             <button className="pb-3 hover:text-slate-900 cursor-pointer">
-              بازاریابی و رشد
+              ????????? ? ???
             </button>
             <button className="pb-3 hover:text-slate-900 cursor-pointer">
-              تجربه مشتری
+              ????? ?????
             </button>
             <button className="pb-3 hover:text-slate-900 cursor-pointer">
-              راهنمای تولید محتوا
+              ??????? ????? ?????
             </button>
             <button className="pb-3 hover:text-slate-900 cursor-pointer">
-              فرهنگ تیم و پشت‌صحنه
+              ????? ??? ? ????????
             </button>
           </div>
         </section>
@@ -102,9 +103,11 @@ export default function BlogPage() {
           {posts.map((post) => (
             <article key={post.id} className="space-y-4">
               <div className="relative overflow-hidden rounded-3xl bg-slate-200">
-                <img
+                <Image
                   src={post.imageUrl}
                   alt={post.title}
+                  width={1200}
+                  height={800}
                   className="
                     h-56 w-full object-cover
                     sm:h-64 lg:h-72 xl:h-80
@@ -161,8 +164,8 @@ export default function BlogPage() {
                     font-medium text-slate-900 hover:underline
                   "
                 >
-                  مطالعه مطلب
-                  <span aria-hidden>←</span>
+                  ?????? ????
+                  <span aria-hidden>?</span>
                 </Link>
               </div>
             </article>
@@ -172,3 +175,7 @@ export default function BlogPage() {
     </main>
   );
 }
+
+
+
+

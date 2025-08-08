@@ -84,14 +84,14 @@ export default function HelpCenterClient({
     );
   }, [activeCategoryId, filteredCategories, query]);
 
-  const cancelScroll = () => {
+  const cancelScroll = useCallback(() => {
     if (scrollAnimRef.current !== null) {
       cancelAnimationFrame(scrollAnimRef.current);
       scrollAnimRef.current = null;
     }
-  };
+  }, []);
 
-  const smoothScrollTo = (targetTop: number, duration = 650) => {
+  const smoothScrollTo = useCallback((targetTop: number, duration = 650) => {
     cancelScroll();
 
     const start = window.scrollY;
@@ -116,7 +116,7 @@ export default function HelpCenterClient({
     };
 
     scrollAnimRef.current = requestAnimationFrame(step);
-  };
+  }, [cancelScroll]);
 
   const scrollToQuestions = useCallback(() => {
     const element = questionsRef.current;
@@ -137,7 +137,7 @@ export default function HelpCenterClient({
     }
 
     smoothScrollTo(top);
-  }, []);
+  }, [smoothScrollTo]);
 
   useEffect(() => {
     if (selectedCategory !== null && questionsRef.current) {
@@ -145,7 +145,7 @@ export default function HelpCenterClient({
     }
   }, [selectedCategory, scrollToQuestions]);
 
-  useEffect(() => cancelScroll, []);
+  useEffect(() => cancelScroll, [cancelScroll]);
 
   useEffect(() => {
     if (filteredCategories.length === 0) {

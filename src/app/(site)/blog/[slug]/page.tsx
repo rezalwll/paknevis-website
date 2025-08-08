@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 import { getPostBySlug, posts } from "../posts";
 
@@ -93,9 +94,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </header>
 
           <div className="overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
-            <img
+            <Image
               src={post.imageUrl}
               alt={post.title}
+              width={1200}
+              height={800}
               className="h-64 w-full object-cover sm:h-72 lg:h-80"
             />
           </div>

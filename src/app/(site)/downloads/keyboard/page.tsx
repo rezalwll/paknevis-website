@@ -1,9 +1,5 @@
 import Image from "next/image";
 import {
-  Keyboard as KeyboardIcon,
-  QrCode,
-  Download,
-  Smartphone,
   ShieldCheck,
   WandSparkles,
   ReplaceAll,
@@ -34,7 +30,7 @@ function Card({
 }: {
   children: React.ReactNode;
   className?: string;
-  as?: any;
+  as?: React.ElementType;
 }) {
   return (
     <As
@@ -44,29 +40,15 @@ function Card({
     </As>
   );
 }
-function CardHeader({ children, className = "" }: any) {
+function CardHeader({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`p-5 ${className}`}>{children}</div>;
 }
-function CardTitle({ children, className = "" }: any) {
+function CardTitle({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <h3 className={`font-bold text-gray-900 ${className}`}>{children}</h3>;
 }
-function CardContent({ children, className = "" }: any) {
+function CardContent({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`p-5 pt-0 ${className}`}>{children}</div>;
 }
-const APP = {
-  name: "کیبورد اندروید پاک‌نویس",
-  slug: "pakanavis-keyboard",
-  version: "v1.0.0",
-  size: "18 MB",
-  minAndroid: "Android 8.0+ (Oreo)",
-  lastUpdate: "01 Nov 2025",
-  apkUrl: "https://example.com/pakanavis-keyboard.apk", // TODO
-  gpUrl: "https://play.google.com/store/apps/details?id=ir.pakanavis.keyboard", // TODO
-  bazaarUrl: "https://cafebazaar.ir/app/ir.pakanavis.keyboard", // TODO
-  myketUrl: "https://myket.ir/app/ir.pakanavis.keyboard", // TODO
-  privacyUrl: "#privacy",
-  changelogUrl: "#changelog",
-};
 export default function ChromeExtensionDownloadPage() {
   return (
     <div
@@ -410,3 +392,4 @@ export default function ChromeExtensionDownloadPage() {
     </div>
   );
 }
+

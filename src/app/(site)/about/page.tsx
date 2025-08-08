@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "درباره پاک‌نویس",
@@ -178,9 +179,11 @@ export default function AboutPage() {
                 aria-hidden
               />
               <div className="relative overflow-hidden rounded-3xl border border-[#f3b394]/35 bg-white shadow-xl shadow-[#f3bd394]/25">
-                <img
+                <Image
                   src="/images/about.webp"
                   alt="تصویر تیم یا محصول پاک‌نویس"
+                  width={1200}
+                  height={800}
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -203,9 +206,11 @@ export default function AboutPage() {
                 </div>
                 <div className="">
                   <div className="aspect-[4/3] w-full">
-                    <img
+                    <Image
                       src="/images/main logo.ico"
                       alt="تصویر تیم پاک‌نویس"
+                      width={200}
+                      height={200}
                       className="h-50 w-50 object-cover mx-auto"
                     />
                     <div className="" />

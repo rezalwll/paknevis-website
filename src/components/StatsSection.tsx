@@ -17,6 +17,7 @@ function useInView<T extends HTMLElement>(
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!ref.current) return;
     const el = ref.current;
@@ -33,7 +34,7 @@ function useInView<T extends HTMLElement>(
 
     obs.observe(el);
     return () => obs.disconnect();
-  }, [options.root, options.rootMargin, options.threshold, options.once]);
+  }, [options]);
 
   return { ref, inView } as const;
 }
@@ -94,19 +95,11 @@ function StatIcon({ i }: { i: number }) {
     "text-[color:var(--pn-accent)]",
   ];
   const colorClass = palette[i % palette.length];
-  const common = {
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.9,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-  };
-
   const icons = [
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-user-check-icon lucide-user-check lucide-chart-no-axes-combined`}><path d="m16 11 2 2 4-4"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>,
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-chart-no-axes-combined-icon lucide-chart-no-axes-combined`}><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></svg>,
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-file-chart-column-increasing-icon lucide-file-chart-column-increasing`}><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M8 18v-2" /><path d="M12 18v-4" /><path d="M16 18v-6" /></svg>,
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-book-check-icon lucide-book-check`}><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" /><path d="m9 9.5 2 2 4-4" /></svg>,
+    <svg key="users" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-user-check-icon lucide-user-check lucide-chart-no-axes-combined`}><path d="m16 11 2 2 4-4"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>,
+    <svg key="usage" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-chart-no-axes-combined-icon lucide-chart-no-axes-combined`}><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></svg>,
+    <svg key="docs" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-file-chart-column-increasing-icon lucide-file-chart-column-increasing`}><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M8 18v-2" /><path d="M12 18v-4" /><path d="M16 18v-6" /></svg>,
+    <svg key="fixed" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${cls} ${colorClass} lucide lucide-book-check-icon lucide-book-check`}><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" /><path d="m9 9.5 2 2 4-4" /></svg>,
   ];
 
   return <>{icons[i % icons.length]}</>;

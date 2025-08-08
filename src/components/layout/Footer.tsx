@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { FaTelegramPlane, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
@@ -40,28 +40,28 @@ export default function Footer() {
 
 
   const footerStyle = {
-    ["--footer-bg" as any]: "var(--pn-hf-bg)",
-    ["--footer-text" as any]: "var(--pn-hf-text)",
-    ["--footer-muted" as any]: "var(--pn-hf-text)",
-    ["--footer-heading" as any]: "var(--pn-hf-text)",
-    ["--footer-link" as any]: "var(--pn-hf-text)",
+    "--footer-bg": "var(--pn-hf-bg)",
+    "--footer-text": "var(--pn-hf-text)",
+    "--footer-muted": "var(--pn-hf-text)",
+    "--footer-heading": "var(--pn-hf-text)",
+    "--footer-link": "var(--pn-hf-text)",
     "--footer-link-hover": "var(--pn-hf-link-hover)",
     "--footer-border": "var(--pn-hf-border)",
     "--footer-heading-border": "var(--pn-hf-border)",
     "--footer-icon": "var(--pn-accent-2)",
     "--footer-icon-hover": "var(--pn-accent-strong)",
-  };
+  } as CSSProperties;
 
   return (
     <footer
       dir="rtl"
-      style={footerStyle as React.CSSProperties}
+      style={footerStyle}
       className="bg-[var(--footer-bg)] text-[var(--footer-text)] pt-10 border-t border-[var(--footer-heading-border)]"
     >
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-9 gap-15 px-6 py-7">
         <div className="md:col-span-2 flex flex-col items-start">
           <div className="flex items-center mb-3">
-            <img src="/mainlogo.png" alt="لوگو" className="w-10 h-10 ml-2" />
+            <Image src="/mainlogo.png" alt="????" width={40} height={40} className="w-10 h-10 ml-2" />
             <span className="text-lg font-semibold text-[var(--footer-heading)]">
               پاک‌نویس
             </span>
@@ -161,3 +161,4 @@ export default function Footer() {
     </footer>
   );
 }
+

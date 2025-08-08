@@ -1,32 +1,16 @@
 import type { Metadata } from "next";
 import type { ComponentType, SVGProps } from "react";
+import Image from "next/image";
 import EnterprisePricingCarousel from "@/components/EnterprisePricingCarousel";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { listPublicEnterprisePlans } from "@/lib/enterprise-plans";
 import {
-  BadgeCheck,
-  BookCheck,
-  Building2,
   CreditCard,
-  FileWarning,
-  HandCoins,
   HardDriveDownload,
-  Headphones,
-  HelpCircle,
   Mail,
   Package,
-  ScrollText,
-  Settings2,
-  SlidersHorizontal,
-  Sparkles,
-  SpellCheck,
   Target,
-  TimerOff,
   TrendingUp,
-  Type,
-  Users,
-  Wand2,
-  WifiOff,
   Zap,
 } from "lucide-react";
 
@@ -46,40 +30,6 @@ function makeGeneralMailto(email: string) {
   return `mailto:${email}?subject=${subject}&body=${body}`;
 }
 
-function IconPill({
-  Icon,
-  children,
-  className = "",
-}: {
-  Icon: IconType;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <span
-      className={
-        "inline-flex items-center gap-2 rounded-full border border-[var(--pn-border)] " +
-        "bg-[var(--pn-bg)] px-3 py-1 text-xs font-bold shadow-sm " +
-        className
-      }
-    >
-      <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--pn-surface)] border border-[var(--pn-border)] text-slate-800">
-        <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-      </span>
-      {children}
-    </span>
-  );
-}
-
-function IconChip({ Icon, text }: { Icon: IconType; text: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] px-3 py-1 text-xs font-bold text-slate-700 shadow-sm">
-      <Icon className="h-4 w-4 text-slate-600" aria-hidden="true" />
-      {text}
-    </span>
-  );
-}
-
 const toFaDigits = (val: string | number) =>
   val
     .toString()
@@ -91,8 +41,6 @@ export default async function EnterprisePage() {
 
   // ===== Theme tokens (from CSS vars)
   const accentText = "text-slate-900";
-  const accentBgSoft = "bg-[var(--pn-surface)]";
-  const accentBorder = "border-[var(--pn-border)]";
   const accentBorderHover = "hover:border-[var(--pn-accent)]";
 
   // ===== Card base
@@ -102,8 +50,6 @@ export default async function EnterprisePage() {
     " " +
     "transition-[transform,box-shadow,border-color] duration-200 ease-out " +
     " hover:border-[var(--pn-accent)]";
-
-  const cardFeatured = "border-2 border-[var(--pn-accent)]";
 
   // Buttons
   const btnSolid =
@@ -115,129 +61,8 @@ export default async function EnterprisePage() {
     `shadow-sm transition ${accentText} border-[var(--pn-accent)] hover:bg-[var(--pn-surface)] ${accentBorderHover}`;
 
   // Divider line
-  const divider =
-    "mx-auto my-4 h-[3px] w-14 rounded-full bg-[var(--pn-accent)] opacity-90";
 
-  const featureCards: { t: string; d: string; icon: IconType }[] = [
-    {
-      t: "خطایابی املایی",
-      d: "تمام متن بررسی می‌شود و غلط‌های املایی، فاصله‌گذاری‌ها و نیم‌فاصله‌ها شناسایی و اصلاح پیشنهاد می‌شود.",
-      icon: SpellCheck,
-    },
-    {
-      t: "خطایابی نشانه‌گذاری",
-      d: "کمک برای اصلاح فاصلهٔ قبل/بعد نشانه‌ها و استفاده درست از نقطه، ویرگول، نقطه‌ویرگول و…",
-      icon: Type,
-    },
-    {
-      t: "اصلاح نویسه‌ها",
-      d: "تبدیل نویسه‌های عربی/انگلیسی به نسخهٔ فارسی برای متن یکدست و حرفه‌ای.",
-      icon: Wand2,
-    },
-    {
-      t: "تصحیح اعداد",
-      d: "شناسایی اعداد عربی/انگلیسی و تبدیل آن‌ها به اعداد فارسی.",
-      icon: BadgeCheck,
-    },
-    {
-      t: "مصوب فرهنگستان",
-      d: "کمک به اجرای مو‌به‌موی شیوه‌نامه و دستور مصوب فرهنگستان زبان و ادب فارسی.",
-      icon: BookCheck,
-    },
-    {
-      t: "پیشنهادهای ویرایشی",
-      d: "ارائه پیشنهادهای نگارشی/ویرایشی برای متن روان‌تر و درست‌تر.",
-      icon: Sparkles,
-    },
-  ];
 
-  const featureDetails: { s: string; p: string[]; icon: IconType }[] = [
-    {
-      s: "جزئیات خطایابی املایی",
-      p: [
-        "با این ویژگی، نرم‌افزار تمام متن شما را بررسی می‌کند و بدون نادیده‌گرفتن موردی، غلط‌های املایی، فاصله‌گذاری‌ها و نیم‌فاصله‌ها را شناسایی می‌کند و نسخهٔ صحیح را پیشنهاد می‌دهد.",
-      ],
-      icon: SpellCheck,
-    },
-    {
-      s: "جزئیات خطایابی نشانه‌گذاری",
-      p: [
-        "فرایند و قوانین نشانه‌گذاری در فارسی تا حدی مبهم است. پاک‌نویس کمک می‌کند هر جا فاصلهٔ قبل یا بعد نشانه‌ای کم یا زیاد است اصلاح شود و از نقطه، ویرگول، نقطه‌ویرگول و… درست استفاده کنید.",
-      ],
-      icon: Type,
-    },
-    {
-      s: "جزئیات اصلاح نویسه‌ها",
-      p: [
-        "گاهی متن در ظاهر فارسی است اما نویسه‌ها پشت‌صحنه عربی یا انگلیسی هستند و کیفیت متن را پایین می‌آورند. این بخش، نویسه‌های عربی و انگلیسی را به نسخهٔ فارسی تبدیل می‌کند.",
-      ],
-      icon: Wand2,
-    },
-    {
-      s: "جزئیات تصحیح اعداد",
-      p: [
-        "اعداد ممکن است عربی یا انگلیسی وارد شوند. پاک‌نویس کمک می‌کند اعداد عربی/انگلیسی را پیدا کنید و به فارسی تبدیل کنید.",
-      ],
-      icon: BadgeCheck,
-    },
-    {
-      s: "جزئیات اجرای شیوه‌نامهٔ مصوب فرهنگستان",
-      p: [
-        "فرهنگستان زبان و ادب فارسی معتبرترین مرجع درست‌نویسی است. پاک‌نویس کمک می‌کند واژه‌ها و دستورهای مصوب فرهنگستان را دقیق اجرا کنید.",
-      ],
-      icon: BookCheck,
-    },
-    {
-      s: "جزئیات پیشنهادهای ویرایشی",
-      p: [
-        "در این بخش پیشنهادهای ویرایشی و نگارشی ارائه می‌شود تا متن فارسی بهبود یابد و در نهایت متن روان‌تر و درست‌تری داشته باشید.",
-      ],
-      icon: Sparkles,
-    },
-  ];
-
-  const accordion: {
-    s: string;
-    p: string[];
-    list?: string[];
-    featured?: boolean;
-    icon: IconType;
-  }[] = [
-      {
-        s: "چرا پاک‌نویسِ آفلاین ساخته شد؟",
-        p: [
-          "برخی از سازمان‌ها به دلایل امنیتی و حفظ محرمانگی اطلاعات، امکان و مجوز استفاده از اینترنت روی رایانه‌های سازمانی را ندارند؛ یعنی این رایانه‌ها نباید به اینترنت وصل شوند.",
-          "با وصل‌شدن حتی یک‌مرتبه‌ای رایانهٔ سازمانی به اینترنت هم ممکن است امنیت سازمان و مدارک آن به خطر بیفتد. حالا که نمی‌توانید رایانهٔ سازمانی خود را به اینترنت وصل کنید، چگونه می‌خواهید از پاک‌نویس استفاده کنید؟",
-          "به‌تازگی، استفاده از پاک‌نویس به‌صورت کاملاً آفلاین هم امکان‌پذیر شده است. شما متناسب با نیازتان طرح مناسب را تهیه می‌کنید.",
-        ],
-        icon: HelpCircle,
-      },
-      {
-        s: "نسخهٔ آفلاین و سازمانی چه ویژگی‌های متفاوتی دارد؟",
-        p: [
-          "نسخهٔ آفلاین سازمانی علاوه بر ویژگی‌های مشترک با نسخهٔ آنلاین و رایگان، امکان شخصی‌سازی و سفارشی‌سازی کامل دارد.",
-          "در صورت نیاز، نرم‌افزار برای سازمان شما سفارشی می‌شود و پیکره/زبان/منبع واژگانی مدنظر شما اضافه می‌شود؛ حتی تنظیمات داخلی نرم‌افزار نیز قابل شخصی‌سازی است.",
-          "علاوه بر این، با خرید نسخهٔ آفلاین، تا یک سال پشتیبانی واقعی دریافت می‌کنید.",
-        ],
-        list: [
-          "نصب کامل نسخهٔ آفلاین روی تمام رایانه‌های سازمان",
-          "رفع و بهبود تمام باگ‌های نرم‌افزار",
-          "اجرای سفارشی‌سازی‌های مدنظر شما",
-          "پاسخگویی فعالانه به سؤالات و مشکلات",
-          "به‌روزرسانی نرم‌افزار و پیکره‌ها",
-        ],
-        featured: true,
-        icon: Settings2,
-      },
-      {
-        s: "نسخهٔ آفلاین پاک‌نویس برای چه کسانی مفید است؟",
-        p: [
-          "برای افراد عادی کاربرد خاصی ندارد؛ چون نسخهٔ آنلاین رایگان است.",
-          "برای سازمان‌ها/ادارات/شرکت‌هایی مفید است که امکان اتصال رایانه به اینترنت را ندارند یا به‌دلیل سیاست‌های امنیتی اجازه اتصال نمی‌دهند.",
-        ],
-        icon: Users,
-      },
-    ];
 
   const benefits: { t: string; d: string; icon: IconType }[] = [
     {
@@ -255,12 +80,6 @@ export default async function EnterprisePage() {
       d: "افزایش سرعت و دقت در نوشتن متن‌های فارسی، به‌صورت معنی‌دار بهره‌وری سازمان را بالا می‌برد و در زمان و انرژی کارمندان صرفه‌جویی می‌کند.",
       icon: TrendingUp,
     },
-  ];
-
-  const withoutPaknevis: { t: string; icon: IconType }[] = [
-    { t: "مقدار زیادی زمان", icon: TimerOff },
-    { t: "کاهش کیفیت متن فارسی", icon: FileWarning },
-    { t: "از دست دادن منابع مالی و فرصت‌ها", icon: HandCoins },
   ];
 
   const installSteps: { t: string; icon: IconType }[] = [
@@ -292,11 +111,7 @@ export default async function EnterprisePage() {
             <div className="order-2 lg:order-1">
               <div className={`${cardBase} overflow-hidden`}>
                 <div className="relative w-full overflow-hidden rounded-[14px]">
-                  <img
-                    src="/images/price3.png"
-                    alt="نسخه آفلاین پاک‌نویس برای سازمان‌ها"
-                    className="h-full w-full object-cover"
-                  />
+                  <Image src="/images/price3.png" alt="???? ?????? ???????? ???? ?????????" width={1200} height={800} className="h-full w-full object-cover" />
                 </div>
               </div>
             </div>
@@ -472,3 +287,7 @@ export default async function EnterprisePage() {
     </main>
   );
 }
+
+
+
+

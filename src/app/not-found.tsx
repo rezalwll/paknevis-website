@@ -1,21 +1,6 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  BookOpen,
-  Download,
-  Headphones,
-  Home,
-  RefreshCcw,
-  type LucideIcon,
-} from "lucide-react";
-
-type QuickLink = {
-  title: string;
-  description: string;
-  href: string;
-  icon: LucideIcon;
-};
-
+import Image from "next/image";
+import { Headphones, Home } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -79,9 +64,11 @@ export default function NotFound() {
                   />
                   <div className="relative overflow-hidden rounded-[28px] border border-white/80 bg-white/80 shadow-[0_22px_60px_rgba(0,0,0,0.08)] backdrop-blur">
                     <div className="aspect-[4/3] w-full">
-                      <img
+                      <Image
                         src="/images/dissconnect.png"
                         alt="تصویر قطع ارتباط و پیدا نشدن صفحه"
+                        width={800}
+                        height={600}
                         className="h-full w-full object-contain"
                       />
                     </div>
@@ -100,3 +87,5 @@ export default function NotFound() {
     </main>
   );
 }
+
+
