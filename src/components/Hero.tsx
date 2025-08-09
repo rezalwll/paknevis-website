@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { FC, useEffect, useRef } from "react";
 import Image from "next/image";
@@ -117,10 +117,10 @@ const Hero: FC<HeroProps> = ({
   };
 
   const features: FeatureItem[] = [
-    { title: "دانلود افزونهٔ وُرد", href: "/download/word", variant: "primary" },
-    { title: "ویرایشگر برخط (آنلاین)", href: "/download/editor", variant: "outline" },
-    { title: "دانلود افزونهٔ مرورگر", href: "/download/chrome", variant: "primary" },
-    { title: "دانلود کیبورد اندروید", href: "/download/keyboard", variant: "outline" },
+    { title: "دانلود افزونهٔ ورد", href: "/downloads/word", variant: "primary" },
+    { title: "ویرایشگر برخط (آنلاین)", href: "/", variant: "outline" },
+    { title: "دانلود افزونهٔ مرورگر", href: "/downloads/extensions", variant: "primary" },
+    { title: "دانلود کیبورد اندروید", href: "/downloads/keyboard", variant: "outline" },
   ];
 
   return (

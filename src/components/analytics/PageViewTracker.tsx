@@ -36,7 +36,7 @@ export default function PageViewTracker() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!pathname) {
+    if (!pathname || document.visibilityState !== "visible") {
       return;
     }
 

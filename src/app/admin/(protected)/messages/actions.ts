@@ -6,27 +6,22 @@ import { redirect } from "next/navigation";
 import { assignContactMessage, updateContactMessageStatus } from "@/lib/admin-data";
 import { requireAdminUser } from "@/lib/admin-auth";
 import { isMessageStatus } from "@/lib/admin-types";
+import { getSafeAdminRedirectPath } from "@/lib/http";
+import { parsePositiveInt } from "@/lib/parsers";
 
-function getSafeRedirectPath(value: string | null, fallback: string): string {
-  if (!value || !value.startsWith("/admin")) {
-    return fallback;
-  }
-
-  return value;
-}
+type RedirectFormValue = FormDataEntryValue | null;
 
 export async function updateMessageStatusAction(formData: FormData) {
   const actor = await requireAdminUser();
-  const messageId = Number.parseInt(String(formData.get("messageId") ?? ""), 10);
+  const messageId = parsePositiveInt(String(formData.get("messageId") ?? ""));
   const status = String(formData.get("status") ?? "");
-  const redirectTo = getSafeRedirectPath(
-    typeof formData.get("redirectTo") === "string"
-      ? String(formData.get("redirectTo"))
-      : null,
+  const redirectValue = formData.get("redirectTo") as RedirectFormValue;
+  const redirectTo = getSafeAdminRedirectPath(
+    typeof redirectValue === "string" ? redirectValue : null,
     "/admin/messages",
   );
 
-  if (!Number.isInteger(messageId) || messageId <= 0 || !isMessageStatus(status)) {
+  if (messageId === null || !isMessageStatus(status)) {
     redirect(redirectTo);
   }
 
@@ -44,25 +39,20 @@ export async function updateMessageStatusAction(formData: FormData) {
 
 export async function assignMessageAction(formData: FormData) {
   const actor = await requireAdminUser();
-  const messageId = Number.parseInt(String(formData.get("messageId") ?? ""), 10);
+  const messageId = parsePositiveInt(String(formData.get("messageId") ?? ""));
   const assignedToRaw = String(formData.get("assignedTo") ?? "").trim();
-  const redirectTo = getSafeRedirectPath(
-    typeof formData.get("redirectTo") === "string"
-      ? String(formData.get("redirectTo"))
-      : null,
+  const redirectValue = formData.get("redirectTo") as RedirectFormValue;
+  const redirectTo = getSafeAdminRedirectPath(
+    typeof redirectValue === "string" ? redirectValue : null,
     "/admin/messages",
   );
 
-  if (!Number.isInteger(messageId) || messageId <= 0) {
+  if (messageId === null) {
     redirect(redirectTo);
   }
 
-  const assignedTo =
-    assignedToRaw === ""
-      ? null
-      : Number.isInteger(Number.parseInt(assignedToRaw, 10))
-        ? Number.parseInt(assignedToRaw, 10)
-        : null;
+  const parsedAssignedTo = parsePositiveInt(assignedToRaw);
+  const assignedTo = assignedToRaw === "" ? null : parsedAssignedTo;
 
   await assignContactMessage({
     actor,

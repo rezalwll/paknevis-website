@@ -9,6 +9,7 @@ import {
   updateOwnAdminProfile,
 } from "@/lib/admin-data";
 import { hashPassword, requireAdminUser, verifyPassword } from "@/lib/admin-auth";
+import { buildPathWithState } from "@/lib/http";
 import {
   isValidAdminEmail,
   isValidAdminUsername,
@@ -17,7 +18,7 @@ import {
 } from "@/lib/admin-identity";
 
 function redirectWithState(key: "error" | "notice", value: string): never {
-  redirect(`/admin/profile?${key}=${encodeURIComponent(value)}`);
+  redirect(buildPathWithState("/admin/profile", key, value));
 }
 
 function revalidateAdminProfilePages() {

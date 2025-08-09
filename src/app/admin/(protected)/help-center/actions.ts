@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { requireAdminUser } from "@/lib/admin-auth";
 import { isHelpIconKey } from "@/lib/admin-types";
+import { parseNonNegativeInt, parsePositiveInt } from "@/lib/parsers";
 import {
   archiveHelpCategory,
   archiveHelpQuestion,
@@ -21,7 +22,7 @@ const MAX_QUESTION_LENGTH = 255;
 const MAX_ANSWER_LENGTH = 5000;
 
 function parseReturnCategoryId(formData: FormData): number | null {
-  return parsePositiveInteger(String(formData.get("returnCategoryId") ?? "").trim());
+  return parsePositiveInt(String(formData.get("returnCategoryId") ?? "").trim());
 }
 
 function buildHelpCenterPath(
@@ -48,16 +49,6 @@ function redirectWithState(
   redirect(buildHelpCenterPath(categoryId, key, value));
 }
 
-function parsePositiveInteger(value: string): number | null {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
-}
-
-function parseNonNegativeInteger(value: string): number | null {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
-}
-
 function revalidateHelpCenterPages() {
   revalidatePath("/admin/help-center");
   revalidatePath("/support/help");
@@ -73,7 +64,7 @@ export async function createHelpCategoryAction(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
   const iconKey = String(formData.get("iconKey") ?? "").trim();
   const sortOrderRaw = String(formData.get("sortOrder") ?? "").trim();
-  const sortOrder = sortOrderRaw === "" ? null : parseNonNegativeInteger(sortOrderRaw);
+  const sortOrder = sortOrderRaw === "" ? null : parseNonNegativeInt(sortOrderRaw);
 
   if (
     !title ||
@@ -97,10 +88,10 @@ export async function createHelpCategoryAction(formData: FormData) {
 export async function updateHelpCategoryAction(formData: FormData) {
   await requireHelpCenterAccess();
 
-  const categoryId = parsePositiveInteger(String(formData.get("categoryId") ?? "").trim());
+  const categoryId = parsePositiveInt(String(formData.get("categoryId") ?? "").trim());
   const title = String(formData.get("title") ?? "").trim();
   const iconKey = String(formData.get("iconKey") ?? "").trim();
-  const sortOrder = parseNonNegativeInteger(String(formData.get("sortOrder") ?? "").trim());
+  const sortOrder = parseNonNegativeInt(String(formData.get("sortOrder") ?? "").trim());
 
   if (
     categoryId === null ||
@@ -138,7 +129,7 @@ export async function updateHelpCategoryAction(formData: FormData) {
 export async function archiveHelpCategoryAction(formData: FormData) {
   await requireHelpCenterAccess();
 
-  const categoryId = parsePositiveInteger(String(formData.get("categoryId") ?? "").trim());
+  const categoryId = parsePositiveInt(String(formData.get("categoryId") ?? "").trim());
 
   if (categoryId === null) {
     redirectWithState(null, "error", "invalid-category-id");
@@ -161,7 +152,7 @@ export async function archiveHelpCategoryAction(formData: FormData) {
 export async function restoreHelpCategoryAction(formData: FormData) {
   await requireHelpCenterAccess();
 
-  const categoryId = parsePositiveInteger(String(formData.get("categoryId") ?? "").trim());
+  const categoryId = parsePositiveInt(String(formData.get("categoryId") ?? "").trim());
 
   if (categoryId === null) {
     redirectWithState(null, "error", "invalid-category-id");
@@ -184,12 +175,12 @@ export async function restoreHelpCategoryAction(formData: FormData) {
 export async function createHelpQuestionAction(formData: FormData) {
   await requireHelpCenterAccess();
 
-  const categoryId = parsePositiveInteger(String(formData.get("categoryId") ?? "").trim());
+  const categoryId = parsePositiveInt(String(formData.get("categoryId") ?? "").trim());
   const returnCategoryId = parseReturnCategoryId(formData);
   const question = String(formData.get("question") ?? "").trim();
   const answer = String(formData.get("answer") ?? "").trim();
   const sortOrderRaw = String(formData.get("sortOrder") ?? "").trim();
-  const sortOrder = sortOrderRaw === "" ? null : parseNonNegativeInteger(sortOrderRaw);
+  const sortOrder = sortOrderRaw === "" ? null : parseNonNegativeInt(sortOrderRaw);
   const targetCategoryId = returnCategoryId ?? categoryId;
 
   if (
@@ -225,11 +216,11 @@ export async function createHelpQuestionAction(formData: FormData) {
 export async function updateHelpQuestionAction(formData: FormData) {
   await requireHelpCenterAccess();
 
-  const questionId = parsePositiveInteger(String(formData.get("questionId") ?? "").trim());
+  const questionId = parsePositiveInt(String(formData.get("questionId") ?? "").trim());
   const returnCategoryId = parseReturnCategoryId(formData);
   const question = String(formData.get("question") ?? "").trim();
   const answer = String(formData.get("answer") ?? "").trim();
-  const sortOrder = parseNonNegativeInteger(String(formData.get("sortOrder") ?? "").trim());
+  const sortOrder = parseNonNegativeInt(String(formData.get("sortOrder") ?? "").trim());
 
   if (
     questionId === null ||
@@ -264,7 +255,7 @@ export async function updateHelpQuestionAction(formData: FormData) {
 export async function archiveHelpQuestionAction(formData: FormData) {
   await requireHelpCenterAccess();
 
-  const questionId = parsePositiveInteger(String(formData.get("questionId") ?? "").trim());
+  const questionId = parsePositiveInt(String(formData.get("questionId") ?? "").trim());
   const returnCategoryId = parseReturnCategoryId(formData);
 
   if (questionId === null) {
@@ -288,7 +279,7 @@ export async function archiveHelpQuestionAction(formData: FormData) {
 export async function restoreHelpQuestionAction(formData: FormData) {
   await requireHelpCenterAccess();
 
-  const questionId = parsePositiveInteger(String(formData.get("questionId") ?? "").trim());
+  const questionId = parsePositiveInt(String(formData.get("questionId") ?? "").trim());
   const returnCategoryId = parseReturnCategoryId(formData);
 
   if (questionId === null) {

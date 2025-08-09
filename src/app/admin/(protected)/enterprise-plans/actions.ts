@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireAdminRole } from "@/lib/admin-auth";
+import { buildPathWithState } from "@/lib/http";
+import { parseNonNegativeInt, parsePositiveInt, parsePositiveNumber } from "@/lib/parsers";
 import {
   createEnterprisePlan,
   setPopularEnterprisePlan,
@@ -12,26 +14,12 @@ import {
 } from "@/lib/enterprise-plans";
 
 function redirectWithState(path: string, key: "error" | "notice", value: string): never {
-  redirect(`${path}?${key}=${encodeURIComponent(value)}`);
-}
-
-function parsePositiveNumber(value: string): number | null {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
-}
-
-function parsePositiveInteger(value: string): number | null {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
-}
-
-function parseNonNegativeInteger(value: string): number | null {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
+  redirect(buildPathWithState(path, key, value));
 }
 
 function revalidateEnterprisePlanPages() {
   revalidatePath("/admin/enterprise-plans");
+  revalidatePath("/pricing");
   revalidatePath("/enterprise");
 }
 
@@ -44,10 +32,10 @@ export async function createEnterprisePlanAction(formData: FormData) {
 
   const title = String(formData.get("title") ?? "").trim();
   const priceMillion = parsePositiveNumber(String(formData.get("priceMillion") ?? "").trim());
-  const userCount = parsePositiveInteger(String(formData.get("userCount") ?? "").trim());
+  const userCount = parsePositiveInt(String(formData.get("userCount") ?? "").trim());
   const description = String(formData.get("description") ?? "").trim();
   const sortOrderRaw = String(formData.get("sortOrder") ?? "").trim();
-  const sortOrder = sortOrderRaw === "" ? null : parseNonNegativeInteger(sortOrderRaw);
+  const sortOrder = sortOrderRaw === "" ? null : parseNonNegativeInt(sortOrderRaw);
   const makePopular = formData.get("makePopular") === "on";
 
   if (
@@ -78,12 +66,12 @@ export async function createEnterprisePlanAction(formData: FormData) {
 export async function updateEnterprisePlanAction(formData: FormData) {
   await requireEnterprisePlanManager();
 
-  const planId = parsePositiveInteger(String(formData.get("planId") ?? "").trim());
+  const planId = parsePositiveInt(String(formData.get("planId") ?? "").trim());
   const title = String(formData.get("title") ?? "").trim();
   const priceMillion = parsePositiveNumber(String(formData.get("priceMillion") ?? "").trim());
-  const userCount = parsePositiveInteger(String(formData.get("userCount") ?? "").trim());
+  const userCount = parsePositiveInt(String(formData.get("userCount") ?? "").trim());
   const description = String(formData.get("description") ?? "").trim();
-  const sortOrder = parseNonNegativeInteger(String(formData.get("sortOrder") ?? "").trim());
+  const sortOrder = parseNonNegativeInt(String(formData.get("sortOrder") ?? "").trim());
 
   if (
     planId === null ||
@@ -122,7 +110,7 @@ export async function updateEnterprisePlanAction(formData: FormData) {
 export async function toggleEnterprisePlanActiveAction(formData: FormData) {
   await requireEnterprisePlanManager();
 
-  const planId = parsePositiveInteger(String(formData.get("planId") ?? "").trim());
+  const planId = parsePositiveInt(String(formData.get("planId") ?? "").trim());
   const nextActiveState = String(formData.get("nextActiveState") ?? "") === "true";
 
   if (planId === null) {
@@ -146,7 +134,7 @@ export async function toggleEnterprisePlanActiveAction(formData: FormData) {
 export async function setPopularEnterprisePlanAction(formData: FormData) {
   await requireEnterprisePlanManager();
 
-  const planId = parsePositiveInteger(String(formData.get("planId") ?? "").trim());
+  const planId = parsePositiveInt(String(formData.get("planId") ?? "").trim());
 
   if (planId === null) {
     redirectWithState("/admin/enterprise-plans", "error", "invalid-plan-id");

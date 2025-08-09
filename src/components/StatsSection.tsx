@@ -16,8 +16,8 @@ function useInView<T extends HTMLElement>(
 ) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
+  const { threshold = 0.3, root = null, rootMargin = "0px", once = true } = options;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!ref.current) return;
     const el = ref.current;
@@ -26,15 +26,15 @@ function useInView<T extends HTMLElement>(
       const intersecting = entries.some((e) => e.isIntersecting);
       if (intersecting) {
         setInView(true);
-        if (options.once) obs.disconnect();
-      } else if (!options.once) {
+        if (once) obs.disconnect();
+      } else if (!once) {
         setInView(false);
       }
-    }, options);
+    }, { threshold, root, rootMargin });
 
     obs.observe(el);
     return () => obs.disconnect();
-  }, [options]);
+  }, [once, root, rootMargin, threshold]);
 
   return { ref, inView } as const;
 }

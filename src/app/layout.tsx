@@ -15,14 +15,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa">
-      <head>
-        <title></title>
-        <link
-          rel="icon"
-          type="image/x-icon"
-          href="https://paknevis.ir/static/web_client/favicon.ico"
-        />
-      </head>
       <body>{children}</body>
     </html>
   );

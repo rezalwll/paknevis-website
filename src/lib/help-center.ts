@@ -7,6 +7,7 @@ import {
   type PublicHelpCategory,
 } from "@/lib/admin-types";
 import { ensureAppSchema, getDb } from "@/lib/db";
+import { logServerError } from "@/lib/server-log";
 
 type DbClient = PoolClient;
 
@@ -160,9 +161,10 @@ export async function listHelpCategories(): Promise<HelpCategory[]> {
 }
 
 export async function listPublicHelpCategories(): Promise<PublicHelpCategory[]> {
-  await ensureAppSchema();
+  try {
+    await ensureAppSchema();
 
-  const categoriesResult = await getDb().query<HelpCategoryRow>(`
+    const categoriesResult = await getDb().query<HelpCategoryRow>(`
     SELECT
       hc.id,
       hc.title,
@@ -182,14 +184,14 @@ export async function listPublicHelpCategories(): Promise<PublicHelpCategory[]> 
     ORDER BY hc.sort_order ASC, hc.id ASC
   `);
 
-  const categoryIds = categoriesResult.rows.map((row) => row.id);
+    const categoryIds = categoriesResult.rows.map((row) => row.id);
 
-  if (categoryIds.length === 0) {
-    return [];
-  }
+    if (categoryIds.length === 0) {
+      return [];
+    }
 
-  const questionsResult = await getDb().query<HelpQuestionRow>(
-    `
+    const questionsResult = await getDb().query<HelpQuestionRow>(
+      `
       SELECT
         id,
         category_id,
@@ -203,24 +205,28 @@ export async function listPublicHelpCategories(): Promise<PublicHelpCategory[]> 
       WHERE category_id = ANY($1::bigint[])
         AND is_archived = FALSE
       ORDER BY category_id ASC, sort_order ASC, id ASC
-    `,
-    [categoryIds],
-  );
+      `,
+      [categoryIds],
+    );
 
-  return buildCategoryMap(categoriesResult.rows, questionsResult.rows).map(
-    (category) => ({
-      id: category.id,
-      title: category.title,
-      iconKey: category.iconKey,
-      sortOrder: category.sortOrder,
-      questions: category.questions.map((question) => ({
-        id: question.id,
-        question: question.question,
-        answer: question.answer,
-        sortOrder: question.sortOrder,
-      })),
-    }),
-  );
+    return buildCategoryMap(categoriesResult.rows, questionsResult.rows).map(
+      (category) => ({
+        id: category.id,
+        title: category.title,
+        iconKey: category.iconKey,
+        sortOrder: category.sortOrder,
+        questions: category.questions.map((question) => ({
+          id: question.id,
+          question: question.question,
+          answer: question.answer,
+          sortOrder: question.sortOrder,
+        })),
+      }),
+    );
+  } catch (error) {
+    logServerError("Failed to load public help center categories.", error);
+    return [];
+  }
 }
 
 export async function createHelpCategory(input: {

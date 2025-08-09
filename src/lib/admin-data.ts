@@ -25,6 +25,7 @@ type AdminLoginRecord = {
   isActive: boolean;
   passwordHash: string;
 };
+type SqlParam = string | number | boolean | null;
 
 function parseNumericId(value: string): number | null {
   const parsed = Number.parseInt(value, 10);
@@ -35,13 +36,13 @@ function getMessageAccessClause(user: AuthenticatedAdminUser) {
   if (user.role !== "support_agent") {
     return {
       sql: "",
-      values: [] as unknown[],
+      values: [] as SqlParam[],
     };
   }
 
   return {
     sql: "(cm.assigned_to IS NULL OR cm.assigned_to = $1)",
-    values: [user.id] as unknown[],
+    values: [user.id] as SqlParam[],
   };
 }
 
@@ -592,7 +593,7 @@ export async function getContactMessageById(
   await ensureAppSchema();
 
   const access = getMessageAccessClause(user);
-  const values: unknown[] = [messageId, ...access.values];
+  const values: SqlParam[] = [messageId, ...access.values];
   const accessSql = access.sql ? `AND ${access.sql.replaceAll("$1", "$2")}` : "";
 
   const result = await getDb().query<{
@@ -663,7 +664,7 @@ export async function updateContactMessageStatus(input: {
   await ensureAppSchema();
 
   const access = getMessageAccessClause(input.actor);
-  const values: unknown[] = [input.status, input.messageId, ...access.values];
+  const values: SqlParam[] = [input.status, input.messageId, ...access.values];
   const accessSql = access.sql ? `AND ${access.sql.replaceAll("$1", "$3")}` : "";
 
   const result = await getDb().query(

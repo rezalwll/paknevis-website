@@ -6,15 +6,17 @@ import { redirect } from "next/navigation";
 import { createAdminUserRecord, updateAdminUserActiveState } from "@/lib/admin-data";
 import { hashPassword, requireAdminRole } from "@/lib/admin-auth";
 import { isAdminRole } from "@/lib/admin-types";
+import { buildPathWithState } from "@/lib/http";
 import {
   isValidAdminEmail,
   isValidAdminUsername,
   normalizeAdminEmail,
   normalizeAdminUsername,
 } from "@/lib/admin-identity";
+import { parsePositiveInt } from "@/lib/parsers";
 
 function redirectWithState(path: string, key: "error" | "notice", value: string): never {
-  redirect(`${path}?${key}=${encodeURIComponent(value)}`);
+  redirect(buildPathWithState(path, key, value));
 }
 
 export async function createAdminUserAction(formData: FormData) {
@@ -70,10 +72,10 @@ export async function createAdminUserAction(formData: FormData) {
 
 export async function toggleAdminUserActiveAction(formData: FormData) {
   const currentUser = await requireAdminRole(["super_admin"]);
-  const targetUserId = Number.parseInt(String(formData.get("userId") ?? ""), 10);
+  const targetUserId = parsePositiveInt(String(formData.get("userId") ?? ""));
   const nextActiveState = String(formData.get("nextActiveState") ?? "") === "true";
 
-  if (!Number.isInteger(targetUserId) || targetUserId <= 0) {
+  if (targetUserId === null) {
     redirectWithState("/admin/users", "error", "invalid-user");
   }
 

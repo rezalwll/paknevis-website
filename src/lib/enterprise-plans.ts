@@ -2,6 +2,7 @@ import type { PoolClient } from "pg";
 
 import { getDb, ensureAppSchema } from "@/lib/db";
 import type { EnterprisePlan, PublicEnterprisePlan } from "@/lib/admin-types";
+import { logServerError } from "@/lib/server-log";
 
 type EnterprisePlanRow = {
   id: number;
@@ -65,9 +66,10 @@ export async function listEnterprisePlans(): Promise<EnterprisePlan[]> {
 }
 
 export async function listPublicEnterprisePlans(): Promise<PublicEnterprisePlan[]> {
-  await ensureAppSchema();
+  try {
+    await ensureAppSchema();
 
-  const result = await getDb().query<EnterprisePlanRow>(`
+    const result = await getDb().query<EnterprisePlanRow>(`
     SELECT
       id,
       title,
@@ -84,19 +86,23 @@ export async function listPublicEnterprisePlans(): Promise<PublicEnterprisePlan[
     ORDER BY sort_order ASC, id ASC
   `);
 
-  return result.rows.map((row) => {
-    const plan = mapEnterprisePlan(row);
+    return result.rows.map((row) => {
+      const plan = mapEnterprisePlan(row);
 
-    return {
-      id: plan.id,
-      title: plan.title,
-      priceMillion: plan.priceMillion,
-      userCount: plan.userCount,
-      description: plan.description,
-      isPopular: plan.isPopular,
-      sortOrder: plan.sortOrder,
-    };
-  });
+      return {
+        id: plan.id,
+        title: plan.title,
+        priceMillion: plan.priceMillion,
+        userCount: plan.userCount,
+        description: plan.description,
+        isPopular: plan.isPopular,
+        sortOrder: plan.sortOrder,
+      };
+    });
+  } catch (error) {
+    logServerError("Failed to load public enterprise plans.", error);
+    return [];
+  }
 }
 
 export async function createEnterprisePlan(input: {

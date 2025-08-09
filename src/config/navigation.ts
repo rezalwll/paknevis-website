@@ -22,7 +22,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "کیبورد", href: "/downloads/keyboard" },
     ],
   },
-  { label: "نسخه سازمانی", href: "/enterprise" },
+  { label: "نسخه سازمانی", href: "/pricing" },
   {
     label: "پشتیبانی",
     href: "#",

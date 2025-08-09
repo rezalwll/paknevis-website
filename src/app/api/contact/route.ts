@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { validateContactPayload } from "@/lib/contact";
 import { insertContactMessage } from "@/lib/db";
+import { logServerError } from "@/lib/server-log";
 import { sendUserCommentChrome } from "@/lib/user-comments-chrome";
 
 export const runtime = "nodejs";
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
   try {
     await sendUserCommentChrome(validation.data);
   } catch (error) {
-    console.error("Failed to send contact form message to user-comments-chrome service.", error);
+    logServerError("Failed to send contact form message to user-comments-chrome service.", error);
 
     return NextResponse.json(
       {
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
       { status: 201 },
     );
   } catch (error) {
-    console.error("Failed to save contact form message.", error);
+    logServerError("Failed to save contact form message.", error);
 
     return NextResponse.json(
       {

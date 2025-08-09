@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# Paknevis Website (Next.js 15)
 
-## Getting Started
+Production website built with Next.js App Router, TypeScript, Tailwind CSS, and PostgreSQL.
 
-First, run the development server:
+## Stack
+- Next.js 15 (App Router)
+- React 19
+- TypeScript (strict)
+- Tailwind CSS 4
+- PostgreSQL (`pg`)
+
+## Environment Setup
+Create local `.env` from `.env.example` and set real values:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Required variables:
+- `POSTGRES_HOST`
+- `POSTGRES_PORT`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+- `POSTGRES_DB`
+- `ADMIN_BOOTSTRAP_EMAIL`
+- `ADMIN_BOOTSTRAP_PASSWORD`
+- `ADMIN_BOOTSTRAP_FULL_NAME`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Security Notes
+- Never commit real secrets to git.
+- Treat previously exposed credentials as compromised and rotate them.
+- Keep production credentials in your deployment secret manager.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Commands
+```bash
+npm run dev
+npm run lint
+npx tsc --noEmit
+npm run build
+npm run bootstrap:admin
+```
 
-## Learn More
+## Admin Bootstrap
+After setting environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run bootstrap:admin
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This creates the initial admin account used for `/admin/login`.
