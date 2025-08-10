@@ -22,7 +22,7 @@ const FOOTER_ITEMS: NavItem[] = [
     children: [
       { label: "راهنما", href: "/support/guide" },
       { label: "پرسش‌های متداول", href: "/support/faq" },
-      { label: "ارتباط با ما", href: "/support/contact" },
+      { label: "ارتباط با ما", href: "/contact" },
     ],
   },
   {
@@ -30,7 +30,7 @@ const FOOTER_ITEMS: NavItem[] = [
     children: [
       { label: "دربارۀ ما", href: "/about" },
       { label: "بلاگ", href: "/blog" },
-      { label: "حریم خصوصی", href: "/privacy" },
+      { label: "حریم خصوصی", href: "/terms" },
     ],
   },
 ];
@@ -161,4 +161,5 @@ export default function Footer() {
     </footer>
   );
 }
+
 

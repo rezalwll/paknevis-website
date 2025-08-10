@@ -48,7 +48,7 @@ export default function NotFound() {
                     </Link>
 
                     <Link
-                      href="/support/contact"
+                      href="/contact"
                       className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-slate-800 shadow-sm transition hover:border-primary-200 hover:text-primary-800"
                     >
                       <Headphones className="h-5 w-5 text-primary-700" />

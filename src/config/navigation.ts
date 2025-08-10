@@ -27,8 +27,8 @@ export const NAV_ITEMS: NavItem[] = [
     label: "پشتیبانی",
     href: "#",
     children: [
-      { label: "راهنما", href: "/support/help" },
-      { label: "ارتباط با ما", href: "/support/contact" },
+      { label: "راهنما", href: "/help" },
+      { label: "ارتباط با ما", href: "/contact" },
     ],
   },
   { label: "بلاگ", href: "/blog" },

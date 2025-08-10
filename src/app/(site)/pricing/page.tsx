@@ -186,7 +186,7 @@ export default async function EnterprisePage() {
                   <a href={makeGeneralMailto(contactEmail)} className={btnOutline}>
                     ارتباط با ما
                   </a>
-                  <a href="/support/contact" className={btnSolid}>
+                  <a href="/contact" className={btnSolid}>
                     ثبت درخواست
                   </a>
                 </div>

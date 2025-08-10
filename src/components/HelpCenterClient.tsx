@@ -245,7 +245,7 @@ export default function HelpCenterClient({
               به پاسخ فوری نیاز دارید، از طریق صفحه تماس با ما درخواست خود را ثبت کنید.
             </p>
             <a
-              href="/support/contact"
+              href="/contact"
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
             >
               ثبت درخواست پشتیبانی
@@ -403,7 +403,7 @@ export default function HelpCenterClient({
           </span>
           <span>پاسخ‌تان را پیدا نکردید؟</span>
           <a
-            href="/support/contact"
+            href="/contact"
             className="inline-flex items-center gap-1 text-[#0094F0]"
           >
             با ما تماس بگیرید

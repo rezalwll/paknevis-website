@@ -188,7 +188,7 @@ export default function EnterprisePricingCarousel({
                               <div className={lineMid} />
 
                               <Link
-                                href="/support/contact"
+                                href="/contact"
                                 className={btnOutline}
                                 onClick={(event) => event.stopPropagation()}
                               >

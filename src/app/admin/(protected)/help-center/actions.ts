@@ -51,7 +51,7 @@ function redirectWithState(
 
 function revalidateHelpCenterPages() {
   revalidatePath("/admin/help-center");
-  revalidatePath("/support/help");
+  revalidatePath("/help");
 }
 
 async function requireHelpCenterAccess() {
