@@ -36,13 +36,22 @@ export default function HelpCenterClient({
   categories: PublicHelpCategory[];
 }) {
   const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
   const [expandedQuestions, setExpandedQuestions] = useState<Record<number, boolean>>({});
   const questionsRef = useRef<HTMLDivElement>(null);
   const scrollAnimRef = useRef<number | null>(null);
 
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 900);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [query]);
+
   const filteredCategories = useMemo(() => {
-    const needle = normalizeSearchText(query);
+    const needle = normalizeSearchText(debouncedQuery);
 
     if (!needle) {
       return categories;
@@ -67,7 +76,7 @@ export default function HelpCenterClient({
 
       return [{ ...category, questions }];
     });
-  }, [categories, query]);
+  }, [categories, debouncedQuery]);
 
   const selectedCategory = useMemo(() => {
     if (filteredCategories.length === 0) {
@@ -75,14 +84,14 @@ export default function HelpCenterClient({
     }
 
     if (activeCategoryId === null) {
-      return query.trim() ? filteredCategories[0] : null;
+      return debouncedQuery.trim() ? filteredCategories[0] : null;
     }
 
     return (
       filteredCategories.find((category) => category.id === activeCategoryId) ??
-      (query.trim() ? filteredCategories[0] : null)
+      (debouncedQuery.trim() ? filteredCategories[0] : null)
     );
-  }, [activeCategoryId, filteredCategories, query]);
+  }, [activeCategoryId, filteredCategories, debouncedQuery]);
 
   const cancelScroll = useCallback(() => {
     if (scrollAnimRef.current !== null) {
@@ -160,14 +169,14 @@ export default function HelpCenterClient({
       (category) => category.id === activeCategoryId,
     );
 
-    if (!hasActiveCategory && query.trim()) {
+    if (!hasActiveCategory && debouncedQuery.trim()) {
       setActiveCategoryId(filteredCategories[0]?.id ?? null);
     }
-  }, [activeCategoryId, filteredCategories, query]);
+  }, [activeCategoryId, filteredCategories, debouncedQuery]);
 
   useEffect(() => {
     setExpandedQuestions({});
-  }, [query]);
+  }, [debouncedQuery]);
 
   const toggleQuestion = (questionId: number) => {
     setExpandedQuestions((prev) => ({
@@ -177,7 +186,8 @@ export default function HelpCenterClient({
   };
 
   const showEmptyCatalogState = categories.length === 0;
-  const showSearchEmptyState = !showEmptyCatalogState && query.trim() && filteredCategories.length === 0;
+  const showSearchEmptyState =
+    !showEmptyCatalogState && debouncedQuery.trim() && filteredCategories.length === 0;
 
   return (
     <div
