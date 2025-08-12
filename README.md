@@ -35,10 +35,16 @@ Required variables:
 ```bash
 npm run dev
 npm run lint
-npx tsc --noEmit
+npm run typecheck
+npm run check:encoding
 npm run build
 npm run bootstrap:admin
 ```
+
+## Text Encoding Policy
+- Keep `ts/tsx` source files in UTF-8.
+- Avoid saving code files with legacy encodings.
+- Run `npm run check:encoding` before commit to catch mojibake patterns.
 
 ## Admin Bootstrap
 After setting environment variables:

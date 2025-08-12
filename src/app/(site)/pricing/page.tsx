@@ -3,6 +3,7 @@ import type { ComponentType, SVGProps } from "react";
 import Image from "next/image";
 import EnterprisePricingCarousel from "@/components/EnterprisePricingCarousel";
 import ClientsMarquee from "@/components/ClientsMarquee";
+import { pricingBenefits, pricingInstallSteps } from "@/content/pricing";
 import { listPublicEnterprisePlans } from "@/lib/enterprise-plans";
 import {
   CreditCard,
@@ -21,6 +22,15 @@ export const metadata: Metadata = {
 };
 
 type IconType = ComponentType<SVGProps<SVGSVGElement>>;
+const PRICING_ICON_MAP: Record<string, IconType> = {
+  zap: Zap,
+  target: Target,
+  trending_up: TrendingUp,
+  credit_card: CreditCard,
+  mail: Mail,
+  hard_drive_download: HardDriveDownload,
+  package: Package,
+};
 
 function makeGeneralMailto(email: string) {
   const subject = encodeURIComponent("درخواست مشاوره نسخه آفلاین پاک‌نویس");
@@ -62,44 +72,6 @@ export default async function EnterprisePage() {
 
   // Divider line
 
-
-
-  const benefits: { t: string; d: string; icon: IconType }[] = [
-    {
-      t: "افزایش سرعت",
-      d: "با چند کلیک ساده و بدون صرف زمان طولانی برای بازخوانی و اصلاح دستی، متن روان و بی‌غلط تولید می‌کنید و ساعت-نفر موردنیاز برای نگارش به‌طور چشمگیری کاهش می‌یابد.",
-      icon: Zap,
-    },
-    {
-      t: "دقت بالا",
-      d: "حتی ویراستاران حرفه‌ای هم ممکن است خطا را از قلم بیندازند. پاک‌نویس با سازوکار نرم‌افزاری، خطاها را با دقت بسیار بالا شناسایی می‌کند.",
-      icon: Target,
-    },
-    {
-      t: "افزایش بهره‌وری سازمان",
-      d: "افزایش سرعت و دقت در نوشتن متن‌های فارسی، به‌صورت معنی‌دار بهره‌وری سازمان را بالا می‌برد و در زمان و انرژی کارمندان صرفه‌جویی می‌کند.",
-      icon: TrendingUp,
-    },
-  ];
-
-  const installSteps: { t: string; icon: IconType }[] = [
-    {
-      t: "با توجه به تعداد رایانه‌ها/کاربران یا حجم استفاده، طرح مورد نظر را از همین صفحه انتخاب کنید.",
-      icon: CreditCard,
-    },
-    {
-      t: "از طریق ایمیل، درخواست و نیازهای سازمانتان را با کارشناسان پاک‌نویس در میان بگذارید.",
-      icon: Mail,
-    },
-    {
-      t: "نسخهٔ آفلاین روی رایانه‌های سازمان نصب می‌شود و تمام امکانات ویرایشی بدون اینترنت در دسترس خواهد بود.",
-      icon: HardDriveDownload,
-    },
-    {
-      t: "افزونه/بستهٔ لازم را دریافت می‌کنید تا در آینده بتوانید روی رایانه‌های جدید نیز نصب کنید.",
-      icon: Package,
-    },
-  ];
 
   return (
     <main dir="rtl" className="pn-theme-warm bg-[var(--pn-bg)] text-slate-900">
@@ -144,16 +116,16 @@ export default async function EnterprisePage() {
                   { t: "سفارشی‌سازی", d: "طبق نیاز سازمان شما", icon: SlidersHorizontal },
                   { t: "پشتیبانی", d: "رفع باگ + به‌روزرسانی", icon: Headphones },
                 ].map((x) => (
-                  <div key={x.t} className={`${cardBase} p-4`}>
+                  <div key={x.title} className={`${cardBase} p-4`}>
                     <div className="flex items-center justify-between">
-                      <div className="text-sm font-black text-slate-900">{x.t}</div>
+                      <div className="text-sm font-black text-slate-900">{x.title}</div>
                       <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-[var(--pn-border)] bg-[var(--pn-bg)] shadow-sm">
-                        <x.icon className="h-4 w-4 text-slate-800" aria-hidden="true" />
+                        <Icon className="h-4 w-4 text-slate-800" aria-hidden="true" />
                       </span>
                     </div>
-                    <div className="mt-2 text-xs leading-6 text-slate-700">{x.d}</div>
+                    <div className="mt-2 text-xs leading-6 text-slate-700">{x.description}</div>
                   </div>
-                ))}
+                )})}
               </div> */}
             </div>
           </div>
@@ -218,20 +190,22 @@ export default async function EnterprisePage() {
           </div>
 
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {benefits.map((x) => (
-              <div key={x.t} className={`${cardBase} p-6`}>
+            {pricingBenefits.map((x) => {
+              const Icon = PRICING_ICON_MAP[x.icon];
+              return (
+              <div key={x.title} className={`${cardBase} p-6`}>
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <div className="text-base font-black text-slate-900">{x.t}</div>
-                    <p className="mt-2 text-sm leading-8 text-slate-700">{x.d}</p>
+                    <div className="text-base font-black text-slate-900">{x.title}</div>
+                    <p className="mt-2 text-sm leading-8 text-slate-700">{x.description}</p>
                   </div>
 
                   <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-2xl bg-[var(--pn-surface)] border border-[var(--pn-border)] text-slate-800">
-                    <x.icon className="h-5 w-5" aria-hidden="true" />
+                    <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
 
@@ -247,7 +221,9 @@ export default async function EnterprisePage() {
           </div>
 
           <ol className="mt-6 space-y-3">
-            {installSteps.map((s, idx) => (
+            {pricingInstallSteps.map((s, idx) => {
+              const Icon = PRICING_ICON_MAP[s.icon];
+              return (
               <li key={idx} className={`${cardBase} flex items-start gap-4 p-5`}>
                 <div className="flex h-10 w-10 flex-none items-center justify-center rounded-2xl bg-[var(--pn-surface)] border border-[var(--pn-border)] text-sm font-black text-slate-800">
                   {toFaDigits(idx + 1)}
@@ -257,14 +233,14 @@ export default async function EnterprisePage() {
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-sm font-black text-slate-900">مرحله {toFaDigits(idx + 1)}</span>
                     <span className=" bg-[var(--pn-surface)] inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-[var(--pn-border)] bg-[var(--pn-bg)] shadow-sm">
-                      <s.icon className="h-5 w-5 text-slate-800 " aria-hidden="true" />
+                      <Icon className="h-5 w-5 text-slate-800 " aria-hidden="true" />
                     </span>
                   </div>
 
-                  <p className="mt-2 text-sm leading-8 text-slate-800">{s.t}</p>
+                  <p className="mt-2 text-sm leading-8 text-slate-800">{s.text}</p>
                 </div>
               </li>
-            ))}
+            )})}
           </ol>
 
           <div className={`${cardBase} mt-8 p-8 text-center`}>
