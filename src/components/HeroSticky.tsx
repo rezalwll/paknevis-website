@@ -11,14 +11,14 @@ export default function HeroSticky({ items: propsItems }: HeroStickyProps = {}) 
       dir="rtl"
       className="
         relative bg-[color:var(--pn-bg)]
-        text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
+        text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
       "
     >
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl md:max-w-5xl lg:max-w-6xl 2xl:max-w-7xl ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 ">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:max-w-6xl lg:px-8 2xl:max-w-7xl">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-12 xl:gap-16">
           <div className="order-1">
             {displayItems.map((it, idx) => (
-              <div key={idx} className="md:min-h-[95vh] flex items-center">
+              <div key={idx} className="flex min-h-[36vh] items-center md:min-h-[48vh] lg:min-h-[60vh]">
                 <div className="space-y-4 lg:space-y-6">
                   <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[36px] font-bold text-[color:var(--pn-text)] leading-snug md:leading-tight">
                     {it.title}
@@ -32,9 +32,9 @@ export default function HeroSticky({ items: propsItems }: HeroStickyProps = {}) 
           </div>
 
           <div className="order-2">
-            <div className="flex items-center justify-center md:sticky md:top-0 md:min-h-screen">
+            <div className="flex items-center justify-center lg:sticky lg:top-0 lg:min-h-screen">
               <div className="p-2">
-                <video autoPlay loop muted className="w-full h-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl rounded-xl">
+                <video autoPlay loop muted className="h-auto w-full max-w-sm rounded-xl sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
                   <source
                     src="https://static-web.grammarly.com/1e6ajr2k4140/4JFqSLq1U3f6TTcWXvrw4y/1b5800ee28a52f7dd60fa52b306850a3/071824_Section_4_Animation_2x.mp4"
                     type="video/mp4"

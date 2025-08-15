@@ -21,10 +21,10 @@ export default function HomePage() {
           videoSrc="/images/video 1_3.mp4"
           imageClassName="pt-10"
           className="
-            min-h-[70vh]
-            md:min-h-[75vh]
+            min-h-[58vh]
+            sm:min-h-[62vh]
             lg:min-h-[60vh]
-            pt-6 md:pt-8 lg:pt-10
+            pt-4 sm:pt-6 md:pt-8 lg:pt-10
           "
         />
       </section>
@@ -41,7 +41,7 @@ export default function HomePage() {
 
 
       {/* آمار */}
-      <section className="mb-16 md:mb-20 bg-[color:var(--pn-bg)]">
+      <section className="mb-16 md:mb-20 bg-[color:var(--pn-bg)] mt-40">
         <header className="text-center px-4">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[color:var(--pn-text)]">
             پاک‌نویس در یک نگاه آماری

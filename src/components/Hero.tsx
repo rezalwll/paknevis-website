@@ -84,7 +84,7 @@ const Hero: FC<HeroProps> = ({
 
   const featureClassNames = (variant: FeatureItem["variant"] = "default") => {
     const base =
-      "inline-flex h-12 items-center justify-center gap-2 rounded-xl px-5 md:px-6 font-extrabold text-xs sm:text-sm md:text-[0.95rem] lg:text-[1rem] xl:text-[1.05rem] 2xl:text-[1.1rem] shadow-sm transition duration-200 w-full max-w-[250px] md:max-w-[270px] xl:max-w-[300px]";
+      "inline-flex h-11 sm:h-12 items-center justify-center gap-2 rounded-xl px-4 sm:px-5 md:px-6 font-extrabold text-xs sm:text-sm md:text-[0.95rem] lg:text-[1rem] xl:text-[1.05rem] 2xl:text-[1.1rem] shadow-sm transition duration-200 w-full max-w-[260px] md:max-w-[280px] xl:max-w-[300px]";
 
     if (variant === "primary") {
       return `${base} bg-[color:var(--pn-cta-bg)] text-[color:var(--pn-cta-text)] hover:bg-[color:var(--pn-cta-hover)]`;
@@ -127,9 +127,9 @@ const Hero: FC<HeroProps> = ({
     <section
       dir="rtl"
       className={`
-        relative w-full ltr overflow-hidden
+        relative w-full overflow-hidden
         bg-[#f4f5f7] text-[color:var(--pn-text)]
-        text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
+        text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
         ${className}
       `}
     >
@@ -144,26 +144,26 @@ const Hero: FC<HeroProps> = ({
         className="
           relative mx-auto h-full w-full
           max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1400px]
-          text-right flex flex-col md:flex-row items-center justify-between
-          gap-10 lg:gap-14 2xl:gap-20
+          text-right flex flex-col lg:flex-row items-center justify-between
+          gap-8 md:gap-10 lg:gap-14 2xl:gap-20
           px-4 sm:px-6 lg:px-8
-          py-8 lg:py-14
+          py-6 sm:py-8 lg:py-14
         "
       >
         {/* متن */}
         <div
           className={`
-            flex flex-col justify-center items-center md:items-start
-            space-y-6
-            px-2 md:px-0 md:pr-8 lg:pr-10
-            w-full md:w-[52%] lg:w-1/2
+            flex flex-col justify-center items-center lg:items-start
+            space-y-4 sm:space-y-6
+            px-2 lg:px-0 lg:pr-8 xl:pr-10
+            w-full lg:w-[52%] xl:w-1/2
             ${contentClassName}
           `}
         >
           <h1
             className={`
-              text-2xl md:text-3xl lg:text-4xl xl:text-[2.9rem] 2xl:text-[2.5rem]
-              font-bold leading-16
+              text-2xl sm:text-[1.9rem] md:text-3xl lg:text-4xl xl:text-[2.9rem] 2xl:text-[2.5rem]
+              font-bold leading-tight md:leading-[1.5]
               text-[color:var(--pn-text)]
               ${titleClassName}
             `}
@@ -174,8 +174,9 @@ const Hero: FC<HeroProps> = ({
           {description && (
             <p
               className={`
-                text-base md:text-lg lg:text-xl xl:text-[1.25rem] 2xl:text-[1.2rem]
-                max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl leading-10
+                text-sm sm:text-base md:text-lg lg:text-xl xl:text-[1.25rem] 2xl:text-[1.2rem]
+                max-w-md md:max-w-2xl lg:max-w-xl xl:max-w-2xl
+                leading-8 md:leading-10
                 text-justify text-[color:var(--pn-muted)]
                 ${descriptionClassName}
               `}
@@ -187,7 +188,7 @@ const Hero: FC<HeroProps> = ({
           {buttons.length > 0 && (
             <div
               className={`
-                flex flex-wrap justify-center md:justify-start gap-4 mt-2
+                flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 mt-2
                 ${buttonsContainerClassName}
               `}
             >
@@ -198,8 +199,9 @@ const Hero: FC<HeroProps> = ({
           {showCards && (
             <div
               className="
-                mt-10 grid grid-cols-2 gap-5 w-full
-                max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+                mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5 w-full
+                max-w-[260px] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+                mx-auto sm:mx-0 justify-items-center sm:justify-items-stretch
               "
             >
               {features.map((f, i) => (
@@ -218,9 +220,9 @@ const Hero: FC<HeroProps> = ({
         {/* تصویر/ویدیو */}
         <div
           className={`
-            w-full md:w-[48%] lg:w-1/2
+            w-full lg:w-[48%] xl:w-1/2
             max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-[680px]
-            mx-auto max-md:mt-20
+            mx-auto mt-4 md:mt-0
             ${imageClassName}
           `}
         >
