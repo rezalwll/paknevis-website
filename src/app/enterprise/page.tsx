@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ComponentType, SVGProps } from "react";
 import EnterprisePricingCarousel from "../../components/EnterprisePricingCarousel";
 import ClientsMarquee from "../../components/ClientsMarquee";
+import { listPublicEnterprisePlans } from "../../lib/enterprise-plans";
 import {
   BadgeCheck,
   BookCheck,
@@ -84,8 +85,9 @@ const toFaDigits = (val: string | number) =>
     .toString()
     .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
 
-export default function EnterprisePage() {
+export default async function EnterprisePage() {
   const contactEmail = "sales@paknevis.ir";
+  const plans = await listPublicEnterprisePlans();
 
   // ===== Theme tokens (from CSS vars)
   const accentText = "text-slate-900";
@@ -356,7 +358,7 @@ export default function EnterprisePage() {
           </div>
 
           <div className="mt-10">
-            <EnterprisePricingCarousel />
+            <EnterprisePricingCarousel plans={plans} />
           </div>
         </div>
       </section>

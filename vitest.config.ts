@@ -25,12 +25,10 @@ export default defineConfig({
         "src/app/api/analytics/page-view/route.ts",
         "src/features/contact/useContactForm.ts",
       ],
-      thresholds: {
-        lines: 70,
-        functions: 70,
-        statements: 70,
-        branches: 60,
-      },
+      lines: 70,
+      functions: 70,
+      statements: 70,
+      branches: 60,
     },
   },
 });
