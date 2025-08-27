@@ -51,9 +51,9 @@ const Header = () => {
   return (
     <header
       dir="rtl"
-      className="sticky top-0 z-50 bg-primary-100  text-highlight-700 shadow-sm"
+      className="sticky top-0 z-50 bg-primary-100 text-highlight-700 shadow-sm"
     >
-      <nav className="container mx-auto flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-20">
+      <nav className="container mx-auto flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-10">
         <button
           onClick={openMenu}
           className="sm:hidden flex items-center px-3 py-2 border rounded text-primary-800 border-primary-800 hover:text-primary-900 hover:border-primary-900 transition-colors cursor-pointer"
@@ -102,7 +102,7 @@ const Header = () => {
                 <div className="flex items-center cursor-pointer hover:text-primary-900 transition-colors">
                   <Link href={item.href}>{item.label}</Link>
                   {item.children && (
-                    <ChevronDownIcon className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" />
+                    <ChevronDownIcon className="w-4 h-4 mr-1 transition-transform duration-200 group-hover:rotate-180" />
                   )}
                 </div>
                 {item.children && (
@@ -135,7 +135,7 @@ const Header = () => {
           <Link
             href="/download"
             target="_blank"
-            className="bg-secondary-400 text-white px-4 py-1 rounded hover:bg-secondary-600 transition-colors"
+            className="bg-primary-400 text-highlight-800 hover:bg-primary-500 px-4.5 py-1.5 rounded transition-colors"
           >
             دانلود
           </Link>

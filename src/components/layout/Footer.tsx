@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaTelegramPlane, FaInstagram, FaGithub } from "react-icons/fa";
+import { FaTelegramPlane, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 type SubNavItem = { label: string; href: string };
 type NavItem = { label: string; href?: string; children?: SubNavItem[] };
@@ -37,9 +37,9 @@ const FOOTER_ITEMS: NavItem[] = [
 export default function Footer() {
   return (
     <footer dir="rtl" className="bg-primary-100 text-highlight-800 pt-10">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 px-6 md:px-12 py-7">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-9 gap-15 px-6 py-7">
         {}
-        <div className="md:col-span-1 flex flex-col items-start">
+        <div className="md:col-span-2 flex flex-col items-start">
           <div className="flex items-center mb-3">
             <img
               src="https://paknevis.ir/static/web_client/favicon.ico"
@@ -50,13 +50,13 @@ export default function Footer() {
               پاک‌نویس
             </span>
           </div>
-          <p className=" leading-6 text-highlight-700 pr-3">
+          <p className="  text-highlight-700 ">
             پاک‌نویس، ویرایشگری هوشمند برای نوشته‌های فارسی شما
           </p>
         </div>
 
         {}
-        <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-8 ">
+        <div className="md:col-span-5 grid grid-cols-1 sm:grid-cols-3 gap-8 ">
           {FOOTER_ITEMS.map((section) => (
             <div key={section.label}>
               <h4 className="font-semibold text-primary-900 mb-3 border-b border-primary-300 pb-1">
@@ -67,7 +67,7 @@ export default function Footer() {
                   <li key={item.label}>
                     <Link
                       href={item.href || "#"}
-                      className="hover:text-primary-700 transition-colors"
+                      className="hover:text-primary-700 text-[15px] transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -79,13 +79,13 @@ export default function Footer() {
         </div>
 
         {}
-        <div className="md:col-span-1 flex flex-col items-start">
+        <div className="md:col-span-2 flex flex-col items-start">
           <h4 className="font-semibold text-primary-900 mb-3 border-b border-primary-300 pb-1">
             شبکه‌های اجتماعی
           </h4>
-          <div className="flex space-x-4 space-x-reverse">
+          <div className="flex space-x-4">
             <a
-              href="https://t.me/"
+              href="https://t.me/paknevisaan"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary-800 hover:text-primary-600 transition-colors"
@@ -93,7 +93,7 @@ export default function Footer() {
               <FaTelegramPlane size={20} />
             </a>
             <a
-              href="https://instagram.com/"
+              href="https://www.instagram.com/paknevis.ir"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary-800 hover:text-primary-600 transition-colors"
@@ -101,12 +101,12 @@ export default function Footer() {
               <FaInstagram size={20} />
             </a>
             <a
-              href="https://github.com/"
+              href="https://www.linkedin.com/company/paknevis"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary-800 hover:text-primary-600 transition-colors"
             >
-              <FaGithub size={20} />
+              <FaLinkedin size={20} />
             </a>
           </div>
         </div>

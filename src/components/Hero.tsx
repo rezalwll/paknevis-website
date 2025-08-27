@@ -68,14 +68,14 @@ const Hero: FC<HeroProps> = ({
     const base =
       btn.variant === "secondary"
         ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-        : "bg-blue-600 text-white hover:bg-blue-700";
+        : "bg-primary-400 text-highlight-800 hover:bg-primary-500";
 
     return (
       <Link
         key={idx}
         href={btn.href}
         className={`
-          inline-block rounded px-6 py-3 font-medium transition
+          inline-block rounded px-6 py-3 transition
           ${base} ${buttonClassName} ${btn.className ?? ""}
         `}
       >
@@ -92,14 +92,14 @@ const Hero: FC<HeroProps> = ({
           className={`
                    flex flex-col justify-center items-center md:items-start 
                    space-y-6
-                      pr-10 
+                      md:pr-10 px-3
                 ${contentClassName} 
                      `}
         >
           <h1
             className={`
-      text-3xl  leading-tight 
-      md:text-4xl  2xl:text-5xl
+      text-2xl text-gray-800
+      md:text-3xl  2xl:text-4xl
       ${titleClassName}
     `}
           >
@@ -108,7 +108,7 @@ const Hero: FC<HeroProps> = ({
 
           {description && (
             <p
-              className={`text-xl max-w-lg text-justify text-gray-600 ${descriptionClassName}`}
+              className={`text-lg max-w-lg text-justify text-gray-600 ${descriptionClassName}`}
             >
               {description}
             </p>
@@ -128,7 +128,7 @@ const Hero: FC<HeroProps> = ({
         </div>
 
         {}
-        <div className={`w-full md:w-1/2 mx-auto ${imageClassName}`}>
+        <div className={`w-full md:w-1/2 mx-auto max-md:mt-20 ${imageClassName}`}>
           {useVideo && videoSrc ? (
             <video autoPlay loop muted>
               <source src={videoSrc} type={videoType} />

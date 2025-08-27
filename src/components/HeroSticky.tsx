@@ -28,18 +28,20 @@ type HeroStickyProps = {
 
 export default function HeroSticky({}: HeroStickyProps) {
   return (
-    <section dir="rtl" className="relative">
-      <div className="mx-auto max-w-7xl px-6">
+    <section dir="rtl" className="relative my-40">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {}
-          <div className="order-2 md:order-1">
+          <div className="order-1 md:order-1">
             {items.map((it, idx) => (
-              <div key={idx} className="min-h-screen flex items-center">
+              <div
+                key={idx}
+                className="py-12 md:min-h-screen flex items-center"
+              >
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
                     {it.title}
                   </h2>
-                  <p className="text-base md:text-lg text-gray-600">
+                  <p className="text-base sm:text-lg text-gray-600">
                     {it.body}
                   </p>
                 </div>
@@ -47,15 +49,17 @@ export default function HeroSticky({}: HeroStickyProps) {
             ))}
           </div>
 
-          {}
-          <div className="order-1 md:order-2">
-            <div className="sticky top-0 h-screen flex items-center justify-center">
-              <video autoPlay loop muted>
+          <div className="order-2 md:order-2">
+            <div className="flex items-center justify-center md:sticky md:top-0 md:min-h-screen">
+              <video
+                autoPlay
+                loop
+                muted
+                className="w-full h-auto rounded-lg"
+              >
                 <source
-                  src={
-                    "https://static-web.grammarly.com/1e6ajr2k4140/4JFqSLq1U3f6TTcWXvrw4y/1b5800ee28a52f7dd60fa52b306850a3/071824_Section_4_Animation_2x.mp4"
-                  }
-                  type={"video/mp4"}
+                  src="https://static-web.grammarly.com/1e6ajr2k4140/4JFqSLq1U3f6TTcWXvrw4y/1b5800ee28a52f7dd60fa52b306850a3/071824_Section_4_Animation_2x.mp4"
+                  type="video/mp4"
                 />
               </video>
             </div>
