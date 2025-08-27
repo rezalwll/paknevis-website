@@ -16,6 +16,8 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: ["./test/setup.ts"],
+    include: ["src/**/*.test.{ts,tsx}"],
+    exclude: ["e2e/**", "node_modules/**", ".next/**"],
     clearMocks: true,
     css: false,
     coverage: {
@@ -24,6 +26,8 @@ export default defineConfig({
         "src/app/api/contact/route.ts",
         "src/app/api/analytics/page-view/route.ts",
         "src/features/contact/useContactForm.ts",
+        "src/lib/text-audit/**/*.ts",
+        "src/app/api/text-audit/route.ts",
       ],
       lines: 70,
       functions: 70,
