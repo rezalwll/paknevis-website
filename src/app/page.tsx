@@ -1,6 +1,8 @@
 import Hero from "../components/Hero";
 import ClientsMarquee from "../components/ClientsMarquee";
 import HeroSticky from "../components/HeroSticky";
+import StatsSection from "../components/StatsSection";
+
 
 export default function HomePage() {
   return (
@@ -19,6 +21,9 @@ export default function HomePage() {
           مورد اطمینان شرکت‌های معتبر و کاربران در سراسر کشور
         </h2>
         <ClientsMarquee />
+      </section>
+      <section>
+        <StatsSection />
       </section>
       <section>
         <HeroSticky />

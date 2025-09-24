@@ -51,7 +51,7 @@ const Header = () => {
   return (
     <header
       dir="rtl"
-      className="sticky top-0 z-50 bg-primary-100/50 text-highlight-700 backdrop-blur-md shadow-sm"
+      className="sticky top-0 z-50 bg-primary-100 text-highlight-700 shadow-sm"
     >
       <nav className="container mx-auto  flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-10">
         <button
