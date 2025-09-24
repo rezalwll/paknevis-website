@@ -51,9 +51,9 @@ const Header = () => {
   return (
     <header
       dir="rtl"
-      className="sticky top-0 z-50 bg-primary-100 text-highlight-700 shadow-sm"
+      className="sticky top-0 z-50 bg-primary-100/50 text-highlight-700 backdrop-blur-md shadow-sm"
     >
-      <nav className="container mx-auto flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-10">
+      <nav className="container mx-auto  flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-10">
         <button
           onClick={openMenu}
           className="sm:hidden flex items-center px-3 py-2 border rounded text-primary-800 border-primary-800 hover:text-primary-900 hover:border-primary-900 transition-colors cursor-pointer"
@@ -81,7 +81,7 @@ const Header = () => {
           >
             <div className="flex items-center">
               <img
-                src="https://paknevis.ir/static/web_client/favicon.ico"
+                src="/mainlogo.png"
                 alt="پاک‌نویس"
                 className="w-8 h-8 mr-2"
               />

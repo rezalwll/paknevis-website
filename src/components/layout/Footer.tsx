@@ -41,11 +41,7 @@ export default function Footer() {
         {}
         <div className="md:col-span-2 flex flex-col items-start">
           <div className="flex items-center mb-3">
-            <img
-              src="https://paknevis.ir/static/web_client/favicon.ico"
-              alt="لوگو"
-              className="w-10 h-10 ml-2"
-            />
+            <img src="/mainlogo.png" alt="لوگو" className="w-10 h-10 ml-2" />
             <span className="text-lg font-semibold text-primary-900">
               پاک‌نویس
             </span>
