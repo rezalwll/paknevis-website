@@ -22,7 +22,18 @@ export default function HomePage() {
         </h2>
         <ClientsMarquee />
       </section>
-      <section>
+      <section className="mt-50">
+        {/* هدر */}
+        <header className="text-center max-md:pb-30">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            <span className="text-gray-600">
+              آمار استفاده از پاک‌نویس
+            </span>
+          </h2>
+          <p className="mt-2 text-sm sm:text-base text-gray-600">
+            مروری سریع بر عملکرد و رشد
+          </p>
+        </header>
         <StatsSection />
       </section>
       <section>
