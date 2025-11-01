@@ -4,7 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
-type NavItem = { label: string; href: string };
+type NavItem = { 
+  label: string; 
+  href: string; 
+  children?: NavItem[];
+};
 
 const NAV_ITEMS: NavItem[] = [
   { label: "ویرایشگر برخط", href: "/editor" },
@@ -12,10 +16,18 @@ const NAV_ITEMS: NavItem[] = [
     label: "دانلود",
     href: "",
     children: [
-      { label: "افزونه ورد", href: "/download/word" },
-      { label: "افزونه کروم", href: "/download/chrome" },
-      { label: "کیبورد", href: "/download/keyboard" },
+      { label: "افزونه ورد", href: "/downloads/word" },
+      { label: "افزونه کروم", href: "/downloads/chrome" },
+      { label: "کیبورد", href: "/downloads/keyboard" },
       { label: "ویرایشگر برخط", href: "/editor" },
+      { label: "c2", href: "/downloads/c2" },
+      { label: "c3", href: "/downloads/c3" },
+      { label: "c4", href: "/downloads/c4" },
+      { label: "c5", href: "/downloads/c5" },
+      { label: "k1", href: "/downloads/k1" },
+      { label: "k2", href: "/downloads/k2" },
+      { label: "k3", href: "/downloads/k3" },
+      { label: "k4", href: "/downloads/k4" },
     ],
   },
   { label: "نسخه سازمانی", href: "/enterprise" },
@@ -23,7 +35,7 @@ const NAV_ITEMS: NavItem[] = [
     label: "پشتیبانی",
     href: "#",
     children: [
-      { label: "راهنما", href: "/support/guide" },
+      { label: "راهنما", href: "/support/help" },
       { label: "پرسش‌های متداول", href: "/support/faq" },
       { label: "ارتباط با ما", href: "/support/contact" },
     ],

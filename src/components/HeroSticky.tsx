@@ -21,18 +21,19 @@ type HeroItem = {
 };
 
 type HeroStickyProps = {
-  imageSrc: string;
+  imageSrc?: string;
   imageAlt?: string;
-  items: HeroItem[];
+  items?: HeroItem[];
 };
 
-export default function HeroSticky({}: HeroStickyProps) {
+export default function HeroSticky({ items: propsItems, imageSrc, imageAlt }: HeroStickyProps = {}) {
+  const displayItems = propsItems || items;
   return (
     <section dir="rtl" className="relative my-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="order-1 md:order-1">
-            {items.map((it, idx) => (
+            {displayItems.map((it, idx) => (
               <div
                 key={idx}
                 className="py-12 md:min-h-screen flex items-center"
