@@ -15,7 +15,7 @@ export type HeroButton = {
 export interface HeroProps {
   title: string;
   description?: string;
-  imageSrc: string;
+  imageSrc?: string;
   useVideo?: boolean;
   showCards?: boolean;
   videoSrc?: string;
@@ -38,6 +38,7 @@ const Hero: FC<HeroProps> = ({
   imageSrc,
   imageAlt,
   videoSrc,
+  videoClassName = "",
   videoType = "video/mp4",
   useVideo = false,
   showCards = false,
@@ -60,7 +61,7 @@ const Hero: FC<HeroProps> = ({
       <Link
         key={idx}
         href={btn.href}
-        className={`inline-block rounded px-6 py-3 transition ${base} ${buttonClassName} ${
+        className={`inline-block rounded px-6 py-3 transition text-sm md:text-base lg:text-[1.05rem] ${base} ${buttonClassName} ${
           btn.className ?? ""
         }`}
       >
@@ -97,20 +98,50 @@ const Hero: FC<HeroProps> = ({
   ];
 
   return (
-    <section dir="rtl" className={`w-full ltr bg-white ${className}`}>
-      <div className="container mx-auto h-full w-full text-right flex flex-col items-center justify-between gap-10 md:flex-row">
+    <section
+      dir="rtl"
+      className={`
+        w-full ltr bg-white text-slate-800
+        text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
+        ${className}
+      `}
+    >
+      <div
+        className="
+          mx-auto h-full w-full
+          max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl
+          text-right flex flex-col md:flex-row items-center justify-between
+          gap-10 lg:gap-14
+          px-4 sm:px-6 lg:px-8
+        "
+      >
         <div
-          className={`flex flex-col justify-center items-center md:items-start space-y-6 md:pr-10 px-3 ${contentClassName}`}
+          className={`
+            flex flex-col justify-center items-center md:items-start
+            space-y-6
+            px-2 md:px-0 md:pr-8 lg:pr-10
+            w-full md:w-[52%] lg:w-1/2
+            ${contentClassName}
+          `}
         >
           <h1
-            className={`text-2xl text-gray-800 md:text-3xl 2xl:text-4xl ${titleClassName}`}
+            className={`
+              text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-[3.1rem]
+              text-gray-800 font-bold leading-snug
+              ${titleClassName}
+            `}
           >
             {title}
           </h1>
 
           {description && (
             <p
-              className={`text-lg max-w-lg text-justify text-gray-600 ${descriptionClassName}`}
+              className={`
+                text-base md:text-lg lg:text-xl xl:text-[1.1rem] 2xl:text-[1.2rem]
+                max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+                text-justify text-gray-600
+                ${descriptionClassName}
+              `}
             >
               {description}
             </p>
@@ -118,19 +149,34 @@ const Hero: FC<HeroProps> = ({
 
           {buttons.length > 0 && (
             <div
-              className={`flex flex-wrap justify-center md:justify-start gap-4 ${buttonsContainerClassName}`}
+              className={`
+                flex flex-wrap justify-center md:justify-start gap-4 mt-2
+                ${buttonsContainerClassName}
+              `}
             >
               {buttons.map(renderButton)}
             </div>
           )}
 
           {showCards && (
-            <div className="grid grid-cols-2 gap-2 w-full">
+            <div
+              className="
+                mt-4 grid grid-cols-2 gap-3 w-full
+                max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+              "
+            >
               {features.map((f, i) => (
                 <Link
                   key={i}
                   href={f.href}
-                  className={`${f.color} h-12 cursor-pointer rounded-xl px-2 py-1 flex items-center justify-between shadow-md transition duration-600  hover:bg-primary-300 max-w-[240]`}
+                  className={`
+                    ${f.color}
+                    h-12 cursor-pointer rounded-xl px-2 py-1
+                    flex items-center justify-between
+                    shadow-md transition duration-300
+                    hover:bg-primary-300
+                    max-w-[240px]
+                  `}
                 >
                   {/* تصویر سمت راست */}
                   <div className="flex-shrink-0 ml-4 flex items-center justify-center">
@@ -143,7 +189,7 @@ const Hero: FC<HeroProps> = ({
                     />
                   </div>
                   {/* متن سمت چپ */}
-                  <p className="flex-1 text-md font-medium text-gray-700 text-right">
+                  <p className="flex-1 text-xs sm:text-sm md:text-[0.95rem] font-medium text-gray-700 text-right">
                     {f.title}
                   </p>
                 </Link>
@@ -153,20 +199,33 @@ const Hero: FC<HeroProps> = ({
         </div>
 
         <div
-          className={`w-full md:w-1/2 mx-auto max-md:mt-20 ${imageClassName}`}
+          className={`
+            w-full md:w-[48%] lg:w-1/2
+            max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+            mx-auto max-md:mt-20
+            ${imageClassName}
+          `}
         >
           {useVideo && videoSrc ? (
-            <video autoPlay loop muted className="rounded-xl">
+            <video
+              autoPlay
+              loop
+              muted
+              className={`w-full h-auto rounded-xl shadow-sm ${videoClassName}`}
+            >
               <source src={videoSrc} type={videoType} />
             </video>
           ) : (
-            <Image
-              src={imageSrc}
-              alt={imageAlt ?? title}
-              width={600}
-              height={600}
-              priority
-            />
+            imageSrc && (
+              <Image
+                src={imageSrc}
+                alt={imageAlt ?? title}
+                width={600}
+                height={600}
+                priority
+                className="w-full h-auto rounded-xl shadow-sm object-contain"
+              />
+            )
           )}
         </div>
       </div>

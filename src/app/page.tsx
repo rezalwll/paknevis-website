@@ -22,6 +22,9 @@ export default function HomePage() {
         </h2>
         <ClientsMarquee />
       </section>
+      <section>
+        <HeroSticky />
+      </section>
       <section className="mt-50">
         {/* هدر */}
         <header className="text-center max-md:pb-30">
@@ -36,9 +39,7 @@ export default function HomePage() {
         </header>
         <StatsSection />
       </section>
-      <section>
-        <HeroSticky />
-      </section>
+      
     </>
   );
 }
