@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { DEFAULT_HEADER_THEME, resolveHeaderTheme } from "@/config/headerTheme";
 
 type NavItem = { 
   label: string; 
@@ -44,6 +46,22 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const Header = () => {
+  const pathname = usePathname() || "/";
+  const [theme, setTheme] = useState(DEFAULT_HEADER_THEME);
+  useEffect(() => {
+    // Delay applying path-based theme until after hydration to avoid SSR/client mismatch.
+    setTheme(resolveHeaderTheme(pathname));
+  }, [pathname]);
+  const headerStyle: CSSProperties = {
+    "--header-bg": theme.background,
+    "--header-text": theme.text,
+    "--header-link-hover": theme.linkHover,
+    "--header-cta-bg": theme.buttonBg,
+    "--header-cta-hover-bg": theme.buttonHoverBg,
+    "--header-cta-text": theme.buttonText,
+    "--header-mobile-bg": theme.mobileBackground,
+  };
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -63,12 +81,13 @@ const Header = () => {
   return (
     <header
       dir="rtl"
-      className="sticky top-0 z-50 bg-primary-100 text-highlight-700 shadow-sm"
+      style={headerStyle}
+      className="sticky top-0 z-50 shadow-sm bg-[var(--header-bg)] text-[var(--header-text)]"
     >
       <nav className="container mx-auto  flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-10">
         <button
           onClick={openMenu}
-          className="sm:hidden flex items-center px-3 py-2 border rounded text-primary-800 border-primary-800 hover:text-primary-900 hover:border-primary-900 transition-colors cursor-pointer"
+          className="sm:hidden flex items-center px-3 py-2 border rounded text-[var(--header-text)] border-[var(--header-text)] hover:text-[var(--header-link-hover)] hover:border-[var(--header-link-hover)] transition-colors cursor-pointer"
           aria-label="باز کردن منو"
         >
           <svg
@@ -89,7 +108,7 @@ const Header = () => {
         <div className="flex space-x-6">
           <Link
             href="/"
-            className="text-xl font-medium text-primary-800 transition-colors"
+            className="text-xl font-medium transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]"
           >
             <div className="flex items-center">
               <img
@@ -111,7 +130,7 @@ const Header = () => {
                 onMouseEnter={() => setOpenDropdown(item.label)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <div className="flex items-center cursor-pointer hover:text-primary-900 transition-colors">
+                <div className="flex items-center cursor-pointer transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]">
                   <Link href={item.href}>{item.label}</Link>
                   {item.children && (
                     <ChevronDownIcon className="w-4 h-4 mr-1 transition-transform duration-200 group-hover:rotate-180" />
@@ -131,7 +150,7 @@ const Header = () => {
                       <li key={sub.label}>
                         <Link
                           href={sub.href}
-                          className="block text-sm px-4 py-2 hover:text-primary-900 whitespace-nowrap"
+                          className="block text-sm px-4 py-2 whitespace-nowrap transition-colors hover:text-[var(--header-link-hover)]"
                         >
                           {sub.label}
                         </Link>
@@ -147,7 +166,7 @@ const Header = () => {
           <Link
             href="/download"
             target="_blank"
-            className="bg-primary-400 text-highlight-800 hover:bg-primary-500 px-4.5 py-1.5 rounded transition-colors"
+            className="px-4.5 py-1.5 rounded transition-colors bg-[var(--header-cta-bg)] hover:bg-[var(--header-cta-hover-bg)] text-[var(--header-cta-text)]"
           >
             دانلود
           </Link>
@@ -155,7 +174,7 @@ const Header = () => {
       </nav>
       {}
       <div
-        className={`fixed inset-0 bg-highlight-100 shadow-lg z-50 transform transition-transform duration-400 ${
+        className={`fixed inset-0 bg-[var(--header-mobile-bg)] shadow-lg z-50 transform transition-transform duration-400 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -163,7 +182,7 @@ const Header = () => {
         <div className="flex items-center justify-between px-4 py-3">
           <Link
             href="/"
-            className="text-xl font-medium text-primary-800 transition-colors"
+            className="text-xl font-medium transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]"
             onClick={closeMenu}
           >
             <div className="flex items-center">
@@ -178,7 +197,7 @@ const Header = () => {
           <button
             onClick={closeMenu}
             aria-label="بستن منو"
-            className="text-primary-800 hover:text-primary-900 cursor-pointer transition-colors"
+            className="text-[var(--header-text)] hover:text-[var(--header-link-hover)] cursor-pointer transition-colors"
           >
             <svg
               className="w-6 h-6"
@@ -204,7 +223,7 @@ const Header = () => {
                 <>
                   {}
                   <button
-                    className="flex items-center w-full cursor-pointer text-right hover:text-primary-900 transition-colors"
+                    className="flex items-center w-full cursor-pointer text-right transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]"
                     onClick={() =>
                       setOpenDropdown(
                         openDropdown === item.label ? null : item.label
@@ -236,7 +255,7 @@ const Header = () => {
                           key={sub.href}
                           href={sub.href}
                           onClick={closeMenu}
-                          className="block hover:text-primary-900"
+                          className="block transition-colors hover:text-[var(--header-link-hover)]"
                         >
                           {sub.label}
                         </Link>
@@ -248,7 +267,7 @@ const Header = () => {
                 <Link
                   href={item.href}
                   onClick={closeMenu}
-                  className="hover:text-primary-900 transition-colors"
+                  className="transition-colors hover:text-[var(--header-link-hover)]"
                 >
                   {item.label}
                 </Link>
