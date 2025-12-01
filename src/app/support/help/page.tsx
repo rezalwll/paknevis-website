@@ -393,9 +393,7 @@ export default function HelpCenterPage() {
         text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
       "
     >
-      {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white min-h-[500px]">
-        {/* animated soft gradient blobs — minimal */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="blob blob-a" />
           <div className="blob blob-b" />
@@ -412,7 +410,6 @@ export default function HelpCenterPage() {
             سلام! چطور می‌تونیم کمک کنیم؟
           </h1>
 
-          {/* Search */}
           <div className="mt-8 flex items-center justify-center">
             <div
               className="
@@ -434,7 +431,6 @@ export default function HelpCenterPage() {
             </div>
           </div>
 
-          {/* Featured */}
           <div className="mx-auto mt-10 max-w-3xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
             <div className="h-px bg-slate-200" />
             <div
@@ -473,7 +469,6 @@ export default function HelpCenterPage() {
           </div>
         </div>
 
-        {/* Scoped styles فقط برای blobها */}
         <style>{`
           .blob{position:absolute;border-radius:9999px;filter:blur(28px);opacity:.22;mix-blend-multiply;pointer-events:none;will-change:transform;transform:translateZ(0);transition:transform 0.3s ease-out;}
           .blob-a{width:420px;height:420px;background:radial-gradient(closest-side,#66C0FF,transparent 70%);right:15%;top:-10%;animation:floaty 25s ease-in-out infinite;}
@@ -506,7 +501,6 @@ export default function HelpCenterPage() {
         `}</style>
       </section>
 
-      {/* Categories */}
       <section
         className="
           mx-auto px-4 py-8 space-y-8
@@ -626,7 +620,6 @@ export default function HelpCenterPage() {
         )}
       </section>
 
-      {/* Contact strip */}
       <section
         className="
           mx-auto px-4 py-10

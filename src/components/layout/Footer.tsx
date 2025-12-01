@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useMemo, type CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaTelegramPlane, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
-import { DEFAULT_FOOTER_THEME, resolveFooterTheme } from "@/config/footerTheme";
+import { resolveFooterTheme } from "@/config/footerTheme";
 type SubNavItem = { label: string; href: string };
 type NavItem = { label: string; href?: string; children?: SubNavItem[] };
 
@@ -39,19 +39,14 @@ const FOOTER_ITEMS: NavItem[] = [
 
 export default function Footer() {
   const pathname = usePathname() || "/";
-  const [theme, setTheme] = useState(DEFAULT_FOOTER_THEME);
+  const theme = useMemo(() => resolveFooterTheme(pathname), [pathname]);
 
-  useEffect(() => {
-    // Apply theme after hydration to prevent SSR/client mismatch.
-    setTheme(resolveFooterTheme(pathname));
-  }, [pathname]);
-
-  const footerStyle: CSSProperties = {
-    "--footer-bg": theme.background,
-    "--footer-text": theme.text,
-    "--footer-muted": theme.muted,
-    "--footer-heading": theme.heading,
-    "--footer-link": theme.link,
+  const footerStyle = {
+    ["--footer-bg" as any]: theme.background,
+    ["--footer-text" as any]: theme.text,
+    ["--footer-muted" as any]: theme.muted,
+    ["--footer-heading" as any]: theme.heading,
+    ["--footer-link" as any]: theme.link,
     "--footer-link-hover": theme.linkHover,
     "--footer-border": theme.border,
     "--footer-heading-border": theme.headingBorder,
@@ -62,11 +57,10 @@ export default function Footer() {
   return (
     <footer
       dir="rtl"
-      style={footerStyle}
+      style={footerStyle as React.CSSProperties}
       className="bg-[var(--footer-bg)] text-[var(--footer-text)] pt-10"
     >
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-9 gap-15 px-6 py-7">
-        {}
         <div className="md:col-span-2 flex flex-col items-start">
           <div className="flex items-center mb-3">
             <img src="/mainlogo.png" alt="لوگو" className="w-10 h-10 ml-2" />
