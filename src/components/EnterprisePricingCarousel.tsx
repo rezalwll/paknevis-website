@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 type Plan = {
     title: string;
@@ -10,322 +10,212 @@ type Plan = {
     popular?: boolean;
 };
 
+function usePerView() {
+    const [perView, setPerView] = useState(1);
+
+    useEffect(() => {
+        const calc = () => {
+            const w = window.innerWidth;
+            if (w >= 1024) return 4; // lg
+            if (w >= 768) return 3; // md
+            if (w >= 640) return 2; // sm
+            return 1;
+        };
+        const onResize = () => setPerView(calc());
+        onResize();
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
+
+    return perView;
+}
+
+/** Start indexes that avoid a "lonely last page" */
+function buildStarts(n: number, perView: number) {
+    if (n <= 0) return [0];
+    if (n <= perView) return [0];
+
+    const starts: number[] = [0];
+
+    for (let i = perView; i < n; i += perView) {
+        const remaining = n - i;
+
+        if (remaining < perView) {
+            const lastStart = Math.max(0, n - perView);
+            if (lastStart !== starts[starts.length - 1]) starts.push(lastStart);
+            return starts;
+        }
+
+        starts.push(i);
+    }
+
+    return starts;
+}
+
 export default function EnterprisePricingCarousel() {
-    // ===== Data (7 cards)
     const plans: Plan[] = useMemo(
         () => [
-            { title: "طرح اول", price: "۷۷m", per: "۲۰ کاربر", desc: "متن نمونه برای توضیح کوتاه پلن. مناسب شروع کار." },
-            { title: "طرح دوم", price: "۱۲۷m", per: "۶۰ کاربر", desc: "متن نمونه برای توضیح کوتاه پلن. امکانات بیشتر." , popular: true},
-            { title: "طرح سوم", price: "۲۲۵m", per: "۱۳۰ کاربر", desc: "متن نمونه برای توضیح کوتاه پلن. بهترین انتخاب." },
-            { title: "طرح چهارم", price: "۵۳۰m", per: "۴۰۰ کاربر", desc: "متن نمونه برای توضیح کوتاه پلن. مناسب مقیاس بزرگ." },
-            { title: "طرح پنجم", price: "۵۶m", per: "۵۰۰ خطا در روز", desc: "متن نمونه برای توضیح کوتاه پلن. مناسب تیم‌ها." },
-            { title: "طرح ششم", price: "۱۱۰m", per: "۲۰۰۰ خطا در روز", desc: "متن نمونه برای توضیح کوتاه پلن. مناسب سازمان‌ها." },
-            { title: "طرح طلایی", price: "تماس بگیرید", per: "۵۰۰ کاربر به بالا", desc: "سفارشی‌سازی کامل بر اساس نیاز شما." },
+            { title: "طرح ۱", price: "۷۷m", per: "۲۰ کاربر", desc: "توضیح کوتاه پلن. مناسب شروع کار." },
+            { title: "طرح ۲", price: "۱۲۷m", per: "۶۰ کاربر", desc: "امکانات بیشتر برای تیم‌های متوسط.", popular: true },
+            { title: "طرح ۳", price: "۲۲۵m", per: "۱۳۰ کاربر", desc: "مناسب سازمان‌های رو به رشد." },
+            { title: "طرح ۴", price: "۳۲۰m", per: "۲۰۰ کاربر", desc: "پشتیبانی و امکانات کامل‌تر." },
+            { title: "طرح ۵", price: "۴۸۰m", per: "۳۵۰ کاربر", desc: "برای واحدهای بزرگ سازمانی." },
+            { title: "طرح ۶", price: "۶۵۰m", per: "۵۰۰ کاربر", desc: "پیکربندی اختصاصی و SLA." },
+            { title: "طرح ۷", price: "۹۰۰m", per: "۸۰۰ کاربر", desc: "بالاترین سطح خدمات و سفارشی‌سازی." },
         ],
         []
     );
 
-    // ✅ نمایش RTL: Basic سمت راست، با رفتن "بعدی" به چپ برسیم به Custom
-    const displayPlans = useMemo(() => [...plans].reverse(), [plans]);
+    const perViewRaw = usePerView();
+    const perView = Math.min(perViewRaw, Math.max(1, plans.length));
 
-    // ===== Selected card (default: popular if exists)
-    const defaultSelected = useMemo(() => {
-        const idx = displayPlans.findIndex((p) => p.popular);
-        return idx >= 0 ? idx : 0;
-    }, [displayPlans]);
+    const starts = useMemo(() => buildStarts(plans.length, perView), [plans.length, perView]);
+    const pages = useMemo(() => starts.map((s) => plans.slice(s, s + perView)), [starts, plans, perView]);
 
-    const [selectedIndex, setSelectedIndex] = useState(defaultSelected);
+    const totalPages = Math.max(1, pages.length);
+    const [page, setPage] = useState(0);
 
     useEffect(() => {
-        setSelectedIndex(defaultSelected);
-    }, [defaultSelected]);
+        setPage((p) => Math.min(p, totalPages - 1));
+    }, [totalPages]);
 
-    // ===== Exact fit (4 cards only on lg)
-    const scrollerStyle = useMemo(() => ({ ["--gap" as any]: "24px" }), []);
-    const cardWidth =
-        "flex-[0_0_100%] " +
-        "sm:flex-[0_0_calc((100%-var(--gap))/2)] " +
-        "md:flex-[0_0_calc((100%-(var(--gap)+var(--gap)))/3)] " +
-        "lg:flex-[0_0_calc((105%-(var(--gap)+var(--gap)+var(--gap)))/4)]";
+    const canPrev = page > 0;
+    const canNext = page < totalPages - 1;
 
-    // ===== Card styles (match screenshot)
+    const prev = () => setPage((p) => Math.max(0, p - 1));
+    const next = () => setPage((p) => Math.min(totalPages - 1, p + 1));
+
     const cardBase =
-        "relative rounded-[18px] bg-white " +
-        "border border-slate-200 " +
-        "transition-[transform,box-shadow,border-color] duration-200 ease-out " +
-        "hover:-translate-y-1 hover:shadow-[0_24px_56px_rgba(15,23,42,0.14)]";
+        "relative rounded-[18px] bg-[var(--pn-bg)] " +
+        "border border-[var(--pn-border)] " +
+        "transition-[transform,box-shadow,border-color] duration-200 ease-out ";
 
-    const cardPopular = "border-[3px] border-blue-500 shadow-[0_22px_52px_rgba(15,23,42,0.14)]";
+    const cardPopular =
+        "border-[3px] border-[var(--pn-accent)] ";
 
-    const cardSelected = "border-[3px] !border-blue-500";
+    const cardSelected =
+        "border-[3px] !border-[var(--pn-accent)] ";
 
     const pillPopular =
         "absolute -top-3 left-1/2 -translate-x-1/2 " +
-        "rounded-full bg-emerald-100 px-4 py-1 " +
-        "text-[11px] font-extrabold text-emerald-700 " +
-        "border border-emerald-200 shadow-sm";
+        "rounded-full bg-[var(--pn-surface)] px-4 py-1 " +
+        "text-[11px] font-extrabold text-slate-800 " +
+        "border border-[var(--pn-border)] shadow-sm";
 
-    const titleText = "text-xl font-black text-slate-700";
-    const priceText = "text-5xl font-black text-pink-500";
-    const perText = "mt-1 text-[11px] font-semibold text-slate-400";
+    const titleText = "text-xl font-black text-slate-800";
+    const priceText = "text-5xl font-black text-slate-900";
+    const perText = "mt-1 text-[11px] font-semibold text-slate-500";
 
-    const blueLineTop = "mx-auto mt-2 h-[3px] w-10 rounded-full bg-sky-400";
-    const blueLineMid = "mx-auto my-5 h-[3px] w-12 rounded-full bg-sky-400";
+    const lineTop = "mx-auto mt-2 h-[3px] w-10 rounded-full bg-[var(--pn-accent)]";
+    const lineMid = "mx-auto my-5 h-[3px] w-12 rounded-full bg-[var(--pn-accent)]";
 
-    const descText = "mx-auto mt-6 max-w-[240px] text-[12px] leading-7 text-slate-400";
+    const descText = "mx-auto mt-6 max-w-[240px] text-[12px] leading-7 text-slate-600";
 
     const btnOutline =
         "inline-flex h-10 items-center justify-center rounded-lg " +
-        "border-2 border-pink-300 bg-white px-8 " +
-        "text-xs font-extrabold tracking-wider text-pink-500 " +
+        "border-2 border-[var(--pn-accent)] bg-[var(--pn-bg)] px-8 " +
+        "text-xs font-extrabold tracking-wider text-slate-900 " +
         "shadow-[0_10px_18px_rgba(15,23,42,0.06)] " +
-        "transition hover:-translate-y-0.5 hover:bg-pink-50";
+        "transition hover:bg-[var(--pn-surface)]";
 
-    // ===== Scroller ref + edges
-    const scrollerRef = useRef<HTMLDivElement | null>(null);
+    const defaultSelected = useMemo(() => {
+        const idx = plans.findIndex((p) => p.popular);
+        return idx >= 0 ? idx : 0;
+    }, [plans]);
 
-    // ✅ شروع = راست (scrollLeft = max)، پایان = چپ (scrollLeft = 0)
-    const [atStart, setAtStart] = useState(true); // rightmost
-    const [atEnd, setAtEnd] = useState(false); // leftmost
-
-    const updateEdges = useCallback(() => {
-        const el = scrollerRef.current;
-        if (!el) return;
-
-        const max = el.scrollWidth - el.clientWidth;
-        if (max <= 1) {
-            setAtStart(true);
-            setAtEnd(true);
-            return;
-        }
-        const x = el.scrollLeft;
-
-        // ✅ start = max (راست) ، end = 0 (چپ)
-        setAtStart(x >= max - 1);
-        setAtEnd(x <= 1);
-    }, []);
-
-    useEffect(() => {
-        const el = scrollerRef.current;
-        if (!el) return;
-
-        const onScroll = () => updateEdges();
-        el.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", onScroll);
-
-        return () => {
-            el.removeEventListener("scroll", onScroll);
-            window.removeEventListener("resize", onScroll);
-        };
-    }, [updateEdges]);
-
-    // ✅ اسکرول اولیه: برو سمت راست (شروع RTL)
-    useEffect(() => {
-        const el = scrollerRef.current;
-        if (!el) return;
-
-        requestAnimationFrame(() => {
-            el.scrollLeft = el.scrollWidth - el.clientWidth; // rightmost
-            updateEdges();
-        });
-    }, [updateEdges]);
-
-    // ===== One-by-one scroll step
-    const getStep = () => {
-        const el = scrollerRef.current;
-        if (!el) return 320;
-
-        const first = el.querySelector<HTMLElement>("[data-card]");
-        const gapStr = getComputedStyle(el).gap || getComputedStyle(el).columnGap || "24px";
-        const gap = Number.parseFloat(gapStr) || 24;
-        const w = first?.getBoundingClientRect().width ?? 280;
-
-        return Math.round(w + gap);
-    };
-
-    // ✅ "next" باید بره به چپ => scrollLeft کم بشه
-    const scrollOne = (dir: "prev" | "next") => {
-        const el = scrollerRef.current;
-        if (!el) return;
-
-        const step = getStep();
-        el.scrollBy({ left: dir === "next" ? -step : step, behavior: "smooth" });
-    };
-
-    // ===== Drag to scroll (mouse)
-    const isDraggingRef = useRef(false);
-    const startXRef = useRef(0);
-    const startScrollLeftRef = useRef(0);
-    const movedRef = useRef(0);
-    const preventClickRef = useRef(false);
-    const [dragging, setDragging] = useState(false);
-
-    const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-        if (e.pointerType !== "mouse") return;
-        const el = scrollerRef.current;
-        if (!el) return;
-
-        isDraggingRef.current = true;
-        setDragging(true);
-
-        movedRef.current = 0;
-        preventClickRef.current = false;
-
-        el.setPointerCapture(e.pointerId);
-        startXRef.current = e.clientX;
-        startScrollLeftRef.current = el.scrollLeft;
-    };
-
-    const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-        if (e.pointerType !== "mouse") return;
-        const el = scrollerRef.current;
-        if (!el || !isDraggingRef.current) return;
-
-        const dx = e.clientX - startXRef.current;
-        movedRef.current = Math.max(movedRef.current, Math.abs(dx));
-        if (movedRef.current > 6) preventClickRef.current = true;
-
-        e.preventDefault();
-
-        // ✅ درست: کشیدن به چپ => کارت‌ها به چپ میرن
-        el.scrollLeft = startScrollLeftRef.current - dx;
-    };
-
-
-    const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-        if (e.pointerType !== "mouse") return;
-
-        isDraggingRef.current = false;
-        setDragging(false);
-        requestAnimationFrame(updateEdges);
-
-        setTimeout(() => {
-            preventClickRef.current = false;
-            movedRef.current = 0;
-        }, 0);
-    };
-
-    const onClickCapture = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (preventClickRef.current) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-    };
-
-    // ===== Nav buttons
-    const navBtnBase =
-        "z-10 grid h-10 w-10 place-items-center rounded-full " +
-        "border border-slate-200 bg-white/95 shadow-sm backdrop-blur transition hover:bg-white " +
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300";
-    const navBtnLeft = "absolute -left-10 top-1/2 -translate-y-1/2";
-    const navBtnRight = "absolute -right-3 top-1/2 -translate-y-1/2";
-    const navBtnDisabled = "opacity-40 pointer-events-none";
+    const [selectedIndex, setSelectedIndex] = useState(defaultSelected);
+    useEffect(() => setSelectedIndex(defaultSelected), [defaultSelected]);
 
     return (
-        <div className="relative -mx-4 px-4">
-            {/* ✅ next (به چپ) */}
-            <button
-                type="button"
-                aria-label="بعدی"
-                onClick={() => scrollOne("next")}
-                className={`${navBtnBase} ${navBtnLeft} ${atEnd ? navBtnDisabled : ""}`}
-            >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path
-                        d="M14.5 5.5L8.5 12l6 6.5"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </button>
-
-            {/* ✅ prev (به راست) */}
-            <button
-                type="button"
-                aria-label="قبلی"
-                onClick={() => scrollOne("prev")}
-                className={`${navBtnBase} ${navBtnRight} ${atStart ? navBtnDisabled : ""}`}
-            >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path
-                        d="M9.5 5.5l6 6.5-6 6.5"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </button>
-
-            {/* Scroller */}
-            <div
-                ref={scrollerRef}
-                style={scrollerStyle}
-                dir="ltr"
-                onPointerDown={onPointerDown}
-                onPointerMove={onPointerMove}
-                onPointerUp={endDrag}
-                onPointerCancel={endDrag}
-                onPointerLeave={endDrag}
-                onClickCapture={onClickCapture}
-                className={[
-                    "no-scrollbar",
-                    "flex overflow-x-auto overflow-y-visible px-14 py-15 pl-18",
-                    "gap-[var(--gap)] scroll-px-14",
-                    dragging ? "snap-none" : "snap-x snap-mandatory scroll-smooth",
-                    "select-none",
-                    dragging ? "cursor-grabbing" : "cursor-grab",
-                    "bg-transparent border-0 outline-none ring-0",
-                    "[-webkit-overflow-scrolling:touch]",
-                ].join(" ")}
-            >
-                {displayPlans.map((plan, i) => {
-                    const isSelected = i === selectedIndex;
-
-                    return (
-                        <article
-                            key={plan.title}
-                            data-card
-                            dir="rtl"
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => setSelectedIndex(i)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") {
-                                    e.preventDefault();
-                                    setSelectedIndex(i);
-                                }
-                            }}
-                            className={[
-                                cardBase,
-                                cardWidth,
-                                "snap-end text-center px-8 pt-10 pb-8", // ✅ snap-end برای راست‌چین بهتر
-                                isSelected ? cardSelected : plan.popular ? cardPopular : "",
-                            ].join(" ")}
+        <section dir="rtl" className="w-full">
+            <div className="mx-auto max-w-6xl px-4">
+                <div className="relative">
+                    <div className="overflow-hidden rounded-2xl bg-[var(--pn-bg)]">
+                        <div
+                            className="flex will-change-transform transform-gpu transition-transform duration-1200 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                            style={{ transform: `translate3d(${page * 100}%,0,0)` }}
                         >
-                            {plan.popular ? <div className={pillPopular}>محبوب</div> : null}
+                            {pages.map((items, pi) => (
+                                <div key={starts[pi]} className="w-full flex-none p-3 sm:p-4">
+                                    <div
+                                        dir="rtl"
+                                        className="grid gap-3 sm:gap-4"
+                                        style={{ gridTemplateColumns: `repeat(${perView}, minmax(0, 1fr))` }}
+                                    >
+                                        {items.map((plan, i) => {
+                                            const globalIndex = starts[pi] + i;
+                                            const isSelected = globalIndex === selectedIndex;
 
-                            <h3 className={titleText}>{plan.title}</h3>
-                            <div className={blueLineTop} />
+                                            return (
+                                                <article
+                                                    key={`${starts[pi]}-${i}-${plan.title}`}
+                                                    dir="rtl"
+                                                    role="button"
+                                                    tabIndex={0}
+                                                    onClick={() => setSelectedIndex(globalIndex)}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === "Enter" || e.key === " ") {
+                                                            e.preventDefault();
+                                                            setSelectedIndex(globalIndex);
+                                                        }
+                                                    }}
+                                                    className={[
+                                                        cardBase,
+                                                        "h-full text-center px-8 pt-10 pb-8",
+                                                        plan.popular ? cardSelected : "",
+                                                    ].join(" ")}
+                                                >
+                                                    {plan.popular ? <div className={pillPopular}>محبوب</div> : null}
 
-                            <div className="mt-8">
-                                <div className={priceText}>{plan.price}</div>
-                                <div className={perText}>{plan.per}</div>
-                            </div>
+                                                    <h3 className={titleText}>{plan.title}</h3>
+                                                    <div className={lineTop} />
 
-                            <p className={descText}>{plan.desc}</p>
+                                                    <div className="mt-8">
+                                                        <div className={priceText}>{plan.price}</div>
+                                                        <div className={perText}>{plan.per}</div>
+                                                    </div>
 
-                            <div className={blueLineMid} />
+                                                    <p className={descText}>{plan.desc}</p>
 
-                            <a className={btnOutline} href="#">
-                                شروع کنید
-                            </a>
-                        </article>
-                    );
-                })}
+                                                    <div className={lineMid} />
+
+                                                    <a className={btnOutline} href="#">
+                                                        شروع کنید
+                                                    </a>
+                                                </article>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* next (به سمت چپ) */}
+                    <button
+                        onClick={next}
+                        disabled={!canNext}
+                        aria-label="بعدی"
+                        className="absolute -left-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
+                    >
+                        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+
+                    {/* prev (به سمت راست) */}
+                    <button
+                        onClick={prev}
+                        disabled={!canPrev}
+                        aria-label="قبلی"
+                        className="absolute -right-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
+                    >
+                        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </div>
+        </section>
     );
 }

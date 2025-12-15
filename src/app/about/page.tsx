@@ -242,7 +242,7 @@ export default function AboutPage() {
 
             <div className="relative mt-10">
   {/* ✅ MOBILE/TABLET (<lg) — عمودی + کارت چسبیده به خط قرمز */}
-<div className="lg:hidden [--rail:28px] [--conn:42px] [--gutter:calc(var(--rail)+var(--conn)+48px)]">
+<div  dir="ltr" className="lg:hidden [--rail:28px] [--conn:42px] [--gutter:calc(var(--rail)+var(--conn)+48px)] ">
   <ol
     className="
       relative mx-auto max-w-3xl px-4
