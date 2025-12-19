@@ -16,41 +16,6 @@ type QuickLink = {
   icon: LucideIcon;
 };
 
-const quickLinks: QuickLink[] = [
-  {
-    title: "بازگشت به صفحه اصلی",
-    description: "جایی که همه چیز از آنجا شروع می‌شه",
-    href: "/",
-    icon: Home,
-  },
-  {
-    title: " افزونه ورد",
-    description: "افزونه ورد از اینجا در دسترس است.",
-    href: "/downloads/word",
-    icon: Download,
-  },
-  {
-    title: " راهنما و پشتیبانی",
-    description: "سوالت را در راهنما پیدا کن یا برای گزارش مشکل مستقیماً با تیم پشتیبانی تماس بگیر.",
-    href: "/support/contact",
-    icon: Headphones,
-  },
-  {
-    title: "وبلاگ ",
-    description: "آخرین به‌روزرسانی‌ها، ترفندها و داستان‌های کاربران پاک‌نویس رو اینجا بخون.",
-    href: "/blog",
-    icon: BookOpen,
-  },
-  {
-    title: "سوالات متداول",
-    description: "اگر چیزی برات مبهم هست، احتمالاً جوابش در این بخش است.",
-    href: "/support/faq",
-    icon: RefreshCcw,
-  },
-];
-
-
-
 
 export default function NotFound() {
   return (
@@ -91,7 +56,7 @@ export default function NotFound() {
                   <div className="flex flex-wrap justify-center gap-3">
                     <Link
                       href="/"
-                      className="inline-flex items-center gap-2 rounded-full bg-primary-600 px-5 py-2.5 text-white shadow-lg shadow-primary-200 transition hover:bg-primary-700"
+                      className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-slate-800 shadow-sm transition hover:border-primary-200 hover:text-primary-800"
                     >
                       <Home className="h-5 w-5" />
                       <span>بازگشت به صفحه اصلی</span>
@@ -129,46 +94,7 @@ export default function NotFound() {
           </div>
 
 
-          <div className="mt-12 rounded-3xl bg-white/80 p-6 shadow-inner shadow-primary-50 ring-1 ring-primary-100 backdrop-blur">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-lg font-bold text-slate-900 sm:text-xl">
-                مسیرهای سریع برای ادامه
-              </h2>
-              <div className="h-px flex-1 bg-gradient-to-l from-primary-200 via-primary-50 to-transparent" />
-            </div>
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {quickLinks.map(({ title, description, href, icon: Icon }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-100 bg-gradient-to-br from-white via-white to-primary-50/60 px-4 py-4 shadow-sm transition  hover:shadow-lg"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-100 text-primary-800 shadow-inner shadow-primary-50">
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <div className="text-base font-semibold text-slate-900">
-                        {title}
-                      </div>
-                    </div>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50 text-primary-700 transition group-hover:bg-primary-600 group-hover:text-white">
-                      <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-0.5" />
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
-                    {description}
-                  </p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary-700">
-                    رفتن به این مسیر
-                    <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-0.5" />
-                  </span>
-                  <div className="absolute left-3 top-3 h-14 w-14 rounded-full bg-primary-50/70 blur-2xl transition opacity-0 group-hover:opacity-100" />
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </main>

@@ -7,13 +7,13 @@ import StatsSection from "../components/StatsSection";
 export default function HomePage() {
   return (
     <>
-      <section>
+      <section className="mt-15">
         <Hero
           title="دستیار هوشمند نگارش فارسی"
           description="پاک‌نویس ویرایشگری هوشمند برای نوشته‌های فارسی شما است و به شما کمک می‌کند متن‌های خود را خطایابی و استانداردسازی کنید. همچنین پاک‌نویس در چهار نسخهٔ ویرایشگر برخط، افزونهٔ کروم، افزونهٔ ورد و کیبورد اندروید در دسترس است."
           useVideo={true}
           showCards={true}
-          videoSrc="https://static-web.grammarly.com/1e6ajr2k4140/23h4g1mYtwNqn6ITO66YPH/4dc21be97a0fb1e517a37d5e7ab2ae8c/writing_expert_first_x2.mp4"
+          videoSrc="/images/video 1_3.mp4"
           className="min-h-screen pt-5" imageSrc={""}        />
       </section>
       <section className="text-center">

@@ -1,9 +1,8 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Chrome, Keyboard, FileText, PenTool } from "lucide-react";
 
 export type HeroButton = {
   text: string;
@@ -51,6 +50,35 @@ const Hero: FC<HeroProps> = ({
   buttonsContainerClassName = "",
   buttonClassName = "",
 }) => {
+  // ✅ برای سناریو 2: بعد از پایان ویدیو، 10 ثانیه مکث، سپس دوباره پخش
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (!useVideo || !videoSrc) return;
+
+    const v = videoRef.current;
+    if (!v) return;
+
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const onEnded = () => {
+      timeoutId = setTimeout(() => {
+        // از اول و دوباره پلی
+        v.currentTime = 0;
+        const p = v.play();
+        // اگر مرورگر autoplay را بلاک کرد
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      }, 10_000);
+    };
+
+    v.addEventListener("ended", onEnded);
+
+    return () => {
+      v.removeEventListener("ended", onEnded);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [useVideo, videoSrc]);
+
   const renderButton = (btn: HeroButton, idx: number) => {
     const base =
       btn.variant === "secondary"
@@ -178,7 +206,6 @@ const Hero: FC<HeroProps> = ({
                     max-w-[240px]
                   `}
                 >
-                  {/* تصویر سمت راست */}
                   <div className="flex-shrink-0 ml-4 flex items-center justify-center">
                     <Image
                       src={f.imageSrc}
@@ -188,7 +215,6 @@ const Hero: FC<HeroProps> = ({
                       className="object-contain"
                     />
                   </div>
-                  {/* متن سمت چپ */}
                   <p className="flex-1 text-xs sm:text-sm md:text-[0.95rem] font-medium text-gray-700 text-right">
                     {f.title}
                   </p>
@@ -208,10 +234,12 @@ const Hero: FC<HeroProps> = ({
         >
           {useVideo && videoSrc ? (
             <video
+              ref={videoRef}
               autoPlay
-              loop
               muted
-              className={`w-full h-auto rounded-xl shadow-sm ${videoClassName}`}
+              playsInline
+              // ✅ loop حذف شد چون می‌خوایم تأخیر داشته باشیم
+              className={`w-full h-auto ${videoClassName}`}
             >
               <source src={videoSrc} type={videoType} />
             </video>
@@ -223,7 +251,7 @@ const Hero: FC<HeroProps> = ({
                 width={600}
                 height={600}
                 priority
-                className="w-full h-auto rounded-xl shadow-sm object-contain"
+                className="w-full h-auto object-contain"
               />
             )
           )}
