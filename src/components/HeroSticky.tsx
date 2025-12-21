@@ -35,7 +35,7 @@ export default function HeroSticky(
     <section
       dir="rtl"
       className="
-        relative my-20
+        relative 
         text-slate-800
         text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
       "
@@ -54,8 +54,7 @@ export default function HeroSticky(
               <div
                 key={idx}
                 className="
-                  py-12 lg:py-16
-                  md:min-h-screen
+                  md:min-h-[95vh]
                   flex items-center
                 "
               >
@@ -96,9 +95,9 @@ export default function HeroSticky(
                 loop
                 muted
                 className="
-                  w-full h-auto rounded-lg
+                  w-full h-auto 
                   max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl
-                  shadow-md
+                  
                 "
               >
                 <source

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 type Stat = {
@@ -11,25 +12,24 @@ const stats: Stat[] = [
   {
     value: "165000",
     label: "تعداد کل کاربران",
-    desc: " کاربر، پاک‌نویس را برای درست‌نویسی انتخاب کرده‌اند؛ جامعه‌ای روبه‌رشد",
+    desc: "کاربر، پاک‌نویس را برای درست‌نویسی انتخاب کرده‌اند؛ جامعه‌ای روبه‌رشد",
   },
   {
     value: "2000",
     label: "کاربر فعال روزانه",
-    desc: " نفر هر روز از پاک‌نویس استفاده می‌کنند؛ توهم به جمعشان بپیوند",
+    desc: "نفر هر روز از پاک‌نویس استفاده می‌کنند؛ تو هم به جمعشان بپیوند",
   },
   {
     value: "12000",
-    label: "تعداد کل متون بررسی شده",
-    desc: " جمله، کلمه و متن تا امروز از نگاه تیزبین پاک‌نویس گذشته‌اند؛ هر کلمه‌ای ارزش دیده‌شدن دارد",
+    label: "تعداد کل متون بررسی‌شده",
+    desc: "جمله، کلمه و متن تا امروز از نگاه تیزبین پاک‌نویس گذشته‌اند",
   },
   {
     value: "4000",
-    label: "تعداد خطاهای اصلاح شده",
-    desc: " خطای اصلاح شده تا امروز و یک نتیجه؛ نوشتاری روان و بی‌نقص",
+    label: "تعداد خطاهای اصلاح‌شده",
+    desc: "خطای اصلاح‌شده تا امروز و یک نتیجه؛ نوشتاری روان و بی‌نقص",
   },
 ];
-
 
 function useInView<T extends HTMLElement>(
   options: IntersectionObserverInit & { once?: boolean } = {
@@ -61,7 +61,6 @@ function useInView<T extends HTMLElement>(
   return { ref, inView } as const;
 }
 
-
 const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
   end,
   run,
@@ -83,6 +82,7 @@ const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
 
   useEffect(() => {
     if (!run) return;
+
     if (prefersReduced || duration <= 0) {
       setVal(end);
       return;
@@ -94,6 +94,7 @@ const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
       const progress = Math.min(1, elapsed / duration);
       const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
       setVal(Math.round(eased * end));
+
       if (progress < 1) rafId.current = requestAnimationFrame(animate);
     };
 
@@ -107,6 +108,43 @@ const Counter: React.FC<{ end: number; run: boolean; duration?: number }> = ({
   return <>{formatter.format(val)}</>;
 };
 
+function StatIcon({ i }: { i: number }) {
+  // 4 آیکن ساده شبیه سبک تصویر (line icon)
+  const cls = "h-6 w-6";
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+
+  const icons = [
+    // users
+    <svg key="users" viewBox="0 0 24 24" className={cls} {...common}>
+      <path d="M16 11a3 3 0 1 0-6 0" />
+      <path d="M8 11a3 3 0 1 1 6 0" />
+      <path d="M4 20c0-3 4-5 8-5s8 2 8 5" />
+    </svg>,
+    // activity
+    <svg key="activity" viewBox="0 0 24 24" className={cls} {...common}>
+      <path d="M3 12h4l2-6 4 12 2-6h6" />
+    </svg>,
+    // document
+    <svg key="doc" viewBox="0 0 24 24" className={cls} {...common}>
+      <path d="M7 3h7l3 3v15H7z" />
+      <path d="M14 3v3h3" />
+      <path d="M9 12h6" />
+      <path d="M9 16h6" />
+    </svg>,
+    // check / badge
+    <svg key="check" viewBox="0 0 24 24" className={cls} {...common}>
+      <path d="M20 6l-11 11-5-5" />
+    </svg>,
+  ];
+
+  return <>{icons[i % icons.length]}</>;
+}
 
 const StatsSection: React.FC = () => {
   const { ref: sectionRef, inView } = useInView<HTMLElement>({
@@ -119,69 +157,47 @@ const StatsSection: React.FC = () => {
     <section
       id="usage-stats"
       ref={sectionRef}
-      className="relative bg-white min-h-130 overflow-hidden flex justify-center items-center"
       dir="rtl"
+      className="relative"
     >
-      <div
-        className="
-          pointer-events-none
-          absolute left-0.4 top-1/2
-          -translate-x-1/2 -translate-y-1/2
-          w-[900px] h-[900px]
-          [background:radial-gradient(circle_at_center,#e5f4f6,transparent_70%)]
-          blur-3xl
-        "
-        aria-hidden="true"
-      />
 
-      <div
-        className="
-          pointer-events-none
-          absolute left-[10%] top-0
-          -translate-y-1/2
-          w-[360px] h-[360px]
-          [background:radial-gradient(circle_at_center,rgba(255,165,0,0.35),transparent_70%)]
-          blur-3xl
-          z-0
-        "
-        aria-hidden="true"
-      />
 
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent" />
-      <div className="pointer-events-none absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-white to-transparent" />
-      <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent" />
-
-      <div className="relative z-10 container mx-auto px-6">
-        <div className="flex flex-wrap justify-center items-stretch gap-4 text-center">
+      <div className="mx-auto max-w-6xl px-6 py-12 sm:py-14">
+        <ul className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0">
           {stats.map((stat, index) => {
             const end = Number(stat.value.replace(/[^\d.-]/g, "")) || 0;
 
             return (
-              <div
+              <li
                 key={index}
-                className="stat-box p-5 md:py-15 lg:py-5 rounded-lg shadow-lg bg-white/80 backdrop-blur
-                 transition-all hover:shadow-lg
-                 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(19%-0.5rem)]
-                 bg-gradient-to-b from-transparent to-purple-100/30
-                 flex"
+                className={[
+                  "flex flex-col items-center text-center",
+                  "px-4 sm:px-6 lg:px-8",
+                  // جداکننده عمودی فقط در دسکتاپ (شبیه عکس)
+                  index !== 0 ? "lg:border-s lg:border-slate-200/70" : "",
+                ].join(" ")}
               >
-                <div className="grid grid-rows-[64px_40px_minmax(100px,auto)] md:grid-rows-[64px_40px_minmax(120px,auto)] gap-2 justify-items-center items-center w-full h-50">
-                  <div className="flex items-center justify-center h-full">
-                    <h3 className="text-3xl md:text-4xl font-bold text-primary-600 tabular-nums">
-                      <Counter end={end} run={inView} duration={1200} />
-                    </h3>
-                  </div>
-
-                  <div className="h-full flex items-start justify-center text-center">
-                    <p className="text-sm leading-6 text-gray-500 px-1">
-                      {stat.desc}
-                    </p>
-                  </div>
+                {/* icon */}
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm">
+                  <StatIcon i={index} />
                 </div>
-              </div>
+
+                {/* big number */}
+                <div className="text-4xl font-extrabold tracking-tight text-primary-600 tabular-nums">
+                  <Counter end={end} run={inView} duration={1200} />
+                </div>
+
+                {/* label + desc */}
+                <div className="mt-2 max-w-[34ch]">
+
+                  <p className="mt-1 text-sm leading-6 text-slate-500">
+                    {stat.desc}
+                  </p>
+                </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );
