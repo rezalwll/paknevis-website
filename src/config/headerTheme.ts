@@ -23,18 +23,18 @@ const DEFAULT_HEADER_THEME: HeaderTheme = {
   mobileBackground: "var(--color-highlight-100)",
 };
 
-// Update this list to set a custom header color per route.
 const HEADER_THEME_RULES: HeaderThemeRule[] = [
+  // ✅ HOME: header آبی ملایم با vars (با تغییر CSS همه‌چی عوض میشه)
   {
-    match: /^\/enterprise(\/|$)/,
+    match: /^\/$/,
     theme: {
-      background: "var(--pn-bg)",
-      mobileBackground: "var(--pn-bg)",
-      text: "#111827",
-      linkHover: "var(--pn-accent)",
-      buttonBg: "#111827",
-      buttonHoverBg: "#0f172a",
-      buttonText: "var(--pn-bg)",
+      background: "var(--pn-hf-bg)",
+      mobileBackground: "var(--pn-hf-mobile-bg)",
+      text: "var(--pn-hf-text)",
+      linkHover: "var(--pn-hf-link-hover)",
+      buttonBg: "var(--pn-hf-button-bg)",
+      buttonHoverBg: "var(--pn-hf-button-hover-bg)",
+      buttonText: "var(--pn-hf-button-text)",
     },
   },
 
@@ -52,23 +52,17 @@ const HEADER_THEME_RULES: HeaderThemeRule[] = [
   },
   {
     match: /^\/downloads/,
-    theme: {
-      background: "var(--color-primary-50)",
-    },
+    theme: { background: "var(--color-primary-50)" },
   },
   {
     match: /^\/blog/,
-    theme: {
-      background: "var(--color-secondary-50)",
-    },
+    theme: { background: "var(--color-secondary-50)" },
   },
 ];
 
 export const resolveHeaderTheme = (pathname: string): HeaderTheme => {
   const rule = HEADER_THEME_RULES.find((item) =>
-    typeof item.match === "function"
-      ? item.match(pathname)
-      : item.match.test(pathname)
+    typeof item.match === "function" ? item.match(pathname) : item.match.test(pathname)
   );
 
   return { ...DEFAULT_HEADER_THEME, ...rule?.theme };

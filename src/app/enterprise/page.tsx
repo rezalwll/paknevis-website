@@ -539,7 +539,7 @@ export default function EnterprisePage() {
           </ol>
 
           <div className={`${cardBase} mt-8 p-8 text-center`}>
-            <h3 className="mt-3 text-xl font-black sm:text-2xl">با پاک‌نویس، هر بار بهتر بنویس.</h3>
+            <h3 className="mt-3 text-xl font-black sm:text-2xl">با پاک‌نویس، هر بار بهتر بنویس</h3>
             <p className="mx-auto mt-3 max-w-3xl text-sm leading-8 text-slate-700 sm:text-base">
               نرم‌افزار ویرایش متن فارسی پاک‌نویس نسخهٔ آفلاین، آمده است تا متن‌های سازمانی شما را بدون نیاز به اینترنت، با سرعت بالا و دقت فراوان ویرایش کند.
             </p>

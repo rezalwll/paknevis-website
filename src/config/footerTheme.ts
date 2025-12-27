@@ -30,6 +30,23 @@ const DEFAULT_FOOTER_THEME: FooterTheme = {
 };
 
 const FOOTER_THEME_RULES: FooterThemeRule[] = [
+  // ✅ HOME: footer آبی ملایم با vars
+  {
+    match: /^\/$/,
+    theme: {
+      background: "var(--pn-hf-bg)",
+      text: "var(--pn-hf-text)",
+      muted: "var(--pn-hf-text)",
+      heading: "var(--pn-hf-text)",
+      link: "var(--pn-hf-text)",
+      linkHover: "var(--pn-hf-link-hover)",
+      border: "var(--pn-hf-border)",
+      headingBorder: "var(--pn-hf-border)",
+      icon: "var(--pn-accent-2)",
+      iconHover: "var(--pn-accent-strong)",
+    },
+  },
+
   {
     match: /^\/support\/contact\/?$/,
     theme: {
@@ -45,43 +62,13 @@ const FOOTER_THEME_RULES: FooterThemeRule[] = [
       iconHover: "#0b2f70",
     },
   },
-  {
-    match: /^\/enterprise(\/|$)/,
-    theme: {
-      background: "var(--pn-bg, #F9F8F6)",
-      text: "#111827",
-      muted: "#4B5563",
-      heading: "#111827",
-      link: "#111827",
-      linkHover: "var(--pn-accent, #C9B59C)",
-      border: "var(--pn-border, #D9CFC7)",
-      headingBorder: "var(--pn-accent, #C9B59C)",
-      icon: "#111827",
-      iconHover: "var(--pn-accent, #C9B59C)",
-    },
-  },
-  
-  {
-    match: /^\/downloads/,
-    theme: {
-      background: "var(--color-primary-50)",
-    },
-  },
-  {
-    match: /^\/blog/,
-    theme: {
-      background: "var(--color-secondary-50)",
-      heading: "var(--color-secondary-800)",
-      icon: "var(--color-secondary-800)",
-    },
-  },
+  { match: /^\/downloads/, theme: { background: "var(--color-primary-50)" } },
+  { match: /^\/blog/, theme: { background: "var(--color-secondary-50)", heading: "var(--color-secondary-800)", icon: "var(--color-secondary-800)" } },
 ];
 
 export const resolveFooterTheme = (pathname: string): FooterTheme => {
   const rule = FOOTER_THEME_RULES.find((item) =>
-    typeof item.match === "function"
-      ? item.match(pathname)
-      : item.match.test(pathname)
+    typeof item.match === "function" ? item.match(pathname) : item.match.test(pathname)
   );
 
   return { ...DEFAULT_FOOTER_THEME, ...rule?.theme };

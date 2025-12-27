@@ -12,7 +12,7 @@ export type HeroButton = {
 };
 
 export interface HeroProps {
-  title: string;
+  title: React.ReactNode;
   description?: string;
   imageSrc?: string;
   useVideo?: boolean;
@@ -50,7 +50,6 @@ const Hero: FC<HeroProps> = ({
   buttonsContainerClassName = "",
   buttonClassName = "",
 }) => {
-  // بعد از پایان ویدیو، ۱۰ ثانیه مکث، سپس دوباره پخش
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const Hero: FC<HeroProps> = ({
       timeoutId = setTimeout(() => {
         v.currentTime = 0;
         const p = v.play();
-        if (p && typeof p.catch === "function") p.catch(() => {});
+        if (p && typeof p.catch === "function") p.catch(() => { });
       }, 10_000);
     };
 
@@ -80,14 +79,14 @@ const Hero: FC<HeroProps> = ({
   const renderButton = (btn: HeroButton, idx: number) => {
     const base =
       btn.variant === "secondary"
-        ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-        : "bg-primary-400 text-highlight-800 hover:bg-primary-500";
+        ? "bg-[color:var(--pn-surface)] text-[color:var(--pn-text)] hover:bg-[color:var(--pn-surface-2)] border border-[color:var(--pn-border)]"
+        : "bg-[color:var(--pn-cta-bg)] text-[color:var(--pn-cta-text)] hover:bg-[color:var(--pn-cta-hover)]";
 
     return (
       <Link
         key={idx}
         href={btn.href}
-        className={`inline-block rounded px-6 py-3 transition
+        className={`inline-block rounded-xl px-6 py-3 transition shadow-sm
           text-sm md:text-base lg:text-[1.05rem] xl:text-[1.1rem] 2xl:text-[1.15rem]
           ${base} ${buttonClassName} ${btn.className ?? ""}`}
       >
@@ -97,44 +96,32 @@ const Hero: FC<HeroProps> = ({
   };
 
   const features = [
-    {
-      imageSrc: "/images/word-icon.png",
-      title: "دانلود افزونه ورد",
-      href: "/download/word",
-      color: "bg-primary-200",
-    },
-    {
-      imageSrc: "/images/online editor.png",
-      title: "ویرایشگر برخط",
-      href: "/download/editor",
-      color: "bg-primary-100",
-    },
-    {
-      imageSrc: "/images/chrome_icon.png",
-      title: "دانلود افزونه کروم",
-      href: "/download/chrome",
-      color: "bg-primary-200",
-    },
-    {
-      imageSrc: "/images/android-icons.png",
-      title: "دانلود کیبورد اندروید",
-      href: "/download/keyboard",
-      color: "bg-primary-100",
-    },
+    { imageSrc: "/images/word-icon.png", title: "دانلود افزونهٔ  وُرد", href: "/download/word", color: "bg-[color:var(--pn-surface)]" },
+    { imageSrc: "/images/online editor.png", title: "ویرایشگر برخط (آنلاین)", href: "/download/editor", color: "bg-[color:var(--pn-surface-2)]" },
+    { imageSrc: "/images/chrome_icon.png", title: "دانلود افزونهٔ  مرورگر", href: "/download/chrome", color: "bg-[color:var(--pn-surface)]" },
+    { imageSrc: "/images/android-icons.png", title: "دانلود کیبورد اندروید", href: "/download/keyboard", color: "bg-[color:var(--pn-surface-2)]" },
   ];
 
   return (
     <section
       dir="rtl"
       className={`
-        w-full ltr bg-white text-slate-800
+        relative w-full ltr overflow-hidden
+        bg-[color:var(--pn-bg)] text-[color:var(--pn-text)]
         text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
         ${className}
       `}
     >
+      {/* فقط یک هایلایت خیلی ملایم (پس‌زمینه همچنان سفید) */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden
+
+      />
+
       <div
         className="
-          mx-auto h-full w-full
+          relative mx-auto h-full w-full
           max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1400px]
           text-right flex flex-col md:flex-row items-center justify-between
           gap-10 lg:gap-14 2xl:gap-20
@@ -142,7 +129,7 @@ const Hero: FC<HeroProps> = ({
           py-8 lg:py-14
         "
       >
-        {/* ستون متن */}
+        {/* متن */}
         <div
           className={`
             flex flex-col justify-center items-center md:items-start
@@ -154,8 +141,9 @@ const Hero: FC<HeroProps> = ({
         >
           <h1
             className={`
-              text-2xl md:text-3xl lg:text-4xl xl:text-[2.9rem] 2xl:text-[3rem]
-              text-gray-800 font-bold leading-snug
+              text-2xl md:text-3xl lg:text-4xl xl:text-[2.9rem] 2xl:text-[2.5rem]
+              font-bold leading-snug
+              text-[color:var(--pn-text)]
               ${titleClassName}
             `}
           >
@@ -165,9 +153,9 @@ const Hero: FC<HeroProps> = ({
           {description && (
             <p
               className={`
-                text-base md:text-lg lg:text-xl xl:text-[1.25rem] 2xl:text-[1.35rem]
+                text-base md:text-lg lg:text-xl xl:text-[1.25rem] 2xl:text-[1.2rem]
                 max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
-                text-justify text-gray-600
+                text-justify text-[color:var(--pn-muted)]
                 ${descriptionClassName}
               `}
             >
@@ -202,8 +190,9 @@ const Hero: FC<HeroProps> = ({
                     h-12 lg:h-14
                     cursor-pointer rounded-xl px-3 py-2
                     flex items-center justify-between
-                    shadow-md transition duration-300
-                    hover:bg-primary-300
+                    border border-[color:var(--pn-border)]
+                    shadow-sm transition duration-200
+                    hover:border-[color:var(--pn-accent-2)]
                     w-full max-w-[250px] md:max-w-[270px] xl:max-w-[300px]
                   `}
                 >
@@ -221,7 +210,7 @@ const Hero: FC<HeroProps> = ({
                       flex-1
                       text-xs sm:text-sm md:text-[0.95rem]
                       lg:text-[1rem] xl:text-[1.05rem] 2xl:text-[1.1rem]
-                      font-medium text-gray-700 text-right
+                      font-medium text-[color:var(--pn-text)] text-right
                     "
                   >
                     {f.title}
@@ -232,7 +221,7 @@ const Hero: FC<HeroProps> = ({
           )}
         </div>
 
-        {/* ستون تصویر / ویدیو */}
+        {/* تصویر/ویدیو */}
         <div
           className={`
             w-full md:w-[48%] lg:w-1/2
@@ -241,28 +230,30 @@ const Hero: FC<HeroProps> = ({
             ${imageClassName}
           `}
         >
-          {useVideo && videoSrc ? (
-            <video
-              ref={videoRef}
-              autoPlay
-              muted
-              playsInline
-              className={`w-full h-auto rounded-2xl ${videoClassName}`}
-            >
-              <source src={videoSrc} type={videoType} />
-            </video>
-          ) : (
-            imageSrc && (
-              <Image
-                src={imageSrc}
-                alt={imageAlt ?? title}
-                width={600}
-                height={600}
-                priority
-                className="w-full h-auto object-contain rounded-2xl"
-              />
-            )
-          )}
+          <div className=" p-2">
+            {useVideo && videoSrc ? (
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                playsInline
+                className={`w-full h-auto rounded-xl ${videoClassName}`}
+              >
+                <source src={videoSrc} type={videoType} />
+              </video>
+            ) : (
+              imageSrc && (
+                <Image
+                  src={imageSrc}
+                  alt={imageAlt ?? title}
+                  width={600}
+                  height={600}
+                  priority
+                  className="w-full h-auto object-contain rounded-xl"
+                />
+              )
+            )}
+          </div>
         </div>
       </div>
     </section>
