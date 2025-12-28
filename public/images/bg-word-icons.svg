@@ -1,54 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="726" viewBox="0 0 1440 726">
   <title>jumbotron</title>
 
-<!-- ====== REPLACEMENT b — Microsoft Word official logo in 48×48 slot ====== -->
-<g id="REPLACEMENT_b" transform="translate(800 400)" opacity="0.7">
-  <!-- fit to 48×48: source viewBox 0 0 35 36 → scale = 48/36 = 1.333333; center-x offset = (48 - 35*1.333333)/2 ≈ 0.6667 -->
-  <g transform="translate(0.6667 0) scale(1.333333)">
-    <defs>
-      <radialGradient id="uuid-ed2a8eb8-fce0-4bde-952b-86ec8e241ee9" cx="-619.29" cy="488.84" fx="-619.29" fy="488.84" r="1" gradientTransform="translate(29495.74 9885.89) scale(47.57 -20.15)" gradientUnits="userSpaceOnUse">
-        <stop offset=".18" stop-color="#1657f4"/><stop offset=".57" stop-color="#0036c4"/>
-      </radialGradient>
-      <linearGradient id="uuid-07943580-643e-4611-b102-f1fc868bd013" x1="5" y1="97" x2="27.97" y2="97" gradientTransform="translate(0 116) scale(1 -1)" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#66c0ff"/><stop offset=".26" stop-color="#0094f0"/>
-      </linearGradient>
-      <radialGradient id="uuid-4901e95c-54b1-4d8b-bf14-0e9c7bb90b87" cx="-637.72" cy="517.98" fx="-637.72" fy="517.98" r="1" gradientTransform="translate(-40017.96 -12225.34) rotate(133.55) scale(29.36 -72.32)" gradientUnits="userSpaceOnUse">
-        <stop offset=".14" stop-color="#d471ff"/><stop offset=".83" stop-color="#509df5" stop-opacity="0"/>
-      </radialGradient>
-      <radialGradient id="uuid-9988b974-07fe-47ee-9919-3660c45bf150" cx="-611.76" cy="514.18" fx="-611.76" fy="514.18" r="1" gradientTransform="translate(-52234.57 11411.47) rotate(90) scale(18.62 -101.65)" gradientUnits="userSpaceOnUse">
-        <stop offset=".28" stop-color="#4f006f" stop-opacity="0"/><stop offset="1" stop-color="#4f006f"/>
-      </radialGradient>
-      <linearGradient id="uuid-0983714d-6efe-4203-b8da-170f38fe7225" x1="5" y1="107.22" x2="35" y2="106.72" gradientTransform="translate(0 116) scale(1 -1)" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#9deaff"/><stop offset=".2" stop-color="#3bd5ff"/>
-      </linearGradient>
-      <radialGradient id="uuid-ca2eb1c3-4f62-4719-880a-75c33625c87b" cx="-650.27" cy="515.34" fx="-650.27" fy="515.34" r="1" gradientTransform="translate(-26921.47 -31089.42) rotate(166.85) scale(29.49 -70.64)" gradientUnits="userSpaceOnUse">
-        <stop offset=".06" stop-color="#e4a7fe"/><stop offset=".54" stop-color="#e4a7fe" stop-opacity="0"/>
-      </radialGradient>
-      <radialGradient id="uuid-b0298544-4529-40e9-8c27-57a5501fe390" cx="-600.8" cy="515.58" fx="-600.8" fy="515.58" r="1" gradientTransform="translate(1363.5 17878.99) rotate(45) scale(22.63 -22.63)" gradientUnits="userSpaceOnUse">
-        <stop offset=".08" stop-color="#367af2"/><stop offset=".87" stop-color="#001a8f"/>
-      </radialGradient>
-      <radialGradient id="uuid-6f25899f-fcb5-4141-ab07-b61a25bf93ff" cx="-598.04" cy="557.24" fx="-598.04" fy="557.24" r="1" gradientTransform="translate(-7105.12 6724.6) rotate(90) scale(11.2 -12.77)" gradientUnits="userSpaceOnUse">
-        <stop offset=".59" stop-color="#2763e5" stop-opacity="0"/><stop offset=".97" stop-color="#58aafe"/>
-      </radialGradient>
-    </defs>
 
-    <!-- Microsoft Word 2025 logo -->
-    <path d="M5,27.09l14-17.09,16,11.11v11.39c0,1.93-1.57,3.5-3.5,3.5H11c-3.31,0-6-2.69-6-6v-2.91Z" style="fill:url(#uuid-ed2a8eb8-fce0-4bde-952b-86ec8e241ee9);"/>
-    <path d="M5,15.04c0-2.49,2.01-4.5,4.5-4.5h20.39l5.11-2.54v12.5c0,1.93-1.57,3.5-3.5,3.5H11c-3.31,0-6,2.69-6,6v-14.96Z" style="fill:url(#uuid-07943580-643e-4611-b102-f1fc868bd013);"/>
-    <path d="M5,15.04c0-2.49,2.01-4.5,4.5-4.5h20.39l5.11-2.54v12.5c0,1.93-1.57,3.5-3.5,3.5H11c-3.31,0-6,2.69-6,6v-14.96Z" style="fill:url(#uuid-4901e95c-54b1-4d8b-bf14-0e9c7bb90b87); fill-opacity:.6;"/>
-    <path d="M5,15.04c0-2.49,2.01-4.5,4.5-4.5h20.39l5.11-2.54v12.5c0,1.93-1.57,3.5-3.5,3.5H11c-3.31,0-6,2.69-6,6v-14.96Z" style="fill:url(#uuid-9988b974-07fe-47ee-9919-3660c45bf150); fill-opacity:.1;"/>
-    <path d="M5,6C5,2.69,7.69,0,11,0h20.5c1.93,0,3.5,1.57,3.5,3.5v5c0,1.93-1.57,3.5-3.5,3.5H11c-3.31,0-6,2.69-6,6V6Z" style="fill:url(#uuid-0983714d-6efe-4203-b8da-170f38fe7225);"/>
-    <path d="M5,6C5,2.69,7.69,0,11,0h20.5c1.93,0,3.5,1.57,3.5,3.5v5c0,1.93-1.57,3.5-3.5,3.5H11c-3.31,0-6,2.69-6,6V6Z" style="fill:url(#uuid-ca2eb1c3-4f62-4719-880a-75c33625c87b); fill-opacity:.8;"/>
-    <rect y="17" width="16" height="16" rx="3.25" ry="3.25" style="fill:url(#uuid-b0298544-4529-40e9-8c27-57a5501fe390);"/>
-    <rect y="17" width="16" height="16" rx="3.25" ry="3.25" style="fill:url(#uuid-6f25899f-fcb5-4141-ab07-b61a25bf93ff); fill-opacity:.65;"/>
-    <path d="M13.49,20.43l-1.97,9.14h-2.35s-1.16-5.48-1.16-5.48l-1.22,5.49h-2.38l-1.89-9.14h1.94l1.17,6.03,1.16-6.03h2.38l1.21,6.03,1.14-6.03h1.97Z" style="fill:#fff;"/>
-  </g>
-</g>
 
 <!-- ====== REPLACEMENT I — document/bookmark + dots (48×48 slot) ====== -->
-<g id="REPLACEMENT_I" transform="translate(1250 80)" opacity="0.5">
+<g id="REPLACEMENT_I" transform="translate(1400 80)" opacity="0.5">
   <!-- fit to 48×48: scale by 48/31.239 ≈ 1.53654; center horizontally by ~5.58px -->
-  <g transform="translate(5.58 0) scale(1.536541)">
+  <g transform="translate(5.58 0) scale(1.3)">
     <g transform="translate(0.777 8.221)">
       <path fill="#ffffff" d="M56.313,306.488H77.437a.5.5,0,0,0,.5-.51V287.083a.948.948,0,0,0-.935-.961l-17.94-.259a2.763,2.763,0,0,1-2.324-1.353h0a.5.5,0,0,0-.919.268v21.2A.5.5,0,0,0,56.313,306.488Z" transform="translate(-55.816 -284.268)"/>
     </g>
@@ -72,9 +30,9 @@
 </g>
 
   <!-- ====== REPLACEMENT J — curved speech icon (48×48 slot) ====== -->
-<g id="REPLACEMENT_J" transform="translate(1070 130)">
+<g id="REPLACEMENT_J" transform="translate(1170 130)">
   <!-- fit to 48×48: scale ≈ 1.534 (48 / 31.26) -->
-  <g transform="translate(5.5 0) scale(1.534)">
+  <g transform="translate(5.5 0) scale(1.3)">
     <g transform="translate(14.809 12.125)">
       <path fill="#0096a6" d="M117.016,98.581a6.421,6.421,0,0,0-1.434-.082h-.105c-.351,0-.549-.114-.361-.479a3.153,3.153,0,0,1,2.736-1.8.14.14,0,0,0,.094-.022.127.127,0,0,0,.035-.07q.251-.823.505-1.645a.315.315,0,0,0-.3-.417l-.465.008a4.415,4.415,0,0,0-1.467.276,4.913,4.913,0,0,0-2.881,2.925c-.325.905-.5,2.075.35,2.749a2.723,2.723,0,0,0,1.737.5,8.475,8.475,0,0,1,1.051.02.259.259,0,0,1,.127.044c.09.075.045.221-.015.321a3.007,3.007,0,0,1-1.826,1.2,7.823,7.823,0,0,1-2.112.244,3.6,3.6,0,0,1-2.226-.646c-1.039-.835-.875-2.477-.557-3.619.012-.047.09-.266.187-.534a1.391,1.391,0,0,0-.745-1.747.062.062,0,0,0-.015-.007.5.5,0,0,0-.669.27,17.746,17.746,0,0,0-.806,2.284c-.474,2.172.147,4.588,2.326,5.557a4.057,4.057,0,0,0,.46.171,5.042,5.042,0,0,0,.507.132c.176.039.36.069.549.092s.383.043.584.057.407.02.619.02q3.431-.008,4.935-1.9a3.132,3.132,0,0,0,.7-2.04A1.846,1.846,0,0,0,117.016,98.581Z" transform="translate(-107.7 -94.065)"/>
     </g>
@@ -100,9 +58,9 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT K — dual-window layout icon (48×48 slot) ====== -->
-<g id="REPLACEMENT_K" transform="translate(500 320)" opacity="0.8">
+<g id="REPLACEMENT_K" transform="translate(400 500)" opacity="0.8">
   <!-- fit to 48×48: scale ≈ 1.546 (48 / 31.04) -->
-  <g transform="translate(4.8 0) scale(1.546)">
+  <g transform="translate(4.8 0) scale(1.3)">
     <g transform="translate(5.547 0.5)">
       <rect fill="#fff" width="24.992" height="24.964" rx="3"/>
       <g transform="translate(3.054 2.683)">
@@ -146,9 +104,9 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT L — double-chart / twin-bubble icon (48×48 slot) ====== -->
-<g id="REPLACEMENT_L" transform="translate(250 70)" opacity="0.7">
+<g id="REPLACEMENT_L" transform="translate(0 70)" opacity="0.7">
   <!-- fit to 48×48: scale ≈ 1.552 (48 / 30.946) -->
-  <g transform="translate(4.7 0) scale(1.552)">
+  <g transform="translate(4.7 0) scale(1.3)">
     <g transform="translate(14.184 0.6)">
       <path fill="#fff" d="M540.907,255.2A7.97,7.97,0,0,1,533,263.2h-7.907V255.2a8,8,0,0,1,4.724-7.317,7.857,7.857,0,0,1,6.366,0,8,8,0,0,1,4.724,7.317Z" transform="translate(-525.093 -247.213)"/>
     </g>
@@ -186,9 +144,9 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT M — twin leaves / insights icon (48×48 slot) ====== -->
-<g id="REPLACEMENT_M" transform="translate(400 50)">
+<g id="REPLACEMENT_M" transform="translate(300 50)">
   <!-- fit to 48×48: scale ≈ 1.534 (48 / 31.26); کمی جابه‌جایی افقی برای وسط‌چین -->
-  <g transform="translate(5.5 0) scale(1.534)">
+  <g transform="translate(5.5 0) scale(1.3)">
     <g transform="translate(16.707 9.461)">
       <path fill="#fff" d="M750.342,86.078a3.058,3.058,0,0,1,.565-1.113.928.928,0,0,1,.111-.134q1.165-1.182,2.372-2.364a1,1,0,0,0,.2-1.155.975.975,0,0,0-1.019-.538.987.987,0,0,0-.483.219q-.782.658-1.5,1.343a11.172,11.172,0,0,0-3.043,4.269,9.212,9.212,0,0,0-.37,2.432,4.261,4.261,0,0,0,.922,2.9A2.807,2.807,0,0,0,750.281,93a2.456,2.456,0,0,0,1.811-.779c.069-.068.136-.138.2-.206a2.7,2.7,0,0,0,.818-1.82q0-1.738-2.287-3.049a.988.988,0,0,1-.489-.994C750.336,86.124,750.338,86.1,750.342,86.078Z" transform="translate(-747.176 -80.765)"/>
     </g>
@@ -222,8 +180,8 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT N — segmented blocks icon (48×48 slot) ====== -->
-<g id="REPLACEMENT_N" transform="translate(400 250)" opacity="0.9">
-  <g transform="scale(1.535)">
+<g id="REPLACEMENT_N" transform="translate(100 250)" opacity="0.9">
+  <g transform="scale(1.3)">
     <g transform="translate(17.779 10.535)">
       <path fill="#fff" d="M0,0H2.808A4.425,4.425,0,0,1,7.233,4.425v0H0V0Z"/>
     </g>
@@ -279,9 +237,9 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT O — زگbell/profile silhouette (48×48 slot) ====== -->
-<g id="REPLACEMENT_O" transform="translate(1200 300)" opacity="0.4">
+<g id="REPLACEMENT_O" transform="translate(1400 400)" opacity="0.4">
   <!-- fit to 48×48: scale = 48 / 30.766 ≈ 1.56016; center horizontally ≈ 3.37px -->
-  <g transform="translate(3.365 0) scale(1.560164)">
+  <g transform="translate(3.365 0) scale(1.3)">
     <g transform="translate(7.981 26.234)">
       <path fill="#fff" d="M925.6,374.666h0c2.563,5.238,7.929,5.238,10.492,0h0" transform="translate(-925.604 -374.666)"/>
     </g>
@@ -304,9 +262,9 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT P — diagonal gear عدد+ drill icon (48×48 slot) ====== -->
-<g id="REPLACEMENT_P" transform="translate(1020 270)">
+<g id="REPLACEMENT_P" transform="translate(1150 450)">
   <!-- scale برای فیت شدن در ۴۸×۴۸ -->
-  <g transform="scale(1.535)">
+  <g transform="scale(1.3)">
     <g transform="translate(0 0.015)">
       <path fill="#e4ebf5" d="M874.35,44.834a.6.6,0,0,1-.6-.6V40.2a6.616,6.616,0,0,1,6.608-6.608h4.062a.6.6,0,1,1,0,1.2h-4.062a5.413,5.413,0,0,0-5.407,5.407v4.033A.6.6,0,0,1,874.35,44.834Z" transform="translate(-873.749 -33.592)"/>
     </g>
@@ -340,9 +298,9 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT Q — clipboard/tools icon (48×48 slot) ====== -->
-<g id="REPLACEMENT_Q" transform="translate(180 250)" opacity="0.5">
+<g id="REPLACEMENT_Q" transform="translate(0 450)" opacity="0.5">
   <!-- Fit to 48×48: scale ≈ 48 / 31.305 ≈ 1.533 -->
-  <g transform="scale(1.533)">
+  <g transform="scale(1.3)">
     <g transform="translate(0.501 0.481)">
       <path fill="#fff" d="M254.954,246.311H265.66a6.2,6.2,0,0,1,6.171,6.1v17.743a6.029,6.029,0,0,1-5.872,6.176q-.149,0-.3,0H252.8a6.117,6.117,0,0,1-6-6.174v-15.21Z" transform="translate(-246.8 -246.291)"/>
       <path fill="#fff" d="M246.84,255.182h4.432a4.179,4.179,0,0,0,4.135-4.211v-4.757" transform="translate(-246.832 -246.213)"/>
@@ -369,10 +327,10 @@
   </g>
 </g>
 <!-- ====== REPLACEMENT R — cog/gear outline (48×48 slot) ====== -->
-<g id="REPLACEMENT_R" transform="translate(1043 400)">
+<g id="REPLACEMENT_R" transform="translate(1000 30)">
   <!-- Fit to 48×48: scale ≈ 48 / 16.05 = 2.99065
        Center horizontally: (48 - 15.252*2.99065)/2 ≈ 1.19 -->
-  <g transform="translate(1.19 0) scale(2.99065)">
+  <g transform="translate(1.19 0) scale(1.9)">
     <path fill="#0096a6" d="M95.291,54.5a2.686,2.686,0,0,0-2.624,2.737,2.656,2.656,0,0,0,2.672,2.624H95.4a2.681,2.681,0,0,0-.1-5.361Zm.024,4.253a1.488,1.488,0,0,1-1.461-1.517,1.471,1.471,0,0,1,1.485-1.461h.032a1.489,1.489,0,0,1-.056,2.977Z" transform="translate(-87.717 -49.207)"/>
     <path fill="#e4ebf5" d="M101.682,57.953a2.05,2.05,0,0,0-.827-1.156l-.136-.08a.953.953,0,0,1-.449-.562.921.921,0,0,1,.1-.682.886.886,0,0,1,.265-.281l.209-.128a2.043,2.043,0,0,0,.706-2.568l-.04-.088c-.016-.024-.024-.048-.04-.072l-.49-.835a2.143,2.143,0,0,0-2.721-.843l-.128.072a.987.987,0,0,1-.5.136.9.9,0,0,1-.778-.441.851.851,0,0,1-.12-.337l-.008-.112a1.981,1.981,0,0,0-.594-1.445,2.125,2.125,0,0,0-1.509-.626h-1a2.143,2.143,0,0,0-1.485.6,2.05,2.05,0,0,0-.6,1.284l-.008.152a.92.92,0,0,1-.923.907.986.986,0,0,1-.337-.08l-.112-.056a2.033,2.033,0,0,0-1.019-.265,2.138,2.138,0,0,0-1.83,1.035l-.522.835a2.041,2.041,0,0,0,.618,2.737l.12.08a.9.9,0,0,1,.482.794.886.886,0,0,1-.393.738l-.088.048a2.045,2.045,0,0,0-.827,2.648l.072.128.514.867a2.048,2.048,0,0,0,1.26.971,2.156,2.156,0,0,0,1.437-.1l.144-.072a.958.958,0,0,1,.49-.136,1.146,1.146,0,0,1,.233.024.965.965,0,0,1,.554.417.838.838,0,0,1,.112.337l.008.12a1.967,1.967,0,0,0,.594,1.4,2.139,2.139,0,0,0,1.509.626h1a2.1,2.1,0,0,0,2.1-1.894l.008-.136a.9.9,0,0,1,.265-.666.911.911,0,0,1,.642-.265h.008a.987.987,0,0,1,.345.08l.112.056a2.054,2.054,0,0,0,1.019.265,2.134,2.134,0,0,0,1.733-.891l.08-.12.53-.859A2.039,2.039,0,0,0,101.682,57.953Zm-1.244.987-.514.843-.064.088a.9.9,0,0,1-.738.369.985.985,0,0,1-.369-.08l-.257-.128a2.15,2.15,0,0,0-.835-.193h-.016a2.092,2.092,0,0,0-1.493.6,2.054,2.054,0,0,0-.618,1.461v.088a.906.906,0,0,1-.915.8h-1a.906.906,0,0,1-.915-.8l-.016-.281a1.938,1.938,0,0,0-.273-.827,2.079,2.079,0,0,0-1.268-.947,2.1,2.1,0,0,0-1.6.209l-.088.04a.831.831,0,0,1-.345.072.9.9,0,0,1-.257-.04.922.922,0,0,1-.554-.425l-.506-.851-.048-.088a.877.877,0,0,1,.385-1.132l.12-.08a2.075,2.075,0,0,0,.931-1.709,2.037,2.037,0,0,0-.923-1.709l-.209-.128a.886.886,0,0,1-.257-1.18l.522-.835a.943.943,0,0,1,.811-.465.877.877,0,0,1,.449.12l.16.08a1.917,1.917,0,0,0,.7.185A2.087,2.087,0,0,0,92.709,50.1l.008-.249a.919.919,0,0,1,.907-.794h1a.957.957,0,0,1,.658.273.915.915,0,0,1,.265.658l.008.2a1.87,1.87,0,0,0,.273.819,2.1,2.1,0,0,0,1.284.947,2.153,2.153,0,0,0,1.589-.217l.08-.04.088-.04a1.08,1.08,0,0,1,.281-.04.94.94,0,0,1,.8.457l.465.8.008.024.064.1a.887.887,0,0,1-.385,1.14l-.128.08a2.122,2.122,0,0,0-.634.674,2.035,2.035,0,0,0-.217,1.557,2.076,2.076,0,0,0,.859,1.172l.217.136A.892.892,0,0,1,100.438,58.94Z" transform="translate(-86.5 -47.906)"/>
   </g>
@@ -380,7 +338,7 @@
 <!-- ====== REPLACEMENT S — مدادنورscrewdriver & gear icon (48×48 slot) ====== -->
 <g id="REPLACEMENT_S" transform="translate(260 400)" opacity="0.5">
   <!-- Fit to 48×48: scale ≈ 48 / 31.32 = 1.532 -->
-  <g transform="scale(1.532)">
+  <g transform="scale(1.3)">
     <g transform="translate(7.57 11.168)">
       <rect fill="#fff" width="3.114" height="14.263" rx="1" transform="translate(10.086 0) rotate(45)"/>
     </g>

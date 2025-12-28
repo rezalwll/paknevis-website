@@ -22,8 +22,8 @@
    /* ===== Palette (همین 4 تا رنگ) ===== */
    --pn-p1: #78B9B5;
    --pn-p2: #0F828C;
-   --pn-p3: #065084;
-   --pn-p4: #0762A1;
+   --pn-p3: #1a5ba9;
+   --pn-p4: #065084;
    --pn-p5: #b5d8f1;
  
    /* ===== Usage tokens (برای کل کامپوننت‌ها) ===== */
@@ -42,7 +42,7 @@
    --pn-cta-text: #ffffff;
  
    /* ===== Header/Footer (آبی ملایم) ===== */
-   --pn-hf-bg: #f1f3f9;          /* آبی/سبز ملایم */
+   --pn-hf-bg: #f7f7f7;          /* آبی/سبز ملایم */
    --pn-hf-mobile-bg: rgba(120, 185, 181, 0.18);
    --pn-hf-text: #0f172a;
    --pn-hf-border: rgba(6, 80, 132, 0.22);
@@ -204,6 +204,8 @@ body {
 
 .fdsfdsfds {
   background-image: url('/images/bg-word-icons.svg');
+  background-repeat: no-repeat;
+  background-position: 50% 20%
 }
 
 /* Hide scrollbar completely (all browsers) */
