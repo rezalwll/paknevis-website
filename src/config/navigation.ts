@@ -23,6 +23,7 @@ export const NAV_ITEMS: NavItem[] = [
     ],
   },
   { label: "نسخه سازمانی", href: "/pricing" },
+  { label: "ممیزی متن", href: "/tools/text-audit" },
   {
     label: "پشتیبانی",
     href: "#",
