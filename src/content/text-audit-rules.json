@@ -1,4 +1,17 @@
 {
   "version": 1,
-  "rules": []
+  "rules": [
+    {
+      "id": "arabic-yeh",
+      "title": "ی عربی",
+      "category": "characters",
+      "severity": "error",
+      "pattern": "ي",
+      "flags": "gu",
+      "message": "قاعدهٔ «ی عربی» نیاز به بازبینی دارد.",
+      "suggestion": "نویسهٔ «ی» فارسی را جایگزین کنید.",
+      "example": "اين متن",
+      "replacement": "ی"
+    }
+  ]
 }

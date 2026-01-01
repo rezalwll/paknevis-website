@@ -23,7 +23,8 @@ function compileRule(rule: TextAuditRule): RegExp {
 }
 
 export function analyzePersianText(text: string, options: AnalyzeTextOptions = {}): TextAuditReport {
-  const normalizedText = normalizePersianText(text);
+  const sourceText = text.normalize("NFC").replace(/\r\n?/g, "\n");
+  const normalizedText = normalizePersianText(sourceText);
   const minimumSeverity = options.minimumSeverity ?? "info";
   const maxIssues = Math.max(1, Math.min(options.maxIssues ?? 200, 500));
   const enabledCategories = options.categories ? new Set(options.categories) : null;
@@ -34,10 +35,10 @@ export function analyzePersianText(text: string, options: AnalyzeTextOptions = {
     if (enabledCategories && !enabledCategories.has(rule.category)) continue;
     if (SEVERITY_RANK[rule.severity] < SEVERITY_RANK[minimumSeverity]) continue;
 
-    for (const match of normalizedText.matchAll(compileRule(rule))) {
+    for (const match of sourceText.matchAll(compileRule(rule))) {
       if (issues.length >= maxIssues) break;
       const index = match.index ?? 0;
-      const location = locateTextOffset(normalizedText, index);
+      const location = locateTextOffset(sourceText, index);
 
       issues.push({
         id: `${rule.id}:${index}`,
