@@ -51,24 +51,14 @@ export default function ChromeExtensionDownloadPage() {
               <div className="mt-6 flex flex-wrap justify-start gap-3">
                 <a
                   href="/downloads/word"
-                  className="
-                  inline-flex h-11 items-center justify-center gap-2 rounded-xl
-                  bg-[color:var(--pn-cta-bg)] px-6 text-sm font-extrabold
-                  text-[color:var(--pn-cta-text)]
-                  shadow-sm transition hover:bg-[color:var(--pn-cta-hover)]
-                "
+                  className="pn-btn pn-btn-primary"
                 >
                   دانلود افزونهٔ کروم
                 </a>
 
                 <a
                   href="/downloads/chrome"
-                  className="
-                  inline-flex h-11 items-center justify-center gap-2 rounded-xl
-                  border-2 border-[color:var(--pn-cta-bg)]
-                  bg-[color:var(--pn-bg)] px-6 text-sm font-extrabold text-[color:var(--pn-text)]
-                  shadow-sm transition hover:bg-[color:var(--pn-surface)]
-                "
+                  className="pn-btn pn-btn-outline2"
                 >
                   دانلود افزونهٔ  فایرفاکس
                 </a>

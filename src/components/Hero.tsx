@@ -163,7 +163,7 @@ const Hero: FC<HeroProps> = ({
           <h1
             className={`
               text-2xl md:text-3xl lg:text-4xl xl:text-[2.9rem] 2xl:text-[2.5rem]
-              font-bold leading-snug
+              font-bold leading-16
               text-[color:var(--pn-text)]
               ${titleClassName}
             `}
@@ -175,7 +175,7 @@ const Hero: FC<HeroProps> = ({
             <p
               className={`
                 text-base md:text-lg lg:text-xl xl:text-[1.25rem] 2xl:text-[1.2rem]
-                max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+                max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl leading-10
                 text-justify text-[color:var(--pn-muted)]
                 ${descriptionClassName}
               `}
@@ -198,7 +198,7 @@ const Hero: FC<HeroProps> = ({
           {showCards && (
             <div
               className="
-                mt-4 grid grid-cols-2 gap-3 w-full
+                mt-10 grid grid-cols-2 gap-5 w-full
                 max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
               "
             >
