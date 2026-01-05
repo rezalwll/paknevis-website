@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, useCallback, type CSSProperties } from "r
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { resolveHeaderTheme } from "@/config/headerTheme";
 
 type NavItem = {
   label: string;
@@ -22,10 +21,6 @@ const NAV_ITEMS: NavItem[] = [
       { label: "افزونه کروم", href: "/downloads/chrome" },
       { label: "کیبورد", href: "/downloads/keyboard" },
       { label: "ویرایشگر برخط", href: "/editor" },
-      { label: "c2", href: "/downloads/c2" },
-      { label: "c3", href: "/downloads/c3" },
-      { label: "c4", href: "/downloads/c4" },
-      { label: "c5", href: "/downloads/c5" },
       { label: "k1", href: "/downloads/k1" },
       { label: "k2", href: "/downloads/k2" },
       { label: "k3", href: "/downloads/k3" },
@@ -47,15 +42,14 @@ const NAV_ITEMS: NavItem[] = [
 
 const Header = () => {
   const pathname = usePathname() || "/";
-  const theme = useMemo(() => resolveHeaderTheme(pathname), [pathname]);
   const headerStyle = {
-    ["--header-bg" as any]: theme.background,
-    ["--header-text" as any]: theme.text,
-    ["--header-link-hover" as any]: theme.linkHover,
-    ["--header-cta-bg" as any]: theme.buttonBg,
-    ["--header-cta-hover-bg" as any]: theme.buttonHoverBg,
-    "--header-cta-text": theme.buttonText,
-    "--header-mobile-bg": theme.mobileBackground,
+    ["--header-bg" as any]: "var(--pn-hf-bg)",
+    ["--header-text" as any]: "var(--pn-hf-text)",
+    ["--header-link-hover" as any]: "var(--pn-hf-link-hover)",
+    ["--header-cta-bg" as any]: "var(--pn-hf-button-bg)",
+    ["--header-cta-hover-bg" as any]: "var(--pn-hf-button-hover-bg)",
+    "--header-cta-text":"var(--pn-hf-button-text)",
+    "--header-mobile-bg": "var(--pn-hf-mobile-bg)",
   };
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -157,7 +151,7 @@ const Header = () => {
             ))}
           </ul>
         </div>
-        <div>
+        {/* <div>
           <Link
             href="/download"
             target="_blank"
@@ -165,7 +159,7 @@ const Header = () => {
           >
             دانلود
           </Link>
-        </div>
+        </div> */}
       </nav>
       { }
       <div

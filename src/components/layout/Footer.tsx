@@ -2,10 +2,8 @@
 
 import { useMemo, type CSSProperties } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { FaTelegramPlane, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
-import { resolveFooterTheme } from "@/config/footerTheme";
 type SubNavItem = { label: string; href: string };
 type NavItem = { label: string; href?: string; children?: SubNavItem[] };
 
@@ -38,20 +36,20 @@ const FOOTER_ITEMS: NavItem[] = [
 ];
 
 export default function Footer() {
-  const pathname = usePathname() || "/";
-  const theme = useMemo(() => resolveFooterTheme(pathname), [pathname]);
+
+
 
   const footerStyle = {
-    ["--footer-bg" as any]: theme.background,
-    ["--footer-text" as any]: theme.text,
-    ["--footer-muted" as any]: theme.muted,
-    ["--footer-heading" as any]: theme.heading,
-    ["--footer-link" as any]: theme.link,
-    "--footer-link-hover": theme.linkHover,
-    "--footer-border": theme.border,
-    "--footer-heading-border": theme.headingBorder,
-    "--footer-icon": theme.icon,
-    "--footer-icon-hover": theme.iconHover,
+    ["--footer-bg" as any]: "var(--pn-hf-bg)",
+    ["--footer-text" as any]: "var(--pn-hf-text)",
+    ["--footer-muted" as any]: "var(--pn-hf-text)",
+    ["--footer-heading" as any]: "var(--pn-hf-text)",
+    ["--footer-link" as any]: "var(--pn-hf-text)",
+    "--footer-link-hover": "var(--pn-hf-link-hover)",
+    "--footer-border": "var(--pn-hf-border)",
+    "--footer-heading-border": "var(--pn-hf-border)",
+    "--footer-icon": "var(--pn-accent-2)",
+    "--footer-icon-hover": "var(--pn-accent-strong)",
   };
 
   return (
@@ -74,7 +72,7 @@ export default function Footer() {
           </p>
         </div>
 
-        {}
+        { }
         <div className="md:col-span-5 grid grid-cols-1 sm:grid-cols-3 gap-8 ">
           {FOOTER_ITEMS.map((section) => (
             <div key={section.label}>
@@ -97,7 +95,7 @@ export default function Footer() {
           ))}
         </div>
 
-        {}
+        { }
         <div className="md:col-span-2 flex flex-col items-center">
           <h4 className="font-semibold text-[var(--footer-heading)] mb-3 border-b border-[var(--footer-heading-border)] pb-1">
             شبکه‌های اجتماعی
@@ -131,12 +129,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {}
-      <div className="border-t border-[var(--footer-border)] mt-8 py-6 text-sm text-[var(--footer-muted)] flex flex-col items-center justify-center px-4 text-center">
+      { }
+      <div className=" border-t border-[var(--footer-border)] mt-8 py-6 text-sm text-[var(--footer-muted)] flex flex-col items-center justify-center px-4 text-center">
         <Link
           href="https://www.noorsoft.org/"
           target="_blank"
-          className="flex flex-col items-center gap-2 font-bold text-[var(--footer-heading)] hover:text-[var(--footer-link-hover)] transition-colors group"
+          className="scale-80 flex flex-col items-center gap-2 font-bold text-[var(--footer-heading)] hover:text-[var(--footer-link-hover)] transition-colors group"
         >
           <Image
             src="/images/Noor.png"
@@ -147,8 +145,8 @@ export default function Footer() {
           />
         </Link>
 
-        {}
-        <p className="leading-6 max-w-3xl">
+        { }
+        <p className="leading-6 max-w-3xl scale-80">
           حقوق مادی و معنوی اين پايگاه متعلق به{" "}
           <Link
             href="https://www.noorsoft.org/"
