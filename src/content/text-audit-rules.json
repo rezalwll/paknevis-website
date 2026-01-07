@@ -12,6 +12,18 @@
       "suggestion": "نویسهٔ «ی» فارسی را جایگزین کنید.",
       "example": "اين متن",
       "replacement": "ی"
+    },
+    {
+      "id": "arabic-kaf",
+      "title": "ک عربی",
+      "category": "characters",
+      "severity": "error",
+      "pattern": "ك",
+      "flags": "gu",
+      "message": "قاعدهٔ «ک عربی» نیاز به بازبینی دارد.",
+      "suggestion": "نویسهٔ «ک» فارسی را جایگزین کنید.",
+      "example": "كتاب",
+      "replacement": "ک"
     }
   ]
 }
