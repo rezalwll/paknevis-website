@@ -24,6 +24,17 @@
       "suggestion": "نویسهٔ «ک» فارسی را جایگزین کنید.",
       "example": "كتاب",
       "replacement": "ک"
+    },
+    {
+      "id": "arabic-digits",
+      "title": "رقم عربی",
+      "category": "digits",
+      "severity": "warning",
+      "pattern": "[٠-٩]",
+      "flags": "gu",
+      "message": "قاعدهٔ «رقم عربی» نیاز به بازبینی دارد.",
+      "suggestion": "رقم فارسی هم‌ارز را بنویسید.",
+      "example": "نسخه ١"
     }
   ]
 }
