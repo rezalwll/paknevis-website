@@ -46,6 +46,18 @@
       "message": "قاعدهٔ «رقم لاتین» نیاز به بازبینی دارد.",
       "suggestion": "در متن فارسی از رقم فارسی استفاده کنید.",
       "example": "نسخه 2"
+    },
+    {
+      "id": "repeated-space",
+      "title": "فاصلهٔ تکراری",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "[ \\t]{2,}",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصلهٔ تکراری» نیاز به بازبینی دارد.",
+      "suggestion": "فاصله‌های اضافه را به یک فاصله کاهش دهید.",
+      "example": "دو  فاصله",
+      "replacement": " "
     }
   ]
 }
