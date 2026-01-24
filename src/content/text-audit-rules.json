@@ -58,6 +58,18 @@
       "suggestion": "فاصله‌های اضافه را به یک فاصله کاهش دهید.",
       "example": "دو  فاصله",
       "replacement": " "
+    },
+    {
+      "id": "space-before-comma",
+      "title": "فاصله پیش از ویرگول",
+      "category": "punctuation",
+      "severity": "warning",
+      "pattern": "\\s+،",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله پیش از ویرگول» نیاز به بازبینی دارد.",
+      "suggestion": "فاصلهٔ پیش از ویرگول را حذف کنید.",
+      "example": "متن ، ادامه",
+      "replacement": "،"
     }
   ]
 }
