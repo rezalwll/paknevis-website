@@ -315,7 +315,7 @@ export default function EnterprisePage() {
               </div>
 
               {/* Mini cards */}
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {/* <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {[
                   { t: "کاملاً آفلاین", d: "بدون اتصال به اینترنت", icon: WifiOff },
                   { t: "سفارشی‌سازی", d: "طبق نیاز سازمان شما", icon: SlidersHorizontal },
@@ -331,7 +331,7 @@ export default function EnterprisePage() {
                     <div className="mt-2 text-xs leading-6 text-slate-700">{x.d}</div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -341,9 +341,7 @@ export default function EnterprisePage() {
       <section id="pricing" className="scroll-mt-24 bg-[var(--pn-bg)]">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:py-16">
           <div className="text-center">
-            <IconPill Icon={CreditCard} className={`${accentBorder} ${accentText}`}>
-              طرح های نسخه سازمانی
-            </IconPill>
+
 
             <h2 className="mt-3 text-2xl font-black sm:text-3xl">طرح های نسخه سازمانی</h2>
             <div className={divider} />
