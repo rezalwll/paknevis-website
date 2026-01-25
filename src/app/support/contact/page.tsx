@@ -35,7 +35,7 @@ export default function ContactPage() {
   // کلاس سایز متن برای کل صفحه:
   const baseTextSizeClass = isWin125
     ? "scale-100" // اسکیل 125% → کمی کوچیک‌تر
-    : "scale-130"; // اسکیل 100% → همینی که خودت گذاشتی
+    : "scale-100"; // اسکیل 100% → همینی که خودت گذاشتی
 
   const [message, setMessage] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -57,7 +57,7 @@ export default function ContactPage() {
         min-h-screen flex items-center
         bg-[#e7f0ff]
         text-slate-800
-        text-[16px] md:text-[17px] lg:text-[19px] xl:text-[20px] 2xl:text-[21px]
+        text-[16px] md:text-[17px] lg:text-[19px] xl:text-[20px] 2xl:text-[21px] 
       "
     >
       <div

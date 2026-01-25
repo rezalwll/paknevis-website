@@ -1,5 +1,7 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
   Search,
   CreditCard,
@@ -7,18 +9,19 @@ import {
   Laptop,
   User,
   FileWarning,
-  ArrowRight,
+  ArrowLeft,
   Mail,
+  Plus,
   Building2,
-  ChevronDown,
 } from "lucide-react";
+
+type QA = { question: string; answer: string };
+type Category = { title: string; icon: LucideIcon; questions: QA[] };
 
 export default function HelpCenterPage() {
   const [q, setQ] = useState("");
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
-  const [expandedQuestions, setExpandedQuestions] = useState<
-    Record<string, boolean>
-  >({});
+  const [expandedQuestions, setExpandedQuestions] = useState<Record<string, boolean>>({});
   const questionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,14 +33,7 @@ export default function HelpCenterPage() {
     }
   }, [activeCategory]);
 
-  const featured = [
-    { title: "حریم خصوصی و امنیت", meta: "درباره پاک‌نویس" },
-    { title: "مشکلات ورود به حساب", meta: "مبانی حساب کاربری" },
-    { title: "بروزرسانی", meta: "مبانی حساب کاربری" },
-    { title: "شروع کار با پاک‌نویس", meta: "نکات و آموزش‌ها" },
-  ];
-
-  const categories = [
+  const categories: Category[] = [
     {
       title: "درباره پاکنویس",
       icon: User,
@@ -88,8 +84,7 @@ export default function HelpCenterPage() {
             "پاک‌نویس سرعت بالاتری دارد و هزینه را کاهش می‌دهد؛ برای پروژه‌های حساس نیز می‌توانید خروجی هوش مصنوعی را به تیم ویراستاری انسانی ما بسپارید.",
         },
         {
-          question:
-            "آیا پاک‌نویس برای تیم‌ها و سازمان‌ها قابل سفارشی‌سازی است؟",
+          question: "آیا پاک‌نویس برای تیم‌ها و سازمان‌ها قابل سفارشی‌سازی است؟",
           answer:
             "بله، می‌توانید داشبورد سازمانی داشته باشید، دسترسی‌ها را مدیریت کنید و الگوهای سفارشی برای تیم خود بسازید.",
         },
@@ -350,7 +345,7 @@ export default function HelpCenterPage() {
         },
         {
           question: "آیا امکان اتصال به ابزارهای داخلی سازمان وجود دارد؟",
-          answer:
+         answer:
             "بله، از طریق API و وبهوک می‌توانید پاک‌نویس را با سامانه‌های داخلی یا CMS سازمان خود یکپارچه کنید.",
         },
         {
@@ -389,18 +384,38 @@ export default function HelpCenterPage() {
     <div
       dir="rtl"
       className="
-        min-h-screen bg-white text-slate-800
+        relative isolate min-h-screen text-slate-800
+        bg-gradient-to-b from-slate-50/70 via-white to-white
         text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
+        before:content-[''] before:pointer-events-none before:absolute before:inset-0 before:-z-10
+        before:bg-[radial-gradient(circle_at_1px_1px,rgba(99,102,241,0.06)_1px,transparent_0)]
+        before:bg-[size:28px_28px] before:opacity-45
+        after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10
+        after:bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.05),transparent_70%)]
       "
     >
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white min-h-[500px]">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="blob blob-a" />
-          <div className="blob blob-b" />
-          <div className="blob blob-c" />
+      <section className="relative overflow-hidden min-h-[500px]">
+        {/* Hero background layers (VERY subtle) */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          {/* base wash */}
+          <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/35 via-white to-white" />
+
+          {/* soft blobs (very faint) */}
+          <div className="absolute -top-28 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-indigo-300/10 blur-3xl" />
+          <div className="absolute top-10 right-[-120px] h-[360px] w-[360px] rounded-full bg-sky-300/08 blur-3xl" />
+          <div className="absolute bottom-[-160px] left-[-140px] h-[420px] w-[420px] rounded-full bg-violet-300/08 blur-3xl" />
+
+          {/* subtle grid (very faint) */}
+          <div
+            className="
+              absolute inset-0 opacity-20
+              bg-[linear-gradient(to_right,rgba(99,102,241,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.06)_1px,transparent_1px)]
+              bg-[size:68px_68px]
+            "
+          />
         </div>
 
-        <div className="relative mx-auto px-4 pt-14 pb-8 text-center max-w-3xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
+        <div className="relative mx-auto px-4 pt-40 pb-8 text-center max-w-3xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
           <h1
             className="
               font-bold tracking-tight text-slate-900
@@ -410,11 +425,12 @@ export default function HelpCenterPage() {
             سلام! چطور می‌تونیم کمک کنیم؟
           </h1>
 
-          <div className="mt-8 flex items-center justify-center">
+          <div className="mt-20 flex items-center justify-center">
             <div
               className="
                 w-full max-w-xl md:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl
-                flex items-center rounded-full border border-slate-200 bg-white shadow-sm
+                flex items-center rounded-full border border-slate-200
+                bg-white/75 backdrop-blur-md shadow-sm
                 px-4 py-3 lg:px-5 lg:py-4
               "
             >
@@ -432,73 +448,9 @@ export default function HelpCenterPage() {
           </div>
 
           <div className="mx-auto mt-10 max-w-3xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
-            <div className="h-px bg-slate-200" />
-            <div
-              className="
-                mt-3 tracking-[.25em] text-slate-500
-                text-[11px] md:text-[12px] xl:text-[13px]
-              "
-            >
-              دسترسی سریع
-            </div>
-            <div
-              className="
-                mt-3 grid grid-cols-1 md:grid-cols-4 gap-4
-                text-sm md:text-[0.95rem] xl:text-base 2xl:text-[1.08rem]
-              "
-            >
-              {featured.map((f) => (
-                <a key={f.title} className="group block">
-                  <div
-                    className="
-                      text-slate-900 group-hover:text-indigo-700 font-medium leading-6
-                    "
-                  >
-                    {f.title}
-                  </div>
-                  <div
-                    className="
-                      text-xs md:text-[13px] xl:text-sm text-slate-500 mt-1
-                    "
-                  >
-                    {f.meta}
-                  </div>
-                </a>
-              ))}
-            </div>
+            <div className="h-px bg-slate-200/80" />
           </div>
         </div>
-
-        <style>{`
-          .blob{position:absolute;border-radius:9999px;filter:blur(28px);opacity:.22;mix-blend-multiply;pointer-events:none;will-change:transform;transform:translateZ(0);transition:transform 0.3s ease-out;}
-          .blob-a{width:420px;height:420px;background:radial-gradient(closest-side,#66C0FF,transparent 70%);right:15%;top:-10%;animation:floaty 25s ease-in-out infinite;}
-          .blob-b{width:360px;height:360px;background:radial-gradient(closest-side,#0094F0,transparent 65%);left:10%;bottom:-10%;animation:floaty2 30s ease-in-out infinite;}
-          .blob-c{width:300px;height:300px;background:radial-gradient(closest-side,#0036C4,transparent 60%);left:40%;top:20%;animation:floaty3 28s ease-in-out infinite;}
-          @keyframes floaty{
-            0%{transform:translate3d(0,0,0) scale(1);}
-            25%{transform:translate3d(120px,80px,0) scale(1.08);}
-            50%{transform:translate3d(-80px,150px,0) scale(0.95);}
-            75%{transform:translate3d(100px,-60px,0) scale(1.05);}
-            100%{transform:translate3d(0,0,0) scale(1);}
-          }
-          @keyframes floaty2{
-            0%{transform:translate3d(0,0,0) scale(1);}
-            25%{transform:translate3d(-100px,-120px,0) scale(0.92);}
-            50%{transform:translate3d(90px,-180px,0) scale(1.06);}
-            75%{transform:translate3d(-70px,-40px,0) scale(0.98);}
-            100%{transform:translate3d(0,0,0) scale(1);}
-          }
-          @keyframes floaty3{
-            0%{transform:translate3d(0,0,0) scale(1);}
-            25%{transform:translate3d(-90px,110px,0) scale(1.03);}
-            50%{transform:translate3d(110px,-90px,0) scale(0.97);}
-            75%{transform:translate3d(-50px,-120px,0) scale(1.04);}
-            100%{transform:translate3d(0,0,0) scale(1);}
-          }
-          @media (prefers-reduced-motion: reduce){
-            .blob,.blob-a,.blob-b,.blob-c{animation:none;}
-          }
-        `}</style>
       </section>
 
       <section
@@ -523,17 +475,19 @@ export default function HelpCenterPage() {
                   ${activeCategory === idx ? "text-indigo-700" : "text-slate-700"}
                 `}
                 aria-expanded={activeCategory === idx}
+                type="button"
               >
                 <div
                   className={`
                     w-16 h-16 rounded-2xl border flex items-center justify-center transition-colors
-                    ${activeCategory === idx ? "border-indigo-200 bg-indigo-50" : "border-slate-200 bg-slate-50"}
+                    ${
+                      activeCategory === idx
+                        ? "border-indigo-200/70 bg-indigo-50/55"
+                        : "border-slate-200 bg-slate-50/60 cursor-pointer"
+                    }
                   `}
                 >
-                  <Icon
-                    className="w-9 h-9 lg:w-10 lg:h-10 text-indigo-700"
-                    strokeWidth={1.75}
-                  />
+                  <Icon className="w-9 h-9 lg:w-10 lg:h-10 text-indigo-700" strokeWidth={1.75} />
                 </div>
                 <div className="space-y-1">
                   <div
@@ -551,16 +505,8 @@ export default function HelpCenterPage() {
         </div>
 
         {activeCategory !== null && (
-          <div ref={questionsRef} className="space-y-4 pt-10">
-            <div className="text-center md:text-right">
-              <p
-                className="
-                  text-sm md:text-[15px] text-slate-500
-                  xl:text-base
-                "
-              >
-                این بخش مربوط به دسته‌بندی انتخابی شماست
-              </p>
+          <div ref={questionsRef} className="space-y-4 pt-12">
+            <div className="text-center">
               <h2
                 className="
                   text-lg md:text-xl xl:text-[1.45rem] 2xl:text-[1.55rem]
@@ -570,51 +516,65 @@ export default function HelpCenterPage() {
                 سوالات و پاسخ‌های دسته «{categories[activeCategory].title}»
               </h2>
             </div>
-            <div className="rounded-2xl border border-slate-200 divide-y divide-slate-200 bg-white shadow-sm">
-              {categories[activeCategory].questions.map(
-                (item, questionIndex) => {
-                  const key = `${activeCategory}-${questionIndex}`;
-                  const isOpen = !!expandedQuestions[key];
-                  return (
-                    <div key={item.question}>
-                      <button
-                        onClick={() =>
-                          toggleQuestion(activeCategory, questionIndex)
-                        }
-                        className="w-full flex items-center justify-between px-5 py-4 text-right"
-                        aria-expanded={isOpen}
+
+            <div className="mt-10">
+              {categories[activeCategory].questions.map((item, questionIndex) => {
+                const key = `${activeCategory}-${questionIndex}`;
+                const isOpen = !!expandedQuestions[key];
+
+                return (
+                  <div
+                    key={item.question}
+                    className="border-b border-transparent"
+                    style={{
+                      borderImage:
+                        "linear-gradient(to right, rgba(52, 152, 219, 0), rgba(67, 45, 215, 0.55), rgba(52, 152, 219, 0)) 1",
+                    }}
+                  >
+                    <button
+                      onClick={() => toggleQuestion(activeCategory, questionIndex)}
+                      className="w-full flex items-center justify-between px-5 py-4 text-right cursor-pointer"
+                      aria-expanded={isOpen}
+                      type="button"
+                    >
+                      <span
+                        className="
+                          font-medium text-slate-900
+                          text-sm md:text-base xl:text-[1.08rem] 2xl:text-[1.13rem]
+                        "
                       >
-                        <span
-                          className="
-                            font-medium text-slate-900
-                            text-sm md:text-base xl:text-[1.08rem] 2xl:text-[1.13rem]
-                          "
-                        >
-                          {item.question}
-                        </span>
-                        <ChevronDown
-                          className={`
-                            w-5 h-5 lg:w-6 lg:h-6 text-slate-400 transition-transform
-                            ${isOpen ? "rotate-180 text-indigo-600" : ""}
-                          `}
-                        />
-                      </button>
-                      {isOpen && (
-                        <div
-                          className="
-                            px-5 pb-5
-                            text-sm md:text-[15px] xl:text-base 2xl:text-[1.08rem]
-                            leading-7 xl:leading-8
-                            text-slate-600
-                          "
-                        >
-                          {item.answer}
-                        </div>
-                      )}
+                        {item.question}
+                      </span>
+
+                      <Plus
+                        className={`
+                          w-4 h-4 lg:w-5 lg:h-5 text-[rgba(67,45,215,0.55)] transition-transform
+                          ${isOpen ? "rotate-45 text-indigo-600" : ""}
+                        `}
+                      />
+                    </button>
+
+                    <div
+                      className={`
+                        overflow-hidden transition-all duration-300 ease-in-out grid
+                        ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}
+                      `}
+                      aria-hidden={!isOpen}
+                    >
+                      <div
+                        className="
+                          min-h-0 px-5 pb-2
+                          text-sm md:text-[15px] xl:text-base 2xl:text-[1.08rem]
+                          leading-7 xl:leading-8
+                          text-slate-600
+                        "
+                      >
+                        {item.answer}
+                      </div>
                     </div>
-                  );
-                }
-              )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
@@ -627,13 +587,13 @@ export default function HelpCenterPage() {
           text-sm md:text-base xl:text-[1.08rem]
         "
       >
-        <div className="rounded-2xl border border-slate-200 bg-white px-6 py-6 flex items-center justify-center gap-3 text-slate-700">
-          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-200">
+        <div className="rounded-2xl border border-slate-200 bg-white/75 backdrop-blur-md px-6 py-6 flex items-center justify-center gap-3 text-slate-700 shadow-sm">
+          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-200 bg-white/70">
             <Mail className="w-5 h-5 lg:w-6 lg:h-6" />
           </span>
           <span>پاسخ‌تان را پیدا نکردید؟</span>
-          <a className="inline-flex items-center gap-1 text-emerald-700 hover:underline">
-            با ما تماس بگیرید <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
+          <a href="/contact" className="inline-flex items-center gap-1 text-emerald-700 hover:underline">
+            با ما تماس بگیرید <ArrowLeft className="w-4 h-4 lg:w-5 lg:h-5" />
           </a>
         </div>
       </section>
