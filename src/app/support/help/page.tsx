@@ -388,7 +388,7 @@ export default function HelpCenterPage() {
         bg-gradient-to-b from-slate-50/70 via-white to-white
         text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
         before:content-[''] before:pointer-events-none before:absolute before:inset-0 before:-z-10
-        before:bg-[radial-gradient(circle_at_1px_1px,rgba(99,102,241,0.06)_1px,transparent_0)]
+        before:bg-[radial-gradient(circle_at_1px_1px,rgba(99,102,241,0.3)_1px,transparent_0)]
         before:bg-[size:28px_28px] before:opacity-45
         after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10
         after:bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.05),transparent_70%)]
@@ -398,17 +398,17 @@ export default function HelpCenterPage() {
         {/* Hero background layers (VERY subtle) */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           {/* base wash */}
-          <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/35 via-white to-white" />
+          {/* <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/35 via-white to-white" /> */}
 
           {/* soft blobs (very faint) */}
-          <div className="absolute -top-28 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-indigo-300/10 blur-3xl" />
+          {/* <div className="absolute -top-28 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-indigo-300/10 blur-3xl" />
           <div className="absolute top-10 right-[-120px] h-[360px] w-[360px] rounded-full bg-sky-300/08 blur-3xl" />
-          <div className="absolute bottom-[-160px] left-[-140px] h-[420px] w-[420px] rounded-full bg-violet-300/08 blur-3xl" />
+          <div className="absolute bottom-[-160px] left-[-140px] h-[420px] w-[420px] rounded-full bg-violet-300/08 blur-3xl" /> */}
 
           {/* subtle grid (very faint) */}
           <div
             className="
-              absolute inset-0 opacity-20
+              absolute inset-0 opacity-50
               bg-[linear-gradient(to_right,rgba(99,102,241,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.06)_1px,transparent_1px)]
               bg-[size:68px_68px]
             "
@@ -447,9 +447,9 @@ export default function HelpCenterPage() {
             </div>
           </div>
 
-          <div className="mx-auto mt-10 max-w-3xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
+          {/* <div className="mx-auto mt-10 max-w-3xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
             <div className="h-px bg-slate-200/80" />
-          </div>
+          </div> */}
         </div>
       </section>
 
