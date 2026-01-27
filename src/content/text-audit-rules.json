@@ -70,6 +70,18 @@
       "suggestion": "فاصلهٔ پیش از ویرگول را حذف کنید.",
       "example": "متن ، ادامه",
       "replacement": "،"
+    },
+    {
+      "id": "missing-space-after-comma",
+      "title": "فاصله پس از ویرگول",
+      "category": "punctuation",
+      "severity": "warning",
+      "pattern": "،(?=\\S)",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله پس از ویرگول» نیاز به بازبینی دارد.",
+      "suggestion": "پس از ویرگول یک فاصله بگذارید.",
+      "example": "متن،ادامه",
+      "replacement": "، "
     }
   ]
 }
