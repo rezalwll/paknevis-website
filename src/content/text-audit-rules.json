@@ -82,6 +82,18 @@
       "suggestion": "پس از ویرگول یک فاصله بگذارید.",
       "example": "متن،ادامه",
       "replacement": "، "
+    },
+    {
+      "id": "latin-comma",
+      "title": "ویرگول لاتین",
+      "category": "punctuation",
+      "severity": "warning",
+      "pattern": ",",
+      "flags": "gu",
+      "message": "قاعدهٔ «ویرگول لاتین» نیاز به بازبینی دارد.",
+      "suggestion": "ویرگول فارسی «،» را جایگزین کنید.",
+      "example": "متن, ادامه",
+      "replacement": "،"
     }
   ]
 }
