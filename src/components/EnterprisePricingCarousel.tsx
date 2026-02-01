@@ -88,16 +88,15 @@ export default function EnterprisePricingCarousel() {
     const cardBase =
         "relative rounded-[18px] bg-[var(--pn-bg)] " +
         "border border-[var(--pn-border)] " +
-        "transition-[transform,box-shadow,border-color] duration-200 ease-out";
+        "transition-[transform,box-shadow,border-color] duration-200 ease-out -z-5";
 
-    const cardSelected = "border-[3px] !border-[var(--pn-accent)] z-10";
+    const cardSelected = "border-[3px] !border-[var(--pn-accent)]";
 
     const pillPopular =
-        "absolute z-20 left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 " +
-        "rounded-full bg-[var(--pn-surface)] px-4 py-1 " +
+        "absolute -top-3 left-1/2 -translate-x-1/2 " +
+        "rounded-full bg-[#e9f4f3] px-4 py-1 " +
         "text-[11px] font-extrabold text-slate-800 " +
         "border border-[var(--pn-border)] shadow-sm";
-
 
     const titleText = "text-xl font-black text-slate-800";
     const priceText = "text-5xl font-black text-slate-900";

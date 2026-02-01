@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ComponentType, SVGProps } from "react";
 import EnterprisePricingCarousel from "../../components/EnterprisePricingCarousel";
+import ClientsMarquee from "../../components/ClientsMarquee";
 import {
   BadgeCheck,
   BookCheck,
@@ -344,7 +345,6 @@ export default function EnterprisePage() {
 
 
             <h2 className="mt-3 text-2xl font-black sm:text-3xl">طرح های نسخه سازمانی</h2>
-            <div className={divider} />
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-8 text-slate-700 sm:text-base">
               پلن مناسب تیم و سازمان خود را انتخاب کنید و با خیال راحت شروع کنید.
             </p>
@@ -355,6 +355,15 @@ export default function EnterprisePage() {
           </div>
         </div>
       </section>
+      <section dir="ltr" className="text-center px-4 bg-[color:var(--pn-bg)] my-30">
+        <h2 className="text-lg sm:text-xl md:text-xl font-bold mb-6 sm:mb-8 md:mb-10 text-[color:var(--pn-muted-title)]">
+          مورد اعتماد سازمان‌ها، نویسندگان و کاربران حرفه‌ای در سراسر کشور
+        </h2>
+        <div className="max-w-6xl mx-auto">
+          <ClientsMarquee />
+        </div>
+      </section>
+
 
       {/* LONG CONTENT */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:py-16">
