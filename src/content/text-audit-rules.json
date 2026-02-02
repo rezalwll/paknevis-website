@@ -94,6 +94,18 @@
       "suggestion": "ویرگول فارسی «،» را جایگزین کنید.",
       "example": "متن, ادامه",
       "replacement": "،"
+    },
+    {
+      "id": "latin-question-mark",
+      "title": "پرسش لاتین",
+      "category": "punctuation",
+      "severity": "warning",
+      "pattern": "\\?",
+      "flags": "gu",
+      "message": "قاعدهٔ «پرسش لاتین» نیاز به بازبینی دارد.",
+      "suggestion": "علامت پرسش فارسی «؟» را بنویسید.",
+      "example": "چرا?",
+      "replacement": "؟"
     }
   ]
 }
