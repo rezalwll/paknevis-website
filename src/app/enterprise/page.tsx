@@ -79,6 +79,11 @@ function IconChip({ Icon, text }: { Icon: IconType; text: string }) {
   );
 }
 
+const toFaDigits = (val: string | number) =>
+  val
+    .toString()
+    .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
+
 export default function EnterprisePage() {
   const contactEmail = "sales@paknevis.ir";
 
@@ -410,14 +415,14 @@ export default function EnterprisePage() {
             {installSteps.map((s, idx) => (
               <li key={idx} className={`${cardBase} flex items-start gap-4 p-5`}>
                 <div className="flex h-10 w-10 flex-none items-center justify-center rounded-2xl bg-[var(--pn-surface)] border border-[var(--pn-border)] text-sm font-black text-slate-800">
-                  {idx + 1}
+                  {toFaDigits(idx + 1)}
                 </div>
 
                 <div className="flex-1">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm font-black text-slate-900">مرحله {idx + 1}</span>
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-[var(--pn-border)] bg-[var(--pn-bg)] shadow-sm">
-                      <s.icon className="h-5 w-5 text-slate-800" aria-hidden="true" />
+                    <span className="text-sm font-black text-slate-900">مرحله {toFaDigits(idx + 1)}</span>
+                    <span className=" bg-[var(--pn-surface)] inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-[var(--pn-border)] bg-[var(--pn-bg)] shadow-sm">
+                      <s.icon className="h-5 w-5 text-slate-800 " aria-hidden="true" />
                     </span>
                   </div>
 

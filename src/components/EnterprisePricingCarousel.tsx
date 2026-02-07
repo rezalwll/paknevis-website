@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 
 type Plan = {
@@ -9,6 +10,11 @@ type Plan = {
     desc: string;
     popular?: boolean;
 };
+
+const toFaDigits = (val: string | number) =>
+    val
+        .toString()
+        .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
 
 function usePerView() {
     const [perView, setPerView] = useState(1);
@@ -88,14 +94,14 @@ export default function EnterprisePricingCarousel() {
     const cardBase =
         "relative rounded-[18px] bg-[var(--pn-bg)] " +
         "border border-[var(--pn-border)] " +
-        "transition-[transform,box-shadow,border-color] duration-200 ease-out -z-5";
+        "transition-[transform,box-shadow,border-color] duration-200 ease-out";
 
     const cardSelected = "border-[3px] !border-[var(--pn-accent)]";
 
     const pillPopular =
         "absolute -top-3 left-1/2 -translate-x-1/2 " +
         "rounded-full bg-[#e9f4f3] px-4 py-1 " +
-        "text-[11px] font-extrabold text-slate-800 " +
+        "text-[11px] font-extrabold text-slate-800 z-10 " +
         "border border-[var(--pn-border)] shadow-sm";
 
     const titleText = "text-xl font-black text-slate-800";
@@ -111,7 +117,7 @@ export default function EnterprisePricingCarousel() {
         "inline-flex h-10 items-center justify-center rounded-lg " +
         "border-2 border-[var(--pn-accent)] bg-[var(--pn-bg)] px-8 " +
         "text-xs font-extrabold tracking-wider text-slate-900 " +
-        "shadow-[0_10px_18px_rgba(15,23,42,0.06)] " +
+        "shadow-[0_10px_18px_rgba(15,23,42,0.06)] cursor-pointer " +
         "transition hover:bg-[var(--pn-surface)]";
 
     const defaultSelected = useMemo(() => {
@@ -164,26 +170,32 @@ export default function EnterprisePricingCarousel() {
                                                         }}
                                                         className={[
                                                             cardBase,
-                                                            "h-full text-center px-8 pt-10 pb-8",
+                                                            "h-full text-center px-8 pt-10 pb-8 flex flex-col items-center gap-6",
                                                             plan.popular ? cardSelected : "",
                                                         ].join(" ")}
                                                     >
-                                                        <h3 className={titleText}>{plan.title}</h3>
-                                                        <div className={lineTop} />
+                                                        <div className="flex flex-col items-center gap-4">
+                                                            <h3 className={titleText}>{toFaDigits(plan.title)}</h3>
+                                                            <div className={lineTop} />
 
-                                                        <div className="mt-8">
-                                                            <div className={priceText}>{plan.price}</div>
-                                                            میلیون
-                                                            <div className={perText}>{plan.per}</div>
+                                                            <div className="mt-4">
+                                                                <div className={priceText}>{toFaDigits(plan.price)}</div>
+                                                                میلیون
+                                                                <div className={perText}>{toFaDigits(plan.per)}</div>
+                                                            </div>
+
+                                                            <p className={descText}>{toFaDigits(plan.desc)}</p>
                                                         </div>
 
-                                                        <p className={descText}>{plan.desc}</p>
+                                                        <div className="flex-1" />
 
-                                                        <div className={lineMid} />
+                                                        <div className="flex flex-col items-center gap-4 w-full">
+                                                            <div className={lineMid} />
 
-                                                        <a className={btnOutline} href="#">
-                                                            شروع کنید
-                                                        </a>
+                                                            <Link href="/support/contact" className={btnOutline} onClick={(e) => e.stopPropagation()}>
+                                                                شروع کنید
+                                                            </Link>
+                                                        </div>
                                                     </article>
                                                 </div>
                                             );
@@ -199,7 +211,7 @@ export default function EnterprisePricingCarousel() {
                         onClick={next}
                         disabled={!canNext}
                         aria-label="بعدی"
-                        className="absolute -left-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
+                        className="absolute -left-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40 cursor-pointer"
                     >
                         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
@@ -211,7 +223,7 @@ export default function EnterprisePricingCarousel() {
                         onClick={prev}
                         disabled={!canPrev}
                         aria-label="قبلی"
-                        className="absolute -right-10 top-1/2 z-10 -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
+                        className="absolute -right-10 top-1/2 z-10 cursor-pointer -translate-y-1/2 rounded-full border border-[var(--pn-border)] bg-[var(--pn-bg)] p-3 shadow-md backdrop-blur disabled:opacity-40"
                     >
                         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -222,3 +234,5 @@ export default function EnterprisePricingCarousel() {
         </section>
     );
 }
+
+
