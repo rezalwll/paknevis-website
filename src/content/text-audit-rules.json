@@ -106,6 +106,18 @@
       "suggestion": "علامت پرسش فارسی «؟» را بنویسید.",
       "example": "چرا?",
       "replacement": "؟"
+    },
+    {
+      "id": "space-before-period",
+      "title": "فاصله پیش از نقطه",
+      "category": "punctuation",
+      "severity": "warning",
+      "pattern": "\\s+\\.",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله پیش از نقطه» نیاز به بازبینی دارد.",
+      "suggestion": "فاصلهٔ پیش از نقطه را حذف کنید.",
+      "example": "پایان .",
+      "replacement": "."
     }
   ]
 }
