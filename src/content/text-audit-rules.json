@@ -118,6 +118,18 @@
       "suggestion": "فاصلهٔ پیش از نقطه را حذف کنید.",
       "example": "پایان .",
       "replacement": "."
+    },
+    {
+      "id": "ascii-ellipsis",
+      "title": "سه‌نقطهٔ لاتین",
+      "category": "punctuation",
+      "severity": "info",
+      "pattern": "\\.{3}",
+      "flags": "gu",
+      "message": "قاعدهٔ «سه‌نقطهٔ لاتین» نیاز به بازبینی دارد.",
+      "suggestion": "از نویسهٔ سه‌نقطه «…» استفاده کنید.",
+      "example": "ادامه...",
+      "replacement": "…"
     }
   ]
 }
