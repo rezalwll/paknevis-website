@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   Search,
@@ -23,15 +23,67 @@ export default function HelpCenterPage() {
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
   const [expandedQuestions, setExpandedQuestions] = useState<Record<string, boolean>>({});
   const questionsRef = useRef<HTMLDivElement>(null);
+  const scrollAnimRef = useRef<number | null>(null);
+
+  const cancelScroll = () => {
+    if (scrollAnimRef.current !== null) {
+      cancelAnimationFrame(scrollAnimRef.current);
+      scrollAnimRef.current = null;
+    }
+  };
+
+  const smoothScrollTo = (targetTop: number, duration = 650) => {
+    cancelScroll();
+
+    const start = window.scrollY;
+    const change = targetTop - start;
+    const startTime = performance.now();
+
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const step = (now: number) => {
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+      const eased = easeInOutCubic(t);
+      window.scrollTo(0, start + change * eased);
+
+      if (t < 1) {
+        scrollAnimRef.current = requestAnimationFrame(step);
+      } else {
+        scrollAnimRef.current = null;
+      }
+    };
+
+    scrollAnimRef.current = requestAnimationFrame(step);
+  };
+
+  const scrollToQuestions = useCallback(() => {
+    const el = questionsRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+    const top = el.getBoundingClientRect().top + window.scrollY - 16; // keep heading below any sticky header
+
+    if (prefersReducedMotion) {
+      window.scrollTo({ top, behavior: "auto" });
+      return;
+    }
+
+    smoothScrollTo(top);
+  }, []);
 
   useEffect(() => {
     if (activeCategory !== null && questionsRef.current) {
-      questionsRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      // Wait for layout to settle, then scroll smoothly to the questions block
+      requestAnimationFrame(scrollToQuestions);
     }
-  }, [activeCategory]);
+  }, [activeCategory, scrollToQuestions]);
+
+  useEffect(() => cancelScroll, []);
 
   const categories: Category[] = [
     {
@@ -345,7 +397,7 @@ export default function HelpCenterPage() {
         },
         {
           question: "آیا امکان اتصال به ابزارهای داخلی سازمان وجود دارد؟",
-         answer:
+          answer:
             "بله، از طریق API و وبهوک می‌توانید پاک‌نویس را با سامانه‌های داخلی یا CMS سازمان خود یکپارچه کنید.",
         },
         {
@@ -387,33 +439,23 @@ export default function HelpCenterPage() {
         relative isolate min-h-screen text-slate-800
         bg-gradient-to-b from-slate-50/70 via-white to-white
         text-[15px] md:text-[16px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]
-        before:content-[''] before:pointer-events-none before:absolute before:inset-0 before:-z-10
-        before:bg-[radial-gradient(circle_at_1px_1px,rgba(99,102,241,0.3)_1px,transparent_0)]
-        before:bg-[size:28px_28px] before:opacity-45
-        after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10
-        after:bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.05),transparent_70%)]
+        
+        
       "
     >
       <section className="relative overflow-hidden min-h-[500px]">
         {/* Hero background layers (VERY subtle) */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-          {/* base wash */}
-          {/* <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/35 via-white to-white" /> */}
-
-          {/* soft blobs (very faint) */}
-          {/* <div className="absolute -top-28 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-indigo-300/10 blur-3xl" />
-          <div className="absolute top-10 right-[-120px] h-[360px] w-[360px] rounded-full bg-sky-300/08 blur-3xl" />
-          <div className="absolute bottom-[-160px] left-[-140px] h-[420px] w-[420px] rounded-full bg-violet-300/08 blur-3xl" /> */}
-
-          {/* subtle grid (very faint) */}
-          <div
-            className="
-              absolute inset-0 opacity-50
-              bg-[linear-gradient(to_right,rgba(99,102,241,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.06)_1px,transparent_1px)]
-              bg-[size:68px_68px]
-            "
-          />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute pointer-events-none rounded-full blur-[28px] opacity-[.22]
+         w-[520px] h-[520px]
+         bg-[radial-gradient(closest-side,_#66C0FF,_transparent_70%)]
+         right-[15%] top-[-10%]" />
+          <div className="absolute pointer-events-none rounded-full blur-[28px] opacity-[.22]
+         w-[760px] h-[760px]
+         bg-[radial-gradient(closest-side,_#0094F0,_transparent_65%)]
+         left-[10%] bottom-[-28%]" />
         </div>
+
 
         <div className="relative mx-auto px-4 pt-40 pb-8 text-center max-w-3xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
           <h1
@@ -451,6 +493,8 @@ export default function HelpCenterPage() {
             <div className="h-px bg-slate-200/80" />
           </div> */}
         </div>
+
+
       </section>
 
       <section
@@ -469,6 +513,10 @@ export default function HelpCenterPage() {
                 onClick={() => {
                   setActiveCategory(idx);
                   setExpandedQuestions({});
+                  // If the same category is re-selected, still scroll smoothly
+                  if (activeCategory === idx) {
+                    requestAnimationFrame(scrollToQuestions);
+                  }
                 }}
                 className={`
                   group flex flex-col items-center text-center gap-4 select-none transition-colors
@@ -480,14 +528,13 @@ export default function HelpCenterPage() {
                 <div
                   className={`
                     w-16 h-16 rounded-2xl border flex items-center justify-center transition-colors
-                    ${
-                      activeCategory === idx
-                        ? "border-indigo-200/70 bg-indigo-50/55"
-                        : "border-slate-200 bg-slate-50/60 cursor-pointer"
+                    ${activeCategory === idx
+                      ? "border-indigo-200/70 bg-[#e2f2fb]"
+                      : "border-slate-200 bg-slate-50/60 cursor-pointer"
                     }
                   `}
                 >
-                  <Icon className="w-9 h-9 lg:w-10 lg:h-10 text-indigo-700" strokeWidth={1.75} />
+                  <Icon className="w-9 h-9 lg:w-10 lg:h-10 text-[#0094F0]" strokeWidth={1.75} />
                 </div>
                 <div className="space-y-1">
                   <div
@@ -510,7 +557,7 @@ export default function HelpCenterPage() {
               <h2
                 className="
                   text-lg md:text-xl xl:text-[1.45rem] 2xl:text-[1.55rem]
-                  font-semibold text-slate-900
+                  font-semibold text-slate-900 mt-20
                 "
               >
                 سوالات و پاسخ‌های دسته «{categories[activeCategory].title}»
@@ -528,7 +575,7 @@ export default function HelpCenterPage() {
                     className="border-b border-transparent"
                     style={{
                       borderImage:
-                        "linear-gradient(to right, rgba(52, 152, 219, 0), rgba(67, 45, 215, 0.55), rgba(52, 152, 219, 0)) 1",
+                        "linear-gradient(to right, rgba(52, 152, 219, 0), #0094F0, rgba(52, 152, 219, 0)) 1",
                     }}
                   >
                     <button
@@ -548,8 +595,8 @@ export default function HelpCenterPage() {
 
                       <Plus
                         className={`
-                          w-4 h-4 lg:w-5 lg:h-5 text-[rgba(67,45,215,0.55)] transition-transform
-                          ${isOpen ? "rotate-45 text-indigo-600" : ""}
+                          w-4 h-4 lg:w-5 lg:h-5 text-[#0094F0] transition-transform
+                          ${isOpen ? "rotate-45 text-[#0094F0]" : ""}
                         `}
                       />
                     </button>
@@ -588,11 +635,11 @@ export default function HelpCenterPage() {
         "
       >
         <div className="rounded-2xl border border-slate-200 bg-white/75 backdrop-blur-md px-6 py-6 flex items-center justify-center gap-3 text-slate-700 shadow-sm">
-          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-200 bg-white/70">
+          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-200 bg-[#e2f2fb] text-[#0094F0]">
             <Mail className="w-5 h-5 lg:w-6 lg:h-6" />
           </span>
           <span>پاسخ‌تان را پیدا نکردید؟</span>
-          <a href="/contact" className="inline-flex items-center gap-1 text-emerald-700 hover:underline">
+          <a href="/contact" className="inline-flex items-center gap-1 text-[#0094F0] ">
             با ما تماس بگیرید <ArrowLeft className="w-4 h-4 lg:w-5 lg:h-5" />
           </a>
         </div>

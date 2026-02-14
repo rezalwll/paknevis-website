@@ -291,7 +291,7 @@ export default function EnterprisePage() {
               <div className={`${cardBase} overflow-hidden`}>
                 <div className="relative w-full overflow-hidden rounded-[14px]">
                   <img
-                    src="/images/Online editor.png"
+                    src="/images/price3.png"
                     alt="نسخه آفلاین پاک‌نویس برای سازمان‌ها"
                     className="h-full w-full object-cover"
                   />
