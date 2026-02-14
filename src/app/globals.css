@@ -1,9 +1,62 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "IRANYekan";
+  src: url("/fonts/iranyekan.woff2") format("woff2"),
+    url("/fonts/iranyekan.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* :root {
 } */
 
-@theme inline {
+:root {
+  /* ===== Base (صفحه سفید بماند) ===== */
+  --pn-bg: #ffffff;
+  --pn-text: #0f172a;
+  --pn-muted: #3f4f66;
+  --pn-muted-title: #2a3544;
+
+  /* ===== Palette (همین 4 تا رنگ) ===== */
+  --pn-p1: #78B9B5;
+  --pn-p2: #0F828C;
+  --pn-p3: #1a5ba9;
+  --pn-p4: #065084;
+  --pn-p5: #b5d8f14b;
+  --pn-p6: #cce3ff52;
+
+  /* ===== Usage tokens (برای کل کامپوننت‌ها) ===== */
+  --pn-accent: var(--pn-p2);
+  --pn-accent-2: var(--pn-p3);
+  --pn-accent-strong: var(--pn-p4);
+
+  /* سطح‌های ملایم (تینت) — اگر خواستی تیره/روشن‌ترش کن همین‌ها رو تغییر بده */
+  --pn-surface: rgba(120, 185, 181, 0.16);
+  /* tint از p1 */
+  --pn-surface-2: rgba(154, 203, 208, 0.22);
+  /* نزدیک p1/p2 */
+  --pn-border: rgba(6, 80, 132, 0.18);
+  /* tint از p3 */
+
+  /* CTA */
+  --pn-cta-bg: var(--pn-accent-2);
+  --pn-cta-hover: var(--pn-accent-strong);
+  --pn-cta-text: #ffffff;
+
+  /* ===== Header/Footer (آبی ملایم) ===== */
+  --pn-hf-bg: #f7f7f7;
+  /* آبی/سبز ملایم */
+  --pn-hf-mobile-bg: rgba(120, 185, 181, 0.18);
+  --pn-hf-text: #0f172a;
+  --pn-hf-border: rgba(6, 80, 132, 0.22);
+  --pn-hf-link-hover: var(--pn-accent-strong);
+
+  --pn-hf-button-bg: var(--pn-accent-2);
+  --pn-hf-button-hover-bg: var(--pn-accent);
+  --pn-hf-button-text: #ffffff;
+
   /* primary */
   --color-primary-900: #0096a6;
   --color-primary-800: #19a0ae;
@@ -89,33 +142,177 @@
   --color-highlight-100: #f8f9fa;
 }
 
-* {
-  font-family: Vazir, Calibri, SansSerif, serif;
-}
+
 *:not(input):not(textarea) {
   caret-color: transparent !important;
 }
+
 input,
 textarea {
   caret-color: auto !important;
 }
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "IRANYekan", Calibri, SansSerif, serif;
 }
 
-/* ---------- custom marquee styles ---------- */
 
-@keyframes marquee {
+
+.marquee-track {
+  width: max-content;
+  animation: clients-marquee 25s linear infinite;
+}
+
+@keyframes clients-marquee {
   0% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
+
   100% {
-    transform: translateX(50%);
+    transform: translateX(-50%);
   }
 }
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
+.feature-card {
+  background-color: transparent;
+  position: relative;
+  color: #333;
+  border-radius: 16px;
+}
+
+.feature-card::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.9s ease-in-out;
+  background-color: #cceaed;
+  border-radius: 16px;
+  visibility: hidden;
+  height: 10px;
+  width: 10px;
+  z-index: 0;
+}
+
+.feature-card:hover {
+  box-shadow: 1px 1px 200px #252525;
+  color: #fff;
+  border: none;
+}
+
+.feature-card:hover::after {
+  visibility: visible;
+  transform: scale(100) translateX(2px);
+}
+
+/* Hide scrollbar completely (all browsers) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE/Edge legacy */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.no-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Reusable CTA buttons */
+@layer components {
+  .pn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    padding-inline: 1.5rem;
+    gap: 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.3;
+    border: 0 solid transparent;
+    color: var(--pn-text);
+    background-color: transparent;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .pn-btn:focus-visible {
+    outline: 2px solid var(--pn-accent-2);
+    outline-offset: 2px;
+  }
+
+  .pn-btn-primary {
+    background-color: var(--pn-cta-bg);
+    color: var(--pn-cta-text);
+  }
+
+  .pn-btn-primary:hover {
+    background-color: var(--pn-cta-hover);
+    color: var(--pn-cta-text);
+  }
+
+  .pn-btn-outline {
+    border: 2px solid var(--pn-cta-bg);
+    background-color: var(--pn-bg);
+    color: var(--pn-text);
+  }
+
+  .pn-btn-outline:hover {
+    background-color: var(--pn-surface);
+    color: var(--pn-text);
+  }
+
+  .pn-btn-outline2 {
+    border: 2px solid #8b9bb2;
+    background-color: var(--pn-bg);
+    color: var(--pn-text);
+  }
+
+  .pn-btn-outline2:hover {
+    background-color: var(--pn-surface);
+    color: var(--pn-text);
+  }
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(28px);
+  opacity: .22;
+  pointer-events: none;
+}
+
+.blob-a {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(closest-side, #66C0FF, transparent 70%);
+  right: 15%;
+  top: -10%;
+}
+
+.blob-b {
+  width: 760px;
+  height: 760px;
+  background: radial-gradient(closest-side, #0094F0, transparent 65%);
+  left: 10%;
+  bottom: -28%;
 }

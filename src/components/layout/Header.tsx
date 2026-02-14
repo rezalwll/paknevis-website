@@ -1,21 +1,32 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
-type NavItem = { label: string; href: string };
+type NavItem = {
+  label: string;
+  href: string;
+  children?: NavItem[];
+};
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "ویرایشگر برخط", href: "/editor" },
+  {
+    label: "ویرایشگر برخط",
+    href: "#",
+    children: [
+      { label: "ویرایشگر برخط", href: "https://editor.paknevis.ir" },
+      { label: "پیشنهاد علائم نگارشی", href: "https://ai.paknevis.ir" },
+    ],
+  },
   {
     label: "دانلود",
     href: "",
     children: [
-      { label: "افزونه ورد", href: "/download/word" },
-      { label: "افزونه کروم", href: "/download/chrome" },
-      { label: "کیبورد", href: "/download/keyboard" },
-      { label: "ویرایشگر برخط", href: "/editor" },
+      { label: "افزونه ورد", href: "/downloads/word" },
+      { label: "افزونه مرورگر", href: "/downloads/extensions" },
+      { label: "کیبورد", href: "/downloads/keyboard" },
     ],
   },
   { label: "نسخه سازمانی", href: "/enterprise" },
@@ -23,8 +34,7 @@ const NAV_ITEMS: NavItem[] = [
     label: "پشتیبانی",
     href: "#",
     children: [
-      { label: "راهنما", href: "/support/guide" },
-      { label: "پرسش‌های متداول", href: "/support/faq" },
+      { label: "راهنما", href: "/support/help" },
       { label: "ارتباط با ما", href: "/support/contact" },
     ],
   },
@@ -32,6 +42,17 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const Header = () => {
+  const pathname = usePathname() || "/";
+  const headerStyle = {
+    ["--header-bg" as any]: "var(--pn-hf-bg)",
+    ["--header-text" as any]: "var(--pn-hf-text)",
+    ["--header-link-hover" as any]: "var(--pn-hf-link-hover)",
+    ["--header-cta-bg" as any]: "var(--pn-hf-button-bg)",
+    ["--header-cta-hover-bg" as any]: "var(--pn-hf-button-hover-bg)",
+    "--header-cta-text": "var(--pn-hf-button-text)",
+    "--header-mobile-bg": "var(--pn-hf-mobile-bg)",
+  };
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -51,12 +72,13 @@ const Header = () => {
   return (
     <header
       dir="rtl"
-      className="sticky top-0 z-50 bg-primary-100  text-highlight-700 shadow-sm"
+      style={headerStyle as React.CSSProperties}
+      className="sticky top-0 z-50 shadow-sm bg-[var(--header-bg)] text-[var(--header-text)]"
     >
-      <nav className="container mx-auto flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-20">
+      <nav className="container mx-auto  flex items-center justify-between py-3 px-4 sm:px-6 md:px-0 lg:px-10">
         <button
           onClick={openMenu}
-          className="sm:hidden flex items-center px-3 py-2 border rounded text-primary-800 border-primary-800 hover:text-primary-900 hover:border-primary-900 transition-colors cursor-pointer"
+          className="sm:hidden flex items-center px-3 py-2 border rounded text-[var(--header-text)] border-[var(--header-text)] hover:text-[var(--header-link-hover)] hover:border-[var(--header-link-hover)] transition-colors cursor-pointer"
           aria-label="باز کردن منو"
         >
           <svg
@@ -73,85 +95,102 @@ const Header = () => {
             />
           </svg>
         </button>
-        {}
+        { }
         <div className="flex space-x-6">
           <Link
             href="/"
-            className="text-xl font-medium text-primary-800 transition-colors"
+            className="text-xl font-medium transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]"
           >
-            <div className="flex items-center">
+            <div className="flex items-center font-bold">
               <img
-                src="https://paknevis.ir/static/web_client/favicon.ico"
+                src="/mainlogo.png"
                 alt="پاک‌نویس"
-                className="w-8 h-8 mr-2"
+                className="w-8 h-8 mr-2 "
               />
               پاک‌نویس
             </div>
           </Link>
-          {}
+          { }
 
-          {}
+          { }
           <ul className="hidden sm:flex items-center md:space-x-6 space-x-3 sm:text-sm md:text-base">
-            {NAV_ITEMS.map((item) => (
-              <li
-                key={item.label}
-                className="relative group"
-                onMouseEnter={() => setOpenDropdown(item.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
-                <div className="flex items-center cursor-pointer hover:text-primary-900 transition-colors">
-                  <Link href={item.href}>{item.label}</Link>
-                  {item.children && (
-                    <ChevronDownIcon className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" />
+            {NAV_ITEMS.map((item) => {
+              const isDropdownOpen = openDropdown === item.label;
+              return (
+                <li
+                  key={item.label}
+                  className="relative group"
+                  onMouseEnter={() => setOpenDropdown(item.label)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
+                  {item.children ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setOpenDropdown((prev) =>
+                          prev === item.label ? null : item.label
+                        )
+                      }
+                      aria-expanded={isDropdownOpen}
+                      className="flex items-center gap-1 cursor-pointer transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)] bg-transparent border-0 p-0"
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDownIcon
+                        className={`w-4 h-4 mr-1 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : "group-hover:rotate-180"
+                          }`}
+                      />
+                    </button>
+                  ) : (
+                    <div className="flex items-center cursor-pointer transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]">
+                      <Link href={item.href}>{item.label}</Link>
+                    </div>
                   )}
-                </div>
-                {item.children && (
-                  <ul
-                    className={`absolute top-full right-0 bg-white shadow rounded overflow-hidden transform transition-all duration-300 origin-top
-                    ${
-                      openDropdown === item.label
-                        ? "opacity-100 scale-y-100"
-                        : "opacity-0 scale-y-0"
-                    }
+                  {item.children && (
+                    <ul
+                      className={`absolute top-7 right-0 bg-white shadow rounded overflow-hidden transform transition-all duration-300 origin-top
+                    ${isDropdownOpen
+                          ? "opacity-100 scale-y-100"
+                          : "opacity-0 scale-y-0"
+                        }
                   `}
-                  >
-                    {item.children.map((sub) => (
-                      <li key={sub.label}>
-                        <Link
-                          href={sub.href}
-                          className="block text-sm px-4 py-2 hover:text-primary-900 whitespace-nowrap"
-                        >
-                          {sub.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+                    >
+                      {item.children.map((sub) => (
+                        <li key={sub.label}>
+                          <Link
+                            href={sub.href}
+                            className="block text-sm px-4 py-2 whitespace-nowrap transition-colors hover:text-[var(--header-link-hover)]"
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
-        <div>
+        {/* <div>
           <Link
             href="/download"
             target="_blank"
-            className="bg-secondary-400 text-white px-4 py-1 rounded hover:bg-secondary-600 transition-colors"
+            className="px-4.5 py-1.5 rounded transition-colors bg-[var(--header-cta-bg)] hover:bg-[var(--header-cta-hover-bg)] text-[var(--header-cta-text)]"
           >
             دانلود
           </Link>
-        </div>
+        </div> */}
       </nav>
-      {}
+      { }
       <div
-        className={`fixed inset-0 bg-highlight-100 shadow-lg z-50 transform transition-transform duration-400 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-0 bg-[var(--header-mobile-bg)] shadow-lg z-50 transform transition-transform duration-400 ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
-        {}
+        { }
         <div className="flex items-center justify-between px-4 py-3">
           <Link
             href="/"
-            className="text-xl font-medium text-primary-800 transition-colors"
+            className="text-xl font-medium transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]"
             onClick={closeMenu}
           >
             <div className="flex items-center">
@@ -166,7 +205,7 @@ const Header = () => {
           <button
             onClick={closeMenu}
             aria-label="بستن منو"
-            className="text-primary-800 hover:text-primary-900 cursor-pointer transition-colors"
+            className="text-[var(--header-text)] hover:text-[var(--header-link-hover)] cursor-pointer transition-colors"
           >
             <svg
               className="w-6 h-6"
@@ -184,15 +223,15 @@ const Header = () => {
           </button>
         </div>
 
-        {}
+        { }
         <nav className="flex flex-col px-4 py-4 space-y-4">
           {NAV_ITEMS.map((item) => (
             <div key={item.label} className="border-b border-gray-300 pb-2">
               {item.children ? (
                 <>
-                  {}
+                  { }
                   <button
-                    className="flex items-center w-full cursor-pointer text-right hover:text-primary-900 transition-colors"
+                    className="flex items-center w-full cursor-pointer text-right transition-colors text-[var(--header-text)] hover:text-[var(--header-link-hover)]"
                     onClick={() =>
                       setOpenDropdown(
                         openDropdown === item.label ? null : item.label
@@ -201,9 +240,8 @@ const Header = () => {
                   >
                     <span>{item.label}</span>
                     <svg
-                      className={`w-4 h-4 transform transition-transform duration-300 ${
-                        openDropdown === item.label ? "rotate-180" : ""
-                      }`}
+                      className={`w-4 h-4 transform transition-transform duration-300 ${openDropdown === item.label ? "rotate-180" : ""
+                        }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -216,7 +254,7 @@ const Header = () => {
                       />
                     </svg>
                   </button>
-                  {}
+                  { }
                   {openDropdown === item.label && (
                     <div className="mt-2 space-y-1 pl-4 text-sm">
                       {item.children.map((sub) => (
@@ -224,7 +262,7 @@ const Header = () => {
                           key={sub.href}
                           href={sub.href}
                           onClick={closeMenu}
-                          className="block hover:text-primary-900"
+                          className="block transition-colors hover:text-[var(--header-link-hover)]"
                         >
                           {sub.label}
                         </Link>
@@ -236,7 +274,7 @@ const Header = () => {
                 <Link
                   href={item.href}
                   onClick={closeMenu}
-                  className="hover:text-primary-900 transition-colors"
+                  className="transition-colors hover:text-[var(--header-link-hover)]"
                 >
                   {item.label}
                 </Link>
