@@ -130,6 +130,18 @@
       "suggestion": "از نویسهٔ سه‌نقطه «…» استفاده کنید.",
       "example": "ادامه...",
       "replacement": "…"
+    },
+    {
+      "id": "repeated-exclamation",
+      "title": "تعجب تکراری",
+      "category": "style",
+      "severity": "info",
+      "pattern": "!{2,}",
+      "flags": "gu",
+      "message": "قاعدهٔ «تعجب تکراری» نیاز به بازبینی دارد.",
+      "suggestion": "یک علامت تعجب کافی است.",
+      "example": "مهم!!",
+      "replacement": "!"
     }
   ]
 }
