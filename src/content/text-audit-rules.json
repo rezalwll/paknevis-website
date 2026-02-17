@@ -142,6 +142,18 @@
       "suggestion": "یک علامت تعجب کافی است.",
       "example": "مهم!!",
       "replacement": "!"
+    },
+    {
+      "id": "repeated-question",
+      "title": "پرسش تکراری",
+      "category": "style",
+      "severity": "info",
+      "pattern": "؟{2,}",
+      "flags": "gu",
+      "message": "قاعدهٔ «پرسش تکراری» نیاز به بازبینی دارد.",
+      "suggestion": "یک علامت پرسش کافی است.",
+      "example": "چرا؟؟",
+      "replacement": "؟"
     }
   ]
 }
