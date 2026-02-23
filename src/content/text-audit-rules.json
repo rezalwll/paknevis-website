@@ -154,6 +154,18 @@
       "suggestion": "یک علامت پرسش کافی است.",
       "example": "چرا؟؟",
       "replacement": "؟"
+    },
+    {
+      "id": "repeated-zwnj",
+      "title": "نیم‌فاصلهٔ تکراری",
+      "category": "spacing",
+      "severity": "error",
+      "pattern": "‌{2,}",
+      "flags": "gu",
+      "message": "قاعدهٔ «نیم‌فاصلهٔ تکراری» نیاز به بازبینی دارد.",
+      "suggestion": "تنها یک نیم‌فاصله نگه دارید.",
+      "example": "می‌‌رود",
+      "replacement": "‌"
     }
   ]
 }
