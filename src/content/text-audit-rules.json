@@ -166,6 +166,17 @@
       "suggestion": "تنها یک نیم‌فاصله نگه دارید.",
       "example": "می‌‌رود",
       "replacement": "‌"
+    },
+    {
+      "id": "leading-zwnj",
+      "title": "نیم‌فاصله در آغاز واژه",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "(^|\\s)‌",
+      "flags": "gu",
+      "message": "قاعدهٔ «نیم‌فاصله در آغاز واژه» نیاز به بازبینی دارد.",
+      "suggestion": "نیم‌فاصلهٔ ابتدای واژه را حذف کنید.",
+      "example": "این ‌واژه"
     }
   ]
 }
