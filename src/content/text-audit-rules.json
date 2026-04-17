@@ -288,6 +288,18 @@
       "suggestion": "فاصلهٔ پیش از دونقطه را حذف کنید.",
       "example": "نتیجه : خوب",
       "replacement": ":"
+    },
+    {
+      "id": "missing-space-after-colon",
+      "title": "فاصله پس از دونقطه",
+      "category": "punctuation",
+      "severity": "warning",
+      "pattern": ":(?=\\S)",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله پس از دونقطه» نیاز به بازبینی دارد.",
+      "suggestion": "پس از دونقطه یک فاصله بگذارید.",
+      "example": "نتیجه:خوب",
+      "replacement": ": "
     }
   ]
 }
