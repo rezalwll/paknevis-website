@@ -300,6 +300,18 @@
       "suggestion": "پس از دونقطه یک فاصله بگذارید.",
       "example": "نتیجه:خوب",
       "replacement": ": "
+    },
+    {
+      "id": "latin-semicolon",
+      "title": "نقطه‌ویرگول لاتین",
+      "category": "punctuation",
+      "severity": "warning",
+      "pattern": ";",
+      "flags": "gu",
+      "message": "قاعدهٔ «نقطه‌ویرگول لاتین» نیاز به بازبینی دارد.",
+      "suggestion": "نقطه‌ویرگول فارسی «؛» را بنویسید.",
+      "example": "بخش اول; بخش دوم",
+      "replacement": "؛"
     }
   ]
 }
