@@ -312,6 +312,17 @@
       "suggestion": "نقطه‌ویرگول فارسی «؛» را بنویسید.",
       "example": "بخش اول; بخش دوم",
       "replacement": "؛"
+    },
+    {
+      "id": "english-quotes",
+      "title": "گیومهٔ غیرفارسی",
+      "category": "punctuation",
+      "severity": "info",
+      "pattern": "[\"“”]",
+      "flags": "gu",
+      "message": "قاعدهٔ «گیومهٔ غیرفارسی» نیاز به بازبینی دارد.",
+      "suggestion": "برای نقل‌قول فارسی از « و » استفاده کنید.",
+      "example": "او گفت \"بله\""
     }
   ]
 }
