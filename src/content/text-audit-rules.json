@@ -323,6 +323,17 @@
       "message": "قاعدهٔ «گیومهٔ غیرفارسی» نیاز به بازبینی دارد.",
       "suggestion": "برای نقل‌قول فارسی از « و » استفاده کنید.",
       "example": "او گفت \"بله\""
+    },
+    {
+      "id": "space-after-opening-parenthesis",
+      "title": "فاصله پس از پرانتز باز",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "\\(\\s+",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله پس از پرانتز باز» نیاز به بازبینی دارد.",
+      "suggestion": "فاصلهٔ پس از پرانتز باز را حذف کنید.",
+      "example": "( متن)"
     }
   ]
 }
