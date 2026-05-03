@@ -334,6 +334,17 @@
       "message": "قاعدهٔ «فاصله پس از پرانتز باز» نیاز به بازبینی دارد.",
       "suggestion": "فاصلهٔ پس از پرانتز باز را حذف کنید.",
       "example": "( متن)"
+    },
+    {
+      "id": "space-before-closing-parenthesis",
+      "title": "فاصله پیش از پرانتز بسته",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "\\s+\\)",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله پیش از پرانتز بسته» نیاز به بازبینی دارد.",
+      "suggestion": "فاصلهٔ پیش از پرانتز بسته را حذف کنید.",
+      "example": "(متن )"
     }
   ]
 }
