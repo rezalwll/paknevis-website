@@ -391,6 +391,17 @@
       "suggestion": "در نثر روان‌تر از «هستند» استفاده کنید.",
       "example": "آن‌ها آماده می‌باشند",
       "replacement": "هستند"
+    },
+    {
+      "id": "phrase-mi-gardad",
+      "title": "ساخت می‌گردد",
+      "category": "style",
+      "severity": "info",
+      "pattern": "می‌گردد",
+      "flags": "gu",
+      "message": "قاعدهٔ «ساخت می‌گردد» نیاز به بازبینی دارد.",
+      "suggestion": "فعل دقیق‌تر و ساده‌تر انتخاب کنید.",
+      "example": "ارسال می‌گردد"
     }
   ]
 }
