@@ -425,6 +425,18 @@
       "suggestion": "در صورت امکان «دربارهٔ» را به‌کار ببرید.",
       "example": "در رابطه با گزارش",
       "replacement": "دربارهٔ"
+    },
+    {
+      "id": "phrase-dar-khosus",
+      "title": "عبارت در خصوص",
+      "category": "style",
+      "severity": "info",
+      "pattern": "در خصوص",
+      "flags": "gu",
+      "message": "قاعدهٔ «عبارت در خصوص» نیاز به بازبینی دارد.",
+      "suggestion": "در صورت امکان «دربارهٔ» را به‌کار ببرید.",
+      "example": "در خصوص قرارداد",
+      "replacement": "دربارهٔ"
     }
   ]
 }
