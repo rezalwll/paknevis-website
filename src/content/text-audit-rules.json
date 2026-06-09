@@ -449,6 +449,18 @@
       "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
       "example": "به عنوان نمونه",
       "replacement": "به‌عنوان"
+    },
+    {
+      "id": "phrase-be-tor",
+      "title": "فاصله در به‌طور",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "به طور",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله در به‌طور» نیاز به بازبینی دارد.",
+      "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
+      "example": "به طور کامل",
+      "replacement": "به‌طور"
     }
   ]
 }
