@@ -461,6 +461,18 @@
       "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
       "example": "به طور کامل",
       "replacement": "به‌طور"
+    },
+    {
+      "id": "phrase-ham-chenin",
+      "title": "فاصله در همچنین",
+      "category": "spelling",
+      "severity": "warning",
+      "pattern": "هم چنین",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله در همچنین» نیاز به بازبینی دارد.",
+      "suggestion": "این واژه را پیوسته بنویسید.",
+      "example": "هم چنین مفید است",
+      "replacement": "همچنین"
     }
   ]
 }
