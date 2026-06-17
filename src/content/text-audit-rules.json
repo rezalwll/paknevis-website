@@ -473,6 +473,18 @@
       "suggestion": "این واژه را پیوسته بنویسید.",
       "example": "هم چنین مفید است",
       "replacement": "همچنین"
+    },
+    {
+      "id": "phrase-hich-kas",
+      "title": "فاصله در هیچ‌کس",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "هیچ کس",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله در هیچ‌کس» نیاز به بازبینی دارد.",
+      "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
+      "example": "هیچ کس نیامد",
+      "replacement": "هیچ‌کس"
     }
   ]
 }
