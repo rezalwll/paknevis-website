@@ -485,6 +485,18 @@
       "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
       "example": "هیچ کس نیامد",
       "replacement": "هیچ‌کس"
+    },
+    {
+      "id": "phrase-hame-chiz",
+      "title": "فاصله در همه‌چیز",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "همه چیز",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله در همه‌چیز» نیاز به بازبینی دارد.",
+      "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
+      "example": "همه چیز آماده است",
+      "replacement": "همه‌چیز"
     }
   ]
 }
