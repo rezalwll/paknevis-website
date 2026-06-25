@@ -497,6 +497,18 @@
       "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
       "example": "همه چیز آماده است",
       "replacement": "همه‌چیز"
+    },
+    {
+      "id": "phrase-har-kas",
+      "title": "فاصله در هرکس",
+      "category": "spacing",
+      "severity": "info",
+      "pattern": "هر کس",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله در هرکس» نیاز به بازبینی دارد.",
+      "suggestion": "در متن یکدست، «هرکس» را پیوسته بنویسید.",
+      "example": "هر کس مسئول است",
+      "replacement": "هرکس"
     }
   ]
 }
