@@ -533,6 +533,18 @@
       "suggestion": "ضمیر جمع را با نیم‌فاصله بنویسید.",
       "example": "این ها کافی‌اند",
       "replacement": "این‌ها"
+    },
+    {
+      "id": "phrase-an-che",
+      "title": "فاصله در آنچه",
+      "category": "spelling",
+      "severity": "warning",
+      "pattern": "آن چه",
+      "flags": "gu",
+      "message": "قاعدهٔ «فاصله در آنچه» نیاز به بازبینی دارد.",
+      "suggestion": "این واژه را پیوسته بنویسید.",
+      "example": "آن چه می‌دانیم",
+      "replacement": "آنچه"
     }
   ]
 }
