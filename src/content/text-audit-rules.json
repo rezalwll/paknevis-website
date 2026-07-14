@@ -557,6 +557,18 @@
       "suggestion": "این واژه را پیوسته بنویسید.",
       "example": "چنان چه لازم بود",
       "replacement": "چنانچه"
+    },
+    {
+      "id": "phrase-hatta-alemkan",
+      "title": "املای حتی‌الامکان",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "حتی الامکان",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای حتی‌الامکان» نیاز به بازبینی دارد.",
+      "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
+      "example": "حتی الامکان کوتاه",
+      "replacement": "حتی‌الامکان"
     }
   ]
 }
