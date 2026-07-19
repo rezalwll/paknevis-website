@@ -569,6 +569,18 @@
       "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
       "example": "حتی الامکان کوتاه",
       "replacement": "حتی‌الامکان"
+    },
+    {
+      "id": "phrase-ali-raghm",
+      "title": "املای علی‌رغم",
+      "category": "spacing",
+      "severity": "warning",
+      "pattern": "علی رغم",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای علی‌رغم» نیاز به بازبینی دارد.",
+      "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
+      "example": "علی رغم باران",
+      "replacement": "علی‌رغم"
     }
   ]
 }
