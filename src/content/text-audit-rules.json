@@ -581,6 +581,18 @@
       "suggestion": "این ترکیب را با نیم‌فاصله بنویسید.",
       "example": "علی رغم باران",
       "replacement": "علی‌رغم"
+    },
+    {
+      "id": "spelling-gahan",
+      "title": "املای گاه‌گاه",
+      "category": "spelling",
+      "severity": "warning",
+      "pattern": "گاها",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای گاه‌گاه» نیاز به بازبینی دارد.",
+      "suggestion": "به‌جای «گاهاً» از «گاهی» یا «گاه» استفاده کنید.",
+      "example": "گاها دیر می‌شود",
+      "replacement": "گاهی"
     }
   ]
 }
