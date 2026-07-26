@@ -593,6 +593,18 @@
       "suggestion": "به‌جای «گاهاً» از «گاهی» یا «گاه» استفاده کنید.",
       "example": "گاها دیر می‌شود",
       "replacement": "گاهی"
+    },
+    {
+      "id": "spelling-khaheshan",
+      "title": "املای خواهشاً",
+      "category": "spelling",
+      "severity": "warning",
+      "pattern": "خواهشا",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای خواهشاً» نیاز به بازبینی دارد.",
+      "suggestion": "«لطفاً» یا «خواهش می‌کنم» بنویسید.",
+      "example": "خواهشا صبر کنید",
+      "replacement": "لطفاً"
     }
   ]
 }
