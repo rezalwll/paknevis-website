@@ -605,6 +605,18 @@
       "suggestion": "«لطفاً» یا «خواهش می‌کنم» بنویسید.",
       "example": "خواهشا صبر کنید",
       "replacement": "لطفاً"
+    },
+    {
+      "id": "spelling-nacharan",
+      "title": "املای ناچاراً",
+      "category": "spelling",
+      "severity": "warning",
+      "pattern": "ناچارا",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای ناچاراً» نیاز به بازبینی دارد.",
+      "suggestion": "قید را با تنوین درست بنویسید.",
+      "example": "ناچارا برگشت",
+      "replacement": "ناچاراً"
     }
   ]
 }
