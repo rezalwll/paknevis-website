@@ -617,6 +617,18 @@
       "suggestion": "قید را با تنوین درست بنویسید.",
       "example": "ناچارا برگشت",
       "replacement": "ناچاراً"
+    },
+    {
+      "id": "spelling-television",
+      "title": "املای تلویزیون",
+      "category": "spelling",
+      "severity": "error",
+      "pattern": "تلوزیون",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای تلویزیون» نیاز به بازبینی دارد.",
+      "suggestion": "املای درست «تلویزیون» است.",
+      "example": "تلوزیون روشن است",
+      "replacement": "تلویزیون"
     }
   ]
 }
