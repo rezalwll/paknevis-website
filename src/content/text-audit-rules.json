@@ -629,6 +629,18 @@
       "suggestion": "املای درست «تلویزیون» است.",
       "example": "تلوزیون روشن است",
       "replacement": "تلویزیون"
+    },
+    {
+      "id": "spelling-zabt",
+      "title": "املای ضبط",
+      "category": "spelling",
+      "severity": "error",
+      "pattern": "ظبط",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای ضبط» نیاز به بازبینی دارد.",
+      "suggestion": "املای درست «ضبط» است.",
+      "example": "ظبط صدا",
+      "replacement": "ضبط"
     }
   ]
 }
