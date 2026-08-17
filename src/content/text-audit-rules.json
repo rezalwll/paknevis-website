@@ -641,6 +641,18 @@
       "suggestion": "املای درست «ضبط» است.",
       "example": "ظبط صدا",
       "replacement": "ضبط"
+    },
+    {
+      "id": "spelling-raje-be",
+      "title": "املای راجع به",
+      "category": "spelling",
+      "severity": "error",
+      "pattern": "راجب",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای راجع به» نیاز به بازبینی دارد.",
+      "suggestion": "«راجع به» یا «دربارهٔ» بنویسید.",
+      "example": "راجب پروژه",
+      "replacement": "راجع به"
     }
   ]
 }
