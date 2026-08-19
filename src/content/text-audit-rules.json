@@ -653,6 +653,18 @@
       "suggestion": "«راجع به» یا «دربارهٔ» بنویسید.",
       "example": "راجب پروژه",
       "replacement": "راجع به"
+    },
+    {
+      "id": "spelling-motmaen",
+      "title": "املای مطمئن",
+      "category": "spelling",
+      "severity": "error",
+      "pattern": "مطمعن",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای مطمئن» نیاز به بازبینی دارد.",
+      "suggestion": "املای درست «مطمئن» است.",
+      "example": "مطمعن هستم",
+      "replacement": "مطمئن"
     }
   ]
 }
