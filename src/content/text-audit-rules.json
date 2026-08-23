@@ -665,6 +665,18 @@
       "suggestion": "املای درست «مطمئن» است.",
       "example": "مطمعن هستم",
       "replacement": "مطمئن"
+    },
+    {
+      "id": "spelling-masoul",
+      "title": "املای مسئول",
+      "category": "spelling",
+      "severity": "error",
+      "pattern": "مسول",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای مسئول» نیاز به بازبینی دارد.",
+      "suggestion": "املای درست «مسئول» است.",
+      "example": "مسول بخش",
+      "replacement": "مسئول"
     }
   ]
 }
