@@ -677,6 +677,18 @@
       "suggestion": "املای درست «مسئول» است.",
       "example": "مسول بخش",
       "replacement": "مسئول"
+    },
+    {
+      "id": "spelling-moteassefane",
+      "title": "املای متأسفانه",
+      "category": "spelling",
+      "severity": "warning",
+      "pattern": "متاسفانه",
+      "flags": "gu",
+      "message": "قاعدهٔ «املای متأسفانه» نیاز به بازبینی دارد.",
+      "suggestion": "املای درست «متأسفانه» است.",
+      "example": "متاسفانه نشد",
+      "replacement": "متأسفانه"
     }
   ]
 }
