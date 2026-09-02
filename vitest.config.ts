@@ -29,10 +29,12 @@ export default defineConfig({
         "src/lib/text-audit/**/*.ts",
         "src/app/api/text-audit/route.ts",
       ],
-      lines: 70,
-      functions: 70,
-      statements: 70,
-      branches: 60,
+      thresholds: {
+        lines: 70,
+        functions: 70,
+        statements: 70,
+        branches: 60,
+      },
     },
   },
 });
