@@ -1,4 +1,4 @@
-import type { RuleCategory } from "@/lib/text-audit";
+import type { RuleCategory, RuleSeverity } from "@/lib/text-audit";
 
 const CATEGORY_LABELS: Record<RuleCategory, string> = {
   characters: "نویسه‌ها",
@@ -9,16 +9,26 @@ const CATEGORY_LABELS: Record<RuleCategory, string> = {
   style: "سبک نگارش",
 };
 
+const SEVERITY_LABELS: Record<RuleSeverity, string> = {
+  info: "همهٔ پیشنهادها",
+  warning: "هشدار و خطا",
+  error: "فقط خطا",
+};
+
 type TextAuditFiltersProps = {
   categories: RuleCategory[];
   selectedCategories: RuleCategory[];
+  minimumSeverity: RuleSeverity;
   onToggleCategory: (category: RuleCategory) => void;
+  onMinimumSeverityChange: (severity: RuleSeverity) => void;
 };
 
 export function TextAuditFilters({
   categories,
   selectedCategories,
+  minimumSeverity,
   onToggleCategory,
+  onMinimumSeverityChange,
 }: TextAuditFiltersProps) {
   return (
     <fieldset className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -43,6 +53,20 @@ export function TextAuditFilters({
           );
         })}
       </div>
+      <label className="mt-5 flex max-w-xs flex-col gap-2 text-xs font-bold text-slate-700">
+        حداقل شدت پیشنهاد
+        <select
+          value={minimumSeverity}
+          onChange={(event) => onMinimumSeverityChange(event.target.value as RuleSeverity)}
+          className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-normal text-slate-900 outline-none focus:border-cyan-600 focus:ring-4 focus:ring-cyan-100"
+        >
+          {(Object.keys(SEVERITY_LABELS) as RuleSeverity[]).map((severity) => (
+            <option key={severity} value={severity}>
+              {SEVERITY_LABELS[severity]}
+            </option>
+          ))}
+        </select>
+      </label>
     </fieldset>
   );
 }

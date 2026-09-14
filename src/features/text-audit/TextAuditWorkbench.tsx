@@ -3,7 +3,7 @@
 import { useCallback, useDeferredValue, useMemo, useRef, useState } from "react";
 
 import { analyzePersianText } from "@/lib/text-audit";
-import type { RuleCategory } from "@/lib/text-audit";
+import type { RuleCategory, RuleSeverity } from "@/lib/text-audit";
 
 import { TextAuditEditor } from "./TextAuditEditor";
 import { TextAuditFilters } from "./TextAuditFilters";
@@ -26,11 +26,12 @@ export function TextAuditWorkbench() {
   const [text, setText] = useState(SAMPLE_TEXT);
   const [committedText, setCommittedText] = useState(SAMPLE_TEXT);
   const [selectedCategories, setSelectedCategories] = useState<RuleCategory[]>(ALL_CATEGORIES);
+  const [minimumSeverity, setMinimumSeverity] = useState<RuleSeverity>("info");
   const deferredText = useDeferredValue(committedText);
   const resultsRef = useRef<HTMLDivElement>(null);
   const report = useMemo(
-    () => analyzePersianText(deferredText, { categories: selectedCategories }),
-    [deferredText, selectedCategories],
+    () => analyzePersianText(deferredText, { categories: selectedCategories, minimumSeverity }),
+    [deferredText, minimumSeverity, selectedCategories],
   );
 
   const analyze = useCallback(() => {
@@ -55,7 +56,9 @@ export function TextAuditWorkbench() {
         <TextAuditFilters
           categories={ALL_CATEGORIES}
           selectedCategories={selectedCategories}
+          minimumSeverity={minimumSeverity}
           onToggleCategory={toggleCategory}
+          onMinimumSeverityChange={setMinimumSeverity}
         />
       </div>
       <div ref={resultsRef} tabIndex={-1} className="space-y-6 outline-none">
