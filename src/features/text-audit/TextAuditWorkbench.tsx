@@ -7,6 +7,7 @@ import type { RuleCategory, RuleSeverity } from "@/lib/text-audit";
 
 import { TextAuditEditor } from "./TextAuditEditor";
 import { TextAuditFilters } from "./TextAuditFilters";
+import { TextAuditActions } from "./TextAuditActions";
 import { TextAuditIssues } from "./TextAuditIssues";
 import { TextAuditMetrics } from "./TextAuditMetrics";
 import { useAuditShortcut } from "./useAuditShortcut";
@@ -63,6 +64,7 @@ export function TextAuditWorkbench() {
       </div>
       <div ref={resultsRef} tabIndex={-1} className="space-y-6 outline-none">
         <TextAuditMetrics report={report} />
+        <TextAuditActions report={report} />
         <TextAuditIssues issues={report.issues} />
       </div>
     </div>
