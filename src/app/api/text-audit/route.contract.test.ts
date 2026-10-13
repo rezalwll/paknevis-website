@@ -8,13 +8,17 @@ describe("POST /api/text-audit response contract", () => {
       new Request("http://localhost/api/text-audit", {
         method: "POST",
         body: JSON.stringify({ text: "یک متن سالم." }),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Id": "test-request-2026",
+        },
       }),
     );
     const body = await response.json();
 
     expect(response.status).toBe(200);
     expect(response.headers.get("cache-control")).toBe("no-store");
+    expect(response.headers.get("x-request-id")).toBe("test-request-2026");
     expect(body).toMatchObject({
       ok: true,
       report: {
@@ -22,6 +26,7 @@ describe("POST /api/text-audit response contract", () => {
         summary: { total: 0, score: 100 },
         metrics: { words: 3 },
       },
+      meta: { requestId: "test-request-2026" },
     });
   });
 });
