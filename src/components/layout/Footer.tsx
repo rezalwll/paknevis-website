@@ -61,7 +61,7 @@ export default function Footer() {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-9 gap-15 px-6 py-7">
         <div className="md:col-span-2 flex flex-col items-start">
           <div className="flex items-center mb-3">
-            <Image src="/mainlogo.png" alt="????" width={40} height={40} className="w-10 h-10 ml-2" />
+            <Image src="/mainlogo.png" alt="نشان پاک‌نویس" width={40} height={40} className="w-10 h-10 ml-2" />
             <span className="text-lg font-semibold text-[var(--footer-heading)]">
               پاک‌نویس
             </span>
@@ -105,25 +105,28 @@ export default function Footer() {
               href="https://t.me/paknevisaan"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="پاک‌نویس در تلگرام"
               className="text-[var(--footer-icon)] hover:text-[var(--footer-icon-hover)] transition-colors"
             >
-              <FaTelegramPlane size={20} />
+              <FaTelegramPlane size={20} aria-hidden="true" />
             </a>
             <a
               href="https://www.instagram.com/paknevis.ir"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="پاک‌نویس در اینستاگرام"
               className="text-[var(--footer-icon)] hover:text-[var(--footer-icon-hover)] transition-colors"
             >
-              <FaInstagram size={20} />
+              <FaInstagram size={20} aria-hidden="true" />
             </a>
             <a
               href="https://www.linkedin.com/company/paknevis"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="پاک‌نویس در لینکدین"
               className="text-[var(--footer-icon)] hover:text-[var(--footer-icon-hover)] transition-colors"
             >
-              <FaLinkedin size={20} />
+              <FaLinkedin size={20} aria-hidden="true" />
             </a>
           </div>
         </div>
